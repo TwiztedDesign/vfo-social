@@ -1,0 +1,161 @@
+:root{
+    --eng-item-bg:#555;
+    --eng-item-v-spacing:1em;
+    --eng-item-h-spacing:1em;
+    --eng-item-padding:1em;
+    --eng-item-border-radius:0.25em;
+
+    --eng-item-header-color:#fff;
+    --eng-item-header-size:1em;
+    --eng-item-header-spacing:1em;
+
+    --eng-item-answer-color:#fff;
+    --eng-item-answer-bg:rgba(0,0,0,0.5);
+    --eng-item-answer-hover-color:#ff0036;
+    --eng-item-answer-selected-color: #63b9ff;
+
+    --eng-item-answer-result-color:#fff;
+    --eng-item-answer-result-bg:rgba(255,255,255,0.5);
+    --eng-item-answer-result-bar:green;
+
+    --eng-item-timer-bg:transparent;
+    --eng-item-timer-color:yellow;
+}
+
+.eng-item{
+    background-color: var(--eng-item-bg);
+    margin: var(--eng-item-v-spacing) var(--eng-item-h-spacing) 0 var(--eng-item-h-spacing);
+    padding: var(--eng-item-padding);
+    position: relative;
+    border-radius: var(--eng-item-border-radius);
+    overflow: hidden;
+}
+
+.eng-item .eng-item-timer{
+    position: absolute;
+    height: 5px;
+    top:0;
+    left:0;
+    width:100%;
+    background-color: var(--eng-item-timer-bg);
+}
+
+.eng-item .eng-item-timer .eng-item-timer-line{
+    height: 100%;
+    width:50%;
+    background-color: var(--eng-item-timer-color    );
+}
+
+.eng-item .eng-item-header{
+    color: var(--eng-item-header-color);
+    font-size: var(--eng-item-header-size);
+    margin-bottom: var(--eng-item-header-spacing);
+}
+
+.eng-item .eng-item-answers{
+    display: flex;
+    flex-direction: column;
+}
+
+.eng-item .eng-item-answers .eng-item-answer{
+    text-decoration: none;
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    background-color: var(--eng-item-answer-bg);
+}
+
+.eng-item .eng-item-answers .eng-item-answer.disabled{
+    pointer-events: none;
+    opacity: 0.75;
+}
+
+.eng-item .eng-item-answers .eng-item-answer.selected{
+    background-color: var(--eng-item-answer-selected-color);
+}
+
+.eng-item .eng-item-answers .eng-item-answer:hover .eng-item-answer-text{
+    color:var(--eng-item-answer-hover-color);
+    align-items: center;
+}
+
+.eng-item .eng-item-answers .eng-item-answer .eng-item-answer-media{
+    object-fit: contain;
+}
+
+.eng-item .eng-item-answers .eng-item-answer .eng-item-answer-text{
+    color:var(--eng-item-answer-color);
+    align-items: center;
+    display: flex;
+}
+
+.eng-item .eng-item-answers .eng-item-answer .eng-item-answer-result{
+    position: relative;
+    background-color: var(--eng-item-answer-result-bg);
+    color:var(--eng-item-answer-result-color);
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.eng-item .eng-item-answers .eng-item-answer .eng-item-answer-result .eng-item-answer-result-bar{
+    position: absolute;
+    left:0;
+    top:0;
+    height: 100%;
+    background-color: var(--eng-item-answer-result-bar);
+}
+
+.eng-item .eng-item-answers .eng-item-answer .eng-item-answer-result .eng-item-answer-result-text{
+    z-index:1;
+}
+
+    /* LIST STYLE*/
+
+.eng-item.list .eng-item-answers {
+    flex-direction: column;
+
+}
+
+.eng-item.list .eng-item-answers .eng-item-answer{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5em;
+}
+
+.eng-item.list .eng-item-answers .eng-item-answer .eng-item-answer-text, .eng-item.list .eng-item-answers .eng-item-answer .eng-item-answer-result{
+    padding: 0 1em;
+}
+
+.eng-item.list .eng-item-answers .eng-item-answer .eng-item-answer-media{
+    width: 3em;
+    height: 3em;
+}
+
+/*GALLERY STYLE*/
+.eng-item.gallery{
+
+}
+
+.eng-item.gallery .eng-item-answers {
+    flex-direction: row;
+}
+
+.eng-item.gallery .eng-item-answers .eng-item-answer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex:1 1;
+}
+
+.eng-item.gallery .eng-item-answers .eng-item-answer .eng-item-answer-text, .eng-item.gallery .eng-item-answers .eng-item-answer .eng-item-answer-result{
+    padding: 0.5em;
+}
+
+.eng-item.gallery .eng-item-answers .eng-item-answer .eng-item-answer-media{
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    object-fit: cover;
+}

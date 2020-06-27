@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Videoflow - Social Engagement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scale=no, viewport-fit=cover">
+
+    <link rel="stylesheet" href="css/vff-overlay.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/social-eng.css" />
+    <link rel="stylesheet" href="css/social-video.css" />
+    <link rel="stylesheet" href="css/sns-item.css" />
+    <link rel="stylesheet" href="css/eng-item.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://unpkg.com/vff@1"></script>
+    <script src="js/main.js"></script>
+
+</head>
+<body class="vff-overlay" ng-app="socialApp" ng-controller="socialController" style="background-color: grey">
+    <div class="vff-content">
+        <div class="social">
+            <div class="social-video-block">
+                <div class="social-header">
+                    <img class="social-header-logo" src="{{data.header.logo}}"/>
+                    <div class="social-header-title-group">
+                        <h1 class="social-header-title">{{data.header.header}}</h1>
+                        <h2 class="social-header-subtitle">{{data.header.subHeader}}</h2>
+                    </div>
+                    <div class="social-header-links">
+                        <a class="social-header-link" href="{{link.url}}" target="_blank" ng-repeat="link in data.header.links">{{link.name}}</a>
+                    </div>
+                </div>
+            </div>
+            <div id="social-eng-block" class="social-eng-block active">
+                <div class="social-eng-tabs">
+                    <a class="social-eng-tab" ng-if="data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a class="social-eng-tab" ng-class="{active:selectedTab==='facebook'}" ng-click="selectTab('facebook')"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a class="social-eng-tab" ng-class="{active:selectedTab==='eng'}" ng-click="selectTab('eng')"><i class="fa fa-question" aria-hidden="true"></i></a>
+                    <a class="social-eng-tab" ng-class="{active:selectedTab==='data'}" ng-click="selectTab('data')"><i class="fa fa-info" aria-hidden="true"></i></a>
+                </div>
+                <div class="social-eng-tab-content" ng-if="selectedTab==='twitter'">
+                    <div class="social-eng-tab-header">
+
+                    </div>
+                    <div class="social-eng-tab-items">
+                        <div class="sns-item" ng-repeat="item in data.twitter.feed">
+                            <div class="sns-header">
+                                <img class="sns-avatar" src="{{item.avatar}}" />
+                                <div class="sns-header-info">
+                                    <div class="sns-header-name">{{item.name}}</div>
+                                    <div class="sns-header-handle">{{item.handle}}</div>
+                                </div>
+                            </div>
+                            <div class="sns-content">
+                                <span class="sns-content-text">{{item.content}}</span>
+                                <img class="sns-content-media" ng-if="item.media && item.media!==''" src="{{item.media}}"/>
+                            </div>
+                            <div class="sns-footer">
+                                <div class="sns-menu">
+                                    <a class="sns-menu-item"><i class="fa fa-share" aria-hidden="true"></i></a>
+                                    <a class="sns-menu-item"><i class="fa fa-retweet" aria-hidden="true"></i></a>
+                                    <a class="sns-menu-item"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="sns-time">2 Hours Ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-eng-tab-content" ng-show="selectedTab==='facebook'">FB</div>
+                <div class="social-eng-tab-content" ng-show="selectedTab==='data'">Data</div>
+                <div class="social-eng-tab-content" ng-show="selectedTab==='eng'">
+                    <div class="social-eng-tab-header" ng-if="(data.activation.header.text && data.activation.header.text!=='') || (data.activation.header.media && data.activations.header.media!=='')">
+                        <img class="social-eng-tab-header-media" ng-if="data.activation.header.media && data.activation.header.media!==''" src="{{data.activation.header.media}}"/>
+                        <div class="social-eng-tab-header-text">{{data.activation.header.text}}</div>
+                    </div>
+                    <div class="social-eng-tab-items">
+                        <div ng-repeat="item in data.activation.items" ng-switch="item.type">
+                            <div ng-switch-case="poll" class="eng-item poll" ng-class="item.style">
+                                <div class="eng-item-timer">
+                                    <div class="eng-item-timer-line"></div>
+                                </div>
+                                <div class="eng-item-header">{{item.question}}</div>
+                                <div class="eng-item-answers">
+                                    <a class="eng-item-answer" ng-class="{selected: answer.selected && (!answer.result || answer.result===''), disabled: answer.result && answer.result!==''}" ng-repeat="answer in item.answers" ng-click="selectAnswer(item, answer)">
+                                        <img class="eng-item-answer-media" ng-if="answer.media && answer.media!==''" src="{{answer.media}}"/>
+                                        <div  class="eng-item-answer-text" ng-if="!answer.result || answer.result===''">
+                                            <div>{{answer.text}}</div>
+                                        </div>
+                                        <div class="eng-item-answer-result" ng-if="answer.result && answer.result!==''">
+                                            <div class="eng-item-answer-result-bar" ng-style="{width : answer.result+'%'}"></div>
+                                            <div class="eng-item-answer-result-text">{{answer.result}}%</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+*{
+    box-sizing: border-box;
+    user-select: none;
+    outline: none;
+}
+
+html{
+    overflow: hidden;
+    font-size: 1vw;
+}
+
+
+body{
+    overflow: hidden;
+}
+
+*{
+    user-select: none;
+}
+
+.vff-overlay{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.vff-overlay .vff-content{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+}
+
+@media (orientation: portrait) {
+    html{
+        font-size: 3.5vw;
+    }
+
+    .vff-overlay .vff-content{
+        top:56.25vw;
+        left:0;
+        right:0;
+        bottom: 0;
+    }
+}
+@media (orientation: landscape) {
+
+}
