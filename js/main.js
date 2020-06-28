@@ -276,9 +276,10 @@ angular.module('socialApp',[])
 
         handleOrientation();
 
+        let integrationKey = 'Syx4glHG3Ir1WNgeSfhISkGNxxHfnL';
         function getTweets(handle){
             return new Promise((resolve, reject) => {
-                $http.get(`http://localhost:3002/ext/Syx4glHG3Ir1WNgeSfhISkGNxxHfnL/tweets?handle=${handle}`).then(res => {
+                $http.get(`http://localhost:3002/ext/'${integrationKey}/tweets?handle=${handle}`).then(res => {
                     let tweets = res.data.data.map((t => t.full_text));
                     resolve(tweets);
                 }, reject);
