@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://unpkg.com/vff@1"></script>
     <script src="js/main.js"></script>
+    <script src="js/tweet-item.js"></script>
 
 </head>
 <body class="vff-overlay" ng-app="socialApp" ng-controller="socialController">
@@ -47,27 +48,7 @@
 
                     </div>
                     <div class="social-eng-tab-items">
-                        <div class="sns-item" ng-repeat="item in data.twitter.feed">
-                            <div class="sns-header">
-                                <img class="sns-avatar" src="{{item.avatar}}" />
-                                <div class="sns-header-info">
-                                    <div class="sns-header-name">{{item.name}}</div>
-                                    <div class="sns-header-handle">{{item.handle}}</div>
-                                </div>
-                            </div>
-                            <div class="sns-content">
-                                <span class="sns-content-text">{{item.content}}</span>
-                                <img class="sns-content-media" ng-if="item.media && item.media!==''" src="{{item.media}}"/>
-                            </div>
-                            <div class="sns-footer">
-                                <div class="sns-menu">
-                                    <a class="sns-menu-item"><i class="fa fa-share" aria-hidden="true"></i></a>
-                                    <a class="sns-menu-item"><i class="fa fa-retweet" aria-hidden="true"></i></a>
-                                    <a class="sns-menu-item"><i class="fa fa-star" aria-hidden="true"></i></a>
-                                </div>
-                                <div class="sns-time">2 Hours Ago</div>
-                            </div>
-                        </div>
+                        <tweet-item tweet="item" ng-repeat="item in data.twitter.feed"></tweet-item>
                     </div>
                 </div>
                 <div class="social-eng-tab-content" ng-show="selectedTab==='facebook'">FB</div>

@@ -1,7 +1,11 @@
 :root{
     --eng-sns-name-color:#fff;
     --eng-sns-handle-color:#ddd;
+
     --eng-sns-content-color:#ccc;
+    --eng-sns-content-link-color:#fff;
+    --eng-sns-content-link-hover-color:red;
+
     --eng-sns-mentions-color: #54a4ff;
     --eng-sns-menu-item-color:#fff;
     --eng-sns-menu-item-hover-color:red;
@@ -52,6 +56,18 @@
     font-size: 1em;
     color:var(--eng-sns-content-color);
     padding: 0.5em 0;
+}
+
+.sns-item .sns-content .sns-content-text .sns-content-text-link{
+    font-size: inherit;
+    color:var(--eng-sns-content-link-color);
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.sns-item .sns-content .sns-content-text .sns-content-text-link:hover{
+    color:var(--eng-sns-content-link-hover-color);
 }
 
 .sns-item .sns-content .sns-content-media{

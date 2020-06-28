@@ -1,6 +1,6 @@
 angular.module('socialApp',[])
     .controller('socialController', ['$scope','$http', function($scope, $http) {
-        $scope.selectedTab = 'eng';
+        $scope.selectedTab = 'twitter';
 
         $scope.data = {
             header:{
@@ -24,63 +24,7 @@ angular.module('socialApp',[])
             },
             twitter     : {
                 visible: true,
-                feed:[
-                    {
-                        avatar:'https://pbs.twimg.com/profile_images/1223004540804501504/9fF_LIxy_400x400.jpg',
-                        name:'Nuggets',
-                        handle: '@nuggest',
-                        content:'this is a content of a tweet with a @mention',
-                        media:'https://www.nba.com/nuggets/sites/nuggets/files/gettyimages-1076521644.jpg'
-                    },
-                    {
-                        avatar:'https://pbs.twimg.com/profile_images/1223004540804501504/9fF_LIxy_400x400.jpg',
-                        name:'Nuggets',
-                        handle: '@nuggest',
-                        content:'this is a content of a tweet with a @mention'
-                    },
-                    {
-                        avatar:'https://pbs.twimg.com/profile_images/1223004540804501504/9fF_LIxy_400x400.jpg',
-                        name:'Nuggets',
-                        handle: '@nuggest',
-                        content:'this is a content of a tweet with a @mention'
-                    },
-                    {
-                        avatar:'https://pbs.twimg.com/profile_images/1223004540804501504/9fF_LIxy_400x400.jpg',
-                        name:'Nuggets',
-                        handle: '@nuggest',
-                        content:'this is a content of a tweet with a @mention'
-                    },
-                    {
-                        avatar:'https://pbs.twimg.com/profile_images/1223004540804501504/9fF_LIxy_400x400.jpg',
-                        name:'Nuggets',
-                        handle: '@nuggest',
-                        content:'this is a content of a tweet with a @mention'
-                    },
-                    {
-                        avatar:'https://pbs.twimg.com/profile_images/1223004540804501504/9fF_LIxy_400x400.jpg',
-                        name:'Nuggets',
-                        handle: '@nuggest',
-                        content:'this is a content of a tweet with a @mention'
-                    },
-                    {
-                        avatar:'https://pbs.twimg.com/profile_images/1223004540804501504/9fF_LIxy_400x400.jpg',
-                        name:'Nuggets',
-                        handle: '@nuggest',
-                        content:'this is a content of a tweet with a @mention'
-                    },
-                    {
-                        avatar:'https://pbs.twimg.com/profile_images/1223004540804501504/9fF_LIxy_400x400.jpg',
-                        name:'Nuggets',
-                        handle: '@nuggest',
-                        content:'this is a content of a tweet with a @mention'
-                    },
-                    {
-                        avatar:'https://pbs.twimg.com/profile_images/1223004540804501504/9fF_LIxy_400x400.jpg',
-                        name:'Nuggets',
-                        handle: '@nuggest',
-                        content:'this is a content of a tweet with a @mention'
-                    },
-                ]
+                feed:[]
             },
             activation:{
                 visible:true,
@@ -264,11 +208,11 @@ angular.module('socialApp',[])
         let background = document.getElementById('background');
         function handleOrientation() {
             if (window.innerWidth < window.innerHeight || $scope.engVisibility) {
-                console.log("FS", window.innerWidth, window.innerHeight)
+                console.log("FS", window.innerWidth, window.innerHeight);
                 vff.transform(0,0,1,1,0);
                 background.style.display = 'none';
             } else {
-                console.log("TRANSFORM", window.innerWidth, window.innerHeight)
+                console.log("TRANSFORM", window.innerWidth, window.innerHeight);
                 background.style.display = 'block';
                 vff.transform(0,0,1,1,0, 0.125, 0.75, 0.875);
             }
@@ -276,23 +220,27 @@ angular.module('socialApp',[])
 
         handleOrientation();
 
-        let integrationKey = 'Syx4glHG3Ir1WNgeSfhISkGNxxHfnL';
+        let integrationKey = 'BJedgoUUA8ryZuljUIC8SkfOxiUU0U';
+        let twitterHandle = 'nuggets';
+
         function getTweets(handle){
             return new Promise((resolve, reject) => {
-                $http.get(`http://localhost:3002/ext/'${integrationKey}/tweets?handle=${handle}`).then(res => {
-                    let tweets = res.data.data.map((t => t.full_text));
+                $http.get(`http://localhost:3002/ext/${integrationKey}/tweets?handle=${handle}`).then(res => {
+                    let tweets = res.data.data;
                     resolve(tweets);
                 }, reject);
             })
         }
-        getTweets('nuggets').then((tweets) => {
-            console.log(tweets)
-        })
-        setInterval(function(){
-            getTweets('nuggets').then((tweets) => {
-                console.log(tweets)
-            })
-        },300 * 1000);
+        getTweets(twitterHandle).then((tweets) => {
+            console.log(tweets);
+            $scope.data.twitter.feed = tweets;
+            $scope.$apply();
+        });
+        // setInterval(function(){
+        //     getTweets('nuggets').then((tweets) => {
+        //         console.log(tweets)
+        //     })
+        // },300 * 1000);
 
 
 
