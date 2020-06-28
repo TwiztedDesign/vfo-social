@@ -1,5 +1,5 @@
 angular.module('socialApp',[])
-    .controller('socialController', ['$scope', function($scope) {
+    .controller('socialController', ['$scope','$http', function($scope, $http) {
         $scope.selectedTab = 'eng';
 
         $scope.data = {
@@ -261,13 +261,39 @@ angular.module('socialApp',[])
             answer.selected = true;
         };
 
+        let background = document.getElementById('background');
         function handleOrientation() {
-            if (window.innerWidth < window.innerHeight || !$scope.engVisibility) {
-                vff.transform(0, 0, 1, 1);
+            if (window.innerWidth < window.innerHeight || $scope.engVisibility) {
+                console.log("FS", window.innerWidth, window.innerHeight)
+                vff.transform(0,0,1,1,0);
+                background.style.display = 'none';
             } else {
-                vff.transform(0, 0, 1, 1, 0, 0.125, 0.75, 0.875);
+                console.log("TRANSFORM", window.innerWidth, window.innerHeight)
+                background.style.display = 'block';
+                vff.transform(0,0,1,1,0, 0.125, 0.75, 0.875);
             }
         }
 
         handleOrientation();
+
+        function getTweets(handle){
+            return new Promise((resolve, reject) => {
+                $http.get(`http://localhost:3002/ext/Syx4glHG3Ir1WNgeSfhISkGNxxHfnL/tweets?handle=${handle}`).then(res => {
+                    let tweets = res.data.data.map((t => t.full_text));
+                    resolve(tweets);
+                }, reject);
+            })
+        }
+        getTweets('nuggets').then((tweets) => {
+            console.log(tweets)
+        })
+        setInterval(function(){
+            getTweets('nuggets').then((tweets) => {
+                console.log(tweets)
+            })
+        },300 * 1000);
+
+
+
+
     }]);
