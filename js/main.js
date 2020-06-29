@@ -1,6 +1,7 @@
 angular.module('socialApp',[])
     .controller('socialController', ['$scope','$http', function($scope, $http) {
-        $scope.selectedTab = 'twitter';
+        $scope.selectedTab = 'eng';
+        $scope.twitter =[];
 
         $scope.data = {
             header:{
@@ -24,7 +25,7 @@ angular.module('socialApp',[])
             },
             twitter     : {
                 visible: true,
-                feed:[]
+                handle: 'nuggets'
             },
             activation:{
                 visible:true,
@@ -36,27 +37,25 @@ angular.module('socialApp',[])
                     {
                         type: 'poll',
                         style: 'list',
+                        visibility:true,
+                        time:5,
                         question:'who is your favorite player?',
                         answers:[
                             {
                                 value:'option1',
                                 text:'This is option1',
-                                media:'https://www.videoflow.io/img/logo2.svg'
                             },
                             {
                                 value:'option2',
                                 text:'This is option2',
-                                media:'https://www.videoflow.io/img/logo2.svg'
                             },
                             {
                                 value:'option3',
                                 text:'This is option3',
-                                media:'https://www.videoflow.io/img/logo2.svg'
                             },
                             {
                                 value:'option4',
                                 text:'This is option4',
-                                media:'https://www.videoflow.io/img/logo2.svg'
                             }
                         ]
                     },
@@ -197,14 +196,6 @@ angular.module('socialApp',[])
             $scope.selectedTab = tab;
         };
 
-        $scope.selectAnswer=function(activation, answer){
-            activation.answers.forEach(function(a){
-                a.selected=false;
-            });
-
-            answer.selected = true;
-        };
-
         let background = document.getElementById('background');
         function handleOrientation() {
             if (window.innerWidth < window.innerHeight || $scope.engVisibility) {
@@ -219,9 +210,9 @@ angular.module('socialApp',[])
         }
 
         handleOrientation();
+        window.addEventListener('resize', handleOrientation);
 
         let integrationKey = 'BJedgoUUA8ryZuljUIC8SkfOxiUU0U';
-        let twitterHandle = 'nuggets';
 
         function getTweets(handle){
             return new Promise((resolve, reject) => {
@@ -231,9 +222,9 @@ angular.module('socialApp',[])
                 }, reject);
             })
         }
-        getTweets(twitterHandle).then((tweets) => {
+        getTweets($scope.data.twitter.handle).then((tweets) => {
             console.log(tweets);
-            $scope.data.twitter.feed = tweets;
+            $scope.twitter = tweets;
             $scope.$apply();
         });
         // setInterval(function(){

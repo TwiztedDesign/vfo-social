@@ -12,15 +12,15 @@ angular.module('socialApp')
                             </div>
                             <div class="sns-content">
                                 <div class="sns-content-text"></div>
-                                <img class="sns-content-media" src="{{media.media_url_https}}" ng-repeat="media in tweet.entities.media"/>
+                                <img class="sns-content-media" src="{{media.media_url_https}}" ng-repeat="media in tweet.extended_entities.media"/>
                             </div>
                             <div class="sns-footer">
                                 <div class="sns-menu">
-                                    <a class="sns-menu-item"><i class="fa fa-share" aria-hidden="true"></i></a>
-                                    <a class="sns-menu-item"><i class="fa fa-retweet" aria-hidden="true"></i></a>
-                                    <a class="sns-menu-item"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                    <a class="sns-menu-item" href="{{'https://twitter.com/intent/tweet?in_reply_to='+tweet.id_str}}" target="_blank"><i class="fa fa-share" aria-hidden="true"></i></a>
+                                    <a class="sns-menu-item" href="{{'https://twitter.com/intent/retweet?tweet_id='+tweet.id_str}}" target="_blank"><i class="fa fa-retweet" aria-hidden="true"></i></a>
+                                    <a class="sns-menu-item" href="{{'https://twitter.com/intent/like?tweet_id='+tweet.id_str}}" target="_blank"><i class="fa fa-star" aria-hidden="true"></i></a>
                                 </div>
-                                <div class="sns-time">{{tweet.created_at}}</div>
+                                <a class="sns-time">{{moment(tweet.created_at).fromNow()}}</a>
                             </div>
                         </div>`,
             replace: true,
@@ -28,7 +28,7 @@ angular.module('socialApp')
                 tweet   : '='
             },
             link        : function(scope,element,attr) {
-
+                scope.moment =  moment;
 
                 let t = scope.tweet.full_text;
                 t = t.substring(scope.tweet.display_text_range[0], scope.tweet.display_text_range[1]);

@@ -74,7 +74,10 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    padding: 0.5em 0;
+}
+
+.sns-item .sns-content .sns-content-media:last-child{
+    padding: 0 0 0.5em 0;
 }
 
 .sns-item .sns-footer{
@@ -89,7 +92,7 @@
 .sns-item .sns-footer .sns-menu .sns-menu-item{
     padding: 0 var(--eng-sns-menu-item-spacing);
     color:var(--eng-sns-menu-item-color);
-    font-size: 0.5em;
+    font-size: 1em;
     cursor: pointer;
 }
 
@@ -98,6 +101,6 @@
 }
 
 .sns-item .sns-footer .sns-time{
-    font-size: 0.5em;
+    font-size: 1em;
     color:var(--eng-sns-time-color);
 }

@@ -42,8 +42,14 @@
 
 .eng-item .eng-item-timer .eng-item-timer-line{
     height: 100%;
-    width:50%;
+    width:100%;
     background-color: var(--eng-item-timer-color    );
+}
+
+.eng-item .eng-item-timer .eng-item-timer-line.animate{
+    transition-property: width;
+    transition-timing-function:linear;
+    width:0;
 }
 
 .eng-item .eng-item-header{
@@ -115,13 +121,13 @@
 
 .eng-item.list .eng-item-answers {
     flex-direction: column;
-
 }
 
 .eng-item.list .eng-item-answers .eng-item-answer{
     display: flex;
     flex-direction: row;
     margin-bottom: 0.5em;
+    height: 3em;
 }
 
 .eng-item.list .eng-item-answers .eng-item-answer .eng-item-answer-text, .eng-item.list .eng-item-answers .eng-item-answer .eng-item-answer-result{
