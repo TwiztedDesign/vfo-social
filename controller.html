@@ -3,19 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
-    <script src="https://unpkg.com/vff@1"></script>
-    <script type="module" src="https://unpkg.com/vff-controllers/dist/vff-controller/vff-controller.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/vff-controllers/dist/vff-controller/vff-controller.js"></script>
-
-    <link rel="stylesheet" href="https://unpkg.com/vff-controllers/dist/vff-controller/vff-controller.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/vff"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/vff-controllers/dist/vff-controller/vff-controller.esm.js"></script>
+    <script nomodule="" src="https://cdn.jsdelivr.net/npm/vff-controllers/dist/vff-controller/vff-controller.js"></script>
+    <script src="/js/controller.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vff-controllers/dist/vff-controller/vff-controller.css"/>
 </head>
-<body vff-controller>
-<div class="ctrl-container-row indent">
-    <div class="ctrl-container-block">
-        <label>Background</label>
-        <vff-color-picker vff-style="engBg" value="#323e51"></vff-color-picker>
+<body vff-controller ng-app="app" ng-controller="ctrl">
+    <vff-tabs default="engagement">
+        <vff-tab for="engagement">Engagement</vff-tab>
+        <vff-tab for="style">Style</vff-tab>
+    </vff-tabs>
+    <div id="engagement" class="ctrl-container">
+        <div class="ctrl-container-row">
+            <table>
+                <thead>
+                <tr>
+                    <!--<th style="width:25px;">ID</th>-->
+                    <th style="width: 100px">Question</th>
+                    <th style="width: 100px">Activate</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in data.activities.items">
+                        <td>
+                            <span>{{item.question}}</span>
+                        </td>
+                        <td>
+                            <a ng-click="activateEngagement(item)">Activate</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+<!--        <div class="ctrl-container-row">-->
+<!--            <a class="table-action add-row" ng-click="addTimelineItem()"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Item</span></a>-->
+<!--        </div>-->
     </div>
-</div>
+    <div id="style" class="ctrl-container">
+        <div class="ctrl-container-row indent">
+            <div class="ctrl-container-block">
+                <label>Background</label>
+                <vff-color-picker vff-style="engBg" value="#323e51"></vff-color-picker>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

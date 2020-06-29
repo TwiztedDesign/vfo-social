@@ -33,162 +33,7 @@ angular.module('socialApp',[])
                     text:'This interactive experience is brough to you by the best company in the world!',
                     media:'https://montecarlo.vteximg.com.br/arquivos/ids/214433/Jolie_CocaCola_categoria-2.jpg?v=636773614271570000'
                 },
-                items:[
-                    {
-                        type: 'poll',
-                        style: 'list',
-                        visibility:true,
-                        time:5,
-                        question:'who is your favorite player?',
-                        answers:[
-                            {
-                                value:'option1',
-                                text:'This is option1',
-                            },
-                            {
-                                value:'option2',
-                                text:'This is option2',
-                            },
-                            {
-                                value:'option3',
-                                text:'This is option3',
-                            },
-                            {
-                                value:'option4',
-                                text:'This is option4',
-                            }
-                        ]
-                    },
-                    {
-                        type: 'poll',
-                        style: 'gallery',
-                        disabled:true,
-                        question:'who is your favorite player?',
-                        answers:[
-                            {
-                                value:'option1',
-                                text:'This is option1 sdfsad fasdf asdf ',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option2',
-                                text:'This is option2',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            }
-                        ]
-                    },
-                    {
-                        type: 'poll',
-                        style: 'gallery',
-                        disabled:true,
-                        question:'who is your favorite player?',
-                        answers:[
-                            {
-                                value:'option1',
-                                text:'This is option1 sdfsad fasdf asdf ',
-                                result:10,
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option2',
-                                text:'This is option2',
-                                result:20,
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option3',
-                                text:'This is option1 sdfsad fasdf asdf ',
-                                result:55,
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option4',
-                                text:'This is option2',
-                                result:15,
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            }
-                        ]
-                    },
-                    {
-                        type: 'poll',
-                        style: 'list',
-                        question:'who is your favorite player?',
-                        answers:[
-                            {
-                                value:'option1',
-                                text:'This is option1',
-                                result:25,
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option2',
-                                text:'This is option2',
-                                result:30,
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option3',
-                                text:'This is option3',
-                                result:45,
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            }
-                        ]
-                    },
-                    {
-                        type: 'poll',
-                        style: 'list',
-                        question:'who is your favorite player?',
-                        answers:[
-                            {
-                                value:'option1',
-                                text:'This is option1',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option2',
-                                text:'This is option2',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option3',
-                                text:'This is option3',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option4',
-                                text:'This is option4',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            }
-                        ]
-                    },
-                    {
-                        type: 'poll',
-                        style: 'list',
-                        question:'who is your favorite player?',
-                        answers:[
-                            {
-                                value:'option1',
-                                text:'This is option1',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option2',
-                                text:'This is option2',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option3',
-                                text:'This is option3',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            },
-                            {
-                                value:'option4',
-                                text:'This is option4',
-                                media:'https://www.videoflow.io/img/logo2.svg'
-                            }
-                        ]
-                    }
-                ]
+                items:[]
             }
         };
 
@@ -212,7 +57,7 @@ angular.module('socialApp',[])
         handleOrientation();
         window.addEventListener('resize', handleOrientation);
 
-        let integrationKey = 'BJedgoUUA8ryZuljUIC8SkfOxiUU0U';
+        let integrationKey = 'Syx4glHG3Ir1WNgeSfhISkGNxxHfnL';
 
         function getTweets(handle){
             return new Promise((resolve, reject) => {
@@ -227,6 +72,22 @@ angular.module('socialApp',[])
             $scope.twitter = tweets;
             $scope.$apply();
         });
+
+        function engagementHandler(){
+            return function(e){
+
+                let item = $scope.data.activation.items.find(i => i.id === e.data.id);
+                if(item){
+                    Object.assign(item, e.data);
+                } else {
+                    $scope.data.activation.items.unshift(e.data);
+                }
+                $scope.$apply();
+
+            }
+        }
+        Array.from(Array(6), (_, i) => (i + 1) + "").forEach(e => vff.on(e, engagementHandler()))
+
         // setInterval(function(){
         //     getTweets('nuggets').then((tweets) => {
         //         console.log(tweets)
