@@ -4,10 +4,10 @@ angular.module('socialApp')
             restrict    : 'E',
             template:`<div class="sns-item">
                             <div class="sns-header">
-                                <img class="sns-avatar" src="{{tweet.avatar}}" />
+                                <img class="sns-avatar" src="{{tweet.user.profile_image_url_https}}" />
                                 <div class="sns-header-info">
-                                    <div class="sns-header-name">{{tweet.name}}</div>
-                                    <div class="sns-header-handle">{{tweet.handle}}</div>
+                                    <div class="sns-header-name">{{tweet.user.name}}</div>
+                                    <div class="sns-header-handle">@{{tweet.user.screen_name}}</div>
                                 </div>
                             </div>
                             <div class="sns-content">

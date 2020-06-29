@@ -43,7 +43,7 @@
 .eng-item .eng-item-timer .eng-item-timer-line{
     height: 100%;
     width:100%;
-    background-color: var(--eng-item-timer-color    );
+    background-color: var(--eng-item-timer-color);
 }
 
 .eng-item .eng-item-timer .eng-item-timer-line.animate{
