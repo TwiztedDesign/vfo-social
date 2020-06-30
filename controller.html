@@ -21,41 +21,32 @@
     <div id="engagement" class="ctrl-container">
         <div class="eng-main-menu">
             <button ng-click="addEng()"><i class="fa fa-plus" aria-hidden="true"></i><span>New...</span></button>
-            <button><i class="fa fa-minus" aria-hidden="true"></i><span>Hide all</span></button>
-            <button><i class="fa fa-trash" aria-hidden="true"></i><span>Delete all</span></button>
+            <button ng-click="hideAllEng()"><i class="fa fa-minus" aria-hidden="true"></i><span>Hide all</span></button>
+            <button ng-click="removeAllEng()"><i class="fa fa-trash" aria-hidden="true"></i><span>Delete all</span></button>
         </div>
         <table>
                 <tbody>
-                    <tr ng-repeat="item in data.activities.items track by $index" class="eng">
+                    <tr ng-repeat="item in engagements track by $index" class="eng">
                         <td class="eng-wrap">
                             <div class="eng-header">
                                 <div class="eng-menu">
                                     <label>Style</label>
-                                    <select ng-model="item.style">
-                                        <option value="list">List</option>
-                                        <option value="gallery">Gallery</option>
-                                    </select>
+                                    <vff-select class="eng-style" vff-data="engagements.{{$index}}.style" select-text="choose"></vff-select>
                                     <label>Duration</label>
-                                    <select ng-model="item.duration">
-                                        <option value="15">15 Seconds</option>
-                                        <option value="30">30 Seconds</option>
-                                        <option value="60">1 Minute</option>
-                                    </select>
+                                    <vff-select class="eng-duration" vff-data="engagements.{{$index}}.duration" select-text="choose"></vff-select>
                                 </div>
+                                <a ng-click="removeEng($index)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 <div class="eng-menu">
                                     <label>Visibility</label>
-                                    <a  class="eng-toggle" ng-click="activateEngagement(item)">
-                                        <i class="fa fa-toggle-off" ng-if="!item.visible" aria-hidden="true"></i>
-                                        <i class="fa fa-toggle-on" ng-if="item.visible" aria-hidden="true"></i>
-                                    </a>
+                                    <vff-checkbox class="eng-visibility" vff-data="engagements.{{$index}}.visible" ng-click="activateEngagement(item, $index)"></vff-checkbox>
                                 </div>
                             </div>
-                            <input class="eng-input" ng-model="item.id"/>
-                            <input class="eng-input" placeholder="Ask a question..." ng-model="item.question"/>
-                            <input class="eng-input" placeholder="Answer 1" ng-model="item.answers[0].text"/>
-                            <input class="eng-input" placeholder="Answer 2" ng-model="item.answers[1].text"/>
-                            <input class="eng-input" placeholder="Answer 3" ng-model="item.answers[2].text"/>
-                            <input class="eng-input" placeholder="Answer 4" ng-model="item.answers[3].text"/>
+                            <vff-text class="eng-input" vff-data="engagements.{{$index}}.id" value="{{item.id}}" style="display: none"></vff-text>
+                            <vff-text class="eng-input" vff-data="engagements.{{$index}}.question" placeholder="Ask a question..."></vff-text>
+                            <vff-text class="eng-input" vff-data="engagements.{{$index}}.answers.0.text" placeholder="Answer 1"></vff-text>
+                            <vff-text class="eng-input" vff-data="engagements.{{$index}}.answers.1.text" placeholder="Answer 2"></vff-text>
+                            <vff-text class="eng-input" vff-data="engagements.{{$index}}.answers.2.text" placeholder="Answer 3"></vff-text>
+                            <vff-text class="eng-input" vff-data="engagements.{{$index}}.answers.3.text" placeholder="Answer 4"></vff-text>
                         </td>
                     </tr>
                 </tbody>

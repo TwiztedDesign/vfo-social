@@ -2,7 +2,7 @@ angular.module('socialApp')
     .directive('engItem', [function() {
         return {
             restrict    : 'E',
-            template:`<div ng-switch="item.type">
+            template:`<div ng-switch="item.type" ng-show="item.visible">
                             <div ng-switch-case="poll" class="eng-item poll" ng-class="item.style">
                                 <div class="eng-item-timer">
                                     <div class="eng-item-timer-line animate" ng-style="{'transition-duration': item.time+ 's'}"></div>

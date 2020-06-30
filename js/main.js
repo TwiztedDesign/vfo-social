@@ -42,7 +42,7 @@ angular.module('socialApp',[])
 
 
         vff.onController('data',(e)=>{
-            $scope.data = e.data;
+            Object.assign($scope.data,e.data);
             $scope.$apply();
         }, {changeOnly : false});
 
@@ -52,12 +52,10 @@ angular.module('socialApp',[])
 
         let background = document.getElementById('background');
         function handleOrientation() {
-            if (window.innerWidth < window.innerHeight || $scope.engVisibility) {
-                console.log("FS", window.innerWidth, window.innerHeight);
+            if (vff.isMobile || window.innerWidth < window.innerHeight || $scope.engVisibility) {
                 vff.transform(0,0,1,1,0);
                 background.style.display = 'none';
             } else {
-                console.log("TRANSFORM", window.innerWidth, window.innerHeight);
                 background.style.display = 'block';
                 vff.transform(0,0,1,1,0, 0.125, 0.75, 0.875);
             }
@@ -85,17 +83,28 @@ angular.module('socialApp',[])
         function engagementHandler(){
             return function(e){
 
-                let item = $scope.activationItems.find(i => i.id === e.data.id);
-                if(item){
-                    Object.assign(item, e.data);
-                } else {
-                    $scope.activationItems.unshift(e.data);
-                }
+                Object.assign($scope.activationItems, e.data.engagements);
+                // let item = $scope.activationItems.find(i => i.question === e.data.question);
+                // if(item){
+                //     Object.assign(item, e.data);
+                // } else {
+                //     $scope.activationItems.unshift(e.data);
+                // }
                 $scope.$apply();
 
             }
         }
-        Array.from(Array(100), (_, i) => (i + 1) + "").forEach(e => vff.on(e, engagementHandler()));
+        vff.onController('engagements', (e) => {
+            $scope.activationItems = e.data;
+            $scope.activationItems.forEach(item => {
+                try { item.style = JSON.parse(item.style)[0].key; } catch(e){}
+                try { item.duration = JSON.parse(item.duration)[0].key; } catch(e){}
+            });
+            // Object.assign($scope.activationItems, e.data);
+            $scope.$apply();
+        })
+        // vff.on('engagements', engagementHandler());
+        // Array.from(Array(100), (_, i) => (i) + "").forEach(e => vff.on(e, engagementHandler()));
 
         // setInterval(function(){
         //     getTweets('nuggets').then((tweets) => {
