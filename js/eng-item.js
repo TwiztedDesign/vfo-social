@@ -10,7 +10,7 @@ angular.module('socialApp')
                                 <div class="eng-item-header">{{item.question}}</div>
                                 <div class="eng-item-answers">
 <!--                                    <a class="eng-item-answer" ng-class="{selected: answer.selected && (!answer.result || answer.result===''), disabled: answer.result && answer.result!==''}" ng-repeat="answer in item.answers" ng-click="selectAnswer(answer)">-->
-                                    <a class="eng-item-answer" ng-class="{selected: answer.selected && (!answer.result || answer.result===''), disabled: item.disabled}" ng-repeat="answer in item.answers" ng-click="selectAnswer(answer)">
+                                    <a class="eng-item-answer" ng-class="{selected: answer.selected && (!answer.result || answer.result===''), disabled: item.disabled}" ng-repeat="answer in item.answers" ng-click="selectAnswer(answer)" ng-if="answer.text!==''">
                                         <img class="eng-item-answer-media" ng-if="answer.media && answer.media!==''" src="{{answer.media}}"/>
                                         <div  class="eng-item-answer-text" ng-if="!answer.result || answer.result===''">
                                             <div>{{answer.text}}</div>

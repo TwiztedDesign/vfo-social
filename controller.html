@@ -9,45 +9,94 @@
     <script nomodule="" src="https://cdn.jsdelivr.net/npm/vff-controllers/dist/vff-controller/vff-controller.js"></script>
     <script src="/js/controller.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vff-controllers/dist/vff-controller/vff-controller.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/controller.css"/>
 </head>
 <body vff-controller ng-app="app" ng-controller="ctrl">
     <vff-tabs default="engagement">
         <vff-tab for="engagement">Engagement</vff-tab>
+        <vff-tab for="content">Content</vff-tab>
         <vff-tab for="style">Style</vff-tab>
     </vff-tabs>
     <div id="engagement" class="ctrl-container">
-        <div class="ctrl-container-row">
-            <table>
-                <thead>
-                <tr>
-                    <!--<th style="width:25px;">ID</th>-->
-                    <th style="width: 100px">Question</th>
-                    <th style="width: 100px">Activate</th>
-
-                </tr>
-                </thead>
+        <div class="eng-main-menu">
+            <button ng-click="addEng()"><i class="fa fa-plus" aria-hidden="true"></i><span>New...</span></button>
+            <button><i class="fa fa-minus" aria-hidden="true"></i><span>Hide all</span></button>
+            <button><i class="fa fa-trash" aria-hidden="true"></i><span>Delete all</span></button>
+        </div>
+        <table>
                 <tbody>
-                    <tr ng-repeat="item in data.activities.items">
-                        <td>
-                            <span>{{item.question}}</span>
-                        </td>
-                        <td>
-                            <a ng-click="activateEngagement(item)">Activate</a>
+                    <tr ng-repeat="item in data.activities.items track by $index" class="eng">
+                        <td class="eng-wrap">
+                            <div class="eng-header">
+                                <div class="eng-menu">
+                                    <label>Style</label>
+                                    <select ng-model="item.style">
+                                        <option value="list">List</option>
+                                        <option value="gallery">Gallery</option>
+                                    </select>
+                                    <label>Duration</label>
+                                    <select ng-model="item.duration">
+                                        <option value="15">15 Seconds</option>
+                                        <option value="30">30 Seconds</option>
+                                        <option value="60">1 Minute</option>
+                                    </select>
+                                </div>
+                                <div class="eng-menu">
+                                    <label>Visibility</label>
+                                    <a  class="eng-toggle" ng-click="activateEngagement(item)">
+                                        <i class="fa fa-toggle-off" ng-if="!item.visible" aria-hidden="true"></i>
+                                        <i class="fa fa-toggle-on" ng-if="item.visible" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <input class="eng-input" ng-model="item.id"/>
+                            <input class="eng-input" placeholder="Ask a question..." ng-model="item.question"/>
+                            <input class="eng-input" placeholder="Answer 1" ng-model="item.answers[0].text"/>
+                            <input class="eng-input" placeholder="Answer 2" ng-model="item.answers[1].text"/>
+                            <input class="eng-input" placeholder="Answer 3" ng-model="item.answers[2].text"/>
+                            <input class="eng-input" placeholder="Answer 4" ng-model="item.answers[3].text"/>
                         </td>
                     </tr>
                 </tbody>
             </table>
+    </div>
+    <div id="content" class="ctrl-container">
+        <h3>Header</h3>
+        <div class="ctrl-container-row">
+            <div class="ctrl-container-block">
+                <label>Logo</label>
+                <vff-image-browser vff-data="data.header.logo"></vff-image-browser>
+            </div>
+            <div class="ctrl-container-block">
+                <label>Title</label>
+                <vff-text vff-data="data.header.header" placeholder="Header"></vff-text>
+                <label>Subtitle</label>
+                <vff-text vff-data="data.header.subHeader" placeholder="Sub header"></vff-text>
+            </div>
         </div>
-<!--        <div class="ctrl-container-row">-->
-<!--            <a class="table-action add-row" ng-click="addTimelineItem()"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Item</span></a>-->
-<!--        </div>-->
     </div>
     <div id="style" class="ctrl-container">
-        <div class="ctrl-container-row indent">
+        <h3>Background</h3>
+        <div class="ctrl-container-row">
             <div class="ctrl-container-block">
-                <label>Background</label>
-                <vff-color-picker vff-style="engBg" value="#323e51"></vff-color-picker>
+                <label>Background Image</label>
+                <vff-image-browser vff-data="data.bgImage"></vff-image-browser>
             </div>
+            <div class="ctrl-container-block">
+                <label>Background Color</label>
+                <vff-color-picker vff-style="engBg" value="#171A3F"></vff-color-picker>
+            </div>
+        </div>
+        <h3>Header</h3>
+        <div class="ctrl-container-row">
+            <label>Title size</label>
+            <vff-range min="0.5" max="5" step="0.1" value="2" vff-style="engHeaderTitleSize" vff-suffix="em"></vff-range>
+        </div>
+        <div class="ctrl-container-row">
+            <label>Subtitle size</label>
+            <vff-range min="0.5" max="5" step="0.1" value="1.2" vff-style="engHeaderSubtitleSize" vff-suffix="em"></vff-range>
+        </div>
         </div>
     </div>
 

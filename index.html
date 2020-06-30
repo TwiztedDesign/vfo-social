@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/eng-item.css" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <!--    <script src="https://unpkg.com/vff@1"></script>-->
@@ -24,7 +25,7 @@
 
 </head>
 <body class="vff-overlay" ng-app="socialApp" ng-controller="socialController">
-    <div id="background"></div>
+    <div id="background" ng-style="{'background-image':'url('+data.bgImage+')'}"></div>
     <div class="vff-content">
         <div class="social">
             <div class="social-video-block">
@@ -42,9 +43,9 @@
             <div id="social-eng-block" class="social-eng-block active">
                 <div class="social-eng-tabs">
                     <a class="social-eng-tab" ng-if="data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    <a class="social-eng-tab" ng-class="{active:selectedTab==='facebook'}" ng-click="selectTab('facebook')"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <!--<a class="social-eng-tab" ng-class="{active:selectedTab==='facebook'}" ng-click="selectTab('facebook')"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
                     <a class="social-eng-tab" ng-class="{active:selectedTab==='eng'}" ng-click="selectTab('eng')"><i class="fa fa-question" aria-hidden="true"></i></a>
-                    <a class="social-eng-tab" ng-class="{active:selectedTab==='data'}" ng-click="selectTab('data')"><i class="fa fa-info" aria-hidden="true"></i></a>
+                    <!--<a class="social-eng-tab" ng-class="{active:selectedTab==='data'}" ng-click="selectTab('data')"><i class="fa fa-info" aria-hidden="true"></i></a>-->
                 </div>
                 <div class="social-eng-tab-content" ng-if="selectedTab==='twitter'">
                     <div class="social-eng-tab-header" ng-if="(data.twitter.header.text && data.twitter.header.text!=='') || (data.twitter.header.media && data.twitter.header.media!=='')">
@@ -55,15 +56,15 @@
                         <tweet-item tweet="item" ng-repeat="item in twitter"></tweet-item>
                     </div>
                 </div>
-                <div class="social-eng-tab-content" ng-show="selectedTab==='facebook'">FB</div>
-                <div class="social-eng-tab-content" ng-show="selectedTab==='data'">Data</div>
+                <!--<div class="social-eng-tab-content" ng-show="selectedTab==='facebook'">FB</div>-->
+                <!--<div class="social-eng-tab-content" ng-show="selectedTab==='data'">Data</div>-->
                 <div class="social-eng-tab-content" ng-show="selectedTab==='eng'">
                     <div class="social-eng-tab-header" ng-if="(data.activation.header.text && data.activation.header.text!=='') || (data.activation.header.media && data.activations.header.media!=='')">
                         <img class="social-eng-tab-header-media" ng-if="data.activation.header.media && data.activation.header.media!==''" src="{{data.activation.header.media}}"/>
                         <div class="social-eng-tab-header-text">{{data.activation.header.text}}</div>
                     </div>
                     <div class="social-eng-tab-items">
-                        <eng-item item="item" ng-repeat="item in data.activation.items"></eng-item>
+                        <eng-item item="item" ng-repeat="item in activationItems"></eng-item>
                     </div>
                 </div>
             </div>

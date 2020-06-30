@@ -1,4 +1,6 @@
 :root{
+    --eng-bg: #121430;
+
     --eng-toggle-bg:#000;
     --eng-toggle-color:#fff;
     --eng-toggle-hover-bg:#ff0036;
@@ -18,16 +20,18 @@
 }
 
 body{
-    font-family: sans-serif;
-    font-variant: all-petite-caps;
+    font-family: Roboto;
     text-transform: uppercase;
 }
 
 #background{
-    background-color: grey;
+    background-color: var(--eng-bg);
     width: 100%;
     height: 100%;
     pointer-events:none;
+    background-position: 0 0;
+    background-size: cover;
+    background-repeat: no-repeat;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 0% 12.5%, 0% 87.5%, 75% 87.5%, 75% 12.5%, 0% 12.5%);
 }
 
@@ -78,11 +82,13 @@ body{
 }
 
 @media (orientation: portrait) {
-    .social{
+    .vff-mobile .social{
         flex-direction: column;
     }
 }
 
 @media (orientation: landscape) {
-
+    .vff-mobile .social{
+        display: none;
+    }
 }

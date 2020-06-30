@@ -1,14 +1,18 @@
 :root{
+    --eng-sns-bg:#212455;
+    --eng-sns-header-bg:#1a1d44;
     --eng-sns-name-color:#fff;
     --eng-sns-handle-color:#ddd;
+    --eng-sns-border-radius:0.5em;
+
 
     --eng-sns-content-color:#ccc;
-    --eng-sns-content-link-color:#fff;
-    --eng-sns-content-link-hover-color:red;
+    --eng-sns-content-link-color:#32ADA7;
+    --eng-sns-content-link-hover-color:#DF3C9C;
 
-    --eng-sns-mentions-color: #54a4ff;
+    --eng-sns-mentions-color: #32ADA7;
     --eng-sns-menu-item-color:#fff;
-    --eng-sns-menu-item-hover-color:red;
+    --eng-sns-menu-item-hover-color:#DF3C9C;
     --eng-sns-menu-item-spacing:1em;
     --eng-sns-time-color:#fff;
 }
@@ -16,12 +20,17 @@
 .sns-item {
     display: flex;
     flex-direction: column;
-    padding: 1em;
+    margin: 1em;
+    background-color: var(--eng-sns-bg);
+    overflow: hidden;
+    border-radius: var(--eng-sns-border-radius);
+    flex: 0 0 auto;
 }
 
 .sns-item .sns-header{
     display: flex;
-    padding: 0.5em 0;
+    padding: 1em;
+    background-color: var(--eng-sns-header-bg);
 }
 
 .sns-item .sns-header .sns-avatar{
@@ -50,6 +59,7 @@
 .sns-item .sns-content{
     display: flex;
     flex-direction: column;
+    padding: 0 1em 1em 1em;
 }
 
 .sns-item .sns-content .sns-content-text{
@@ -83,6 +93,7 @@
 .sns-item .sns-footer{
     display: flex;
     justify-content: space-between;
+    padding: 0 1em 1em 1em;
 }
 
 .sns-item .sns-footer .sns-menu{

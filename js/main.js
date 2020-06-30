@@ -1,9 +1,9 @@
 angular.module('socialApp',[])
     .controller('socialController', ['$scope','$http', function($scope, $http) {
         $scope.selectedTab = 'eng';
-        $scope.twitter =[];
 
         $scope.data = {
+            bgImage:'',
             header:{
                 header:'Nuggets',
                 subHeader:'Denver',
@@ -30,12 +30,21 @@ angular.module('socialApp',[])
             activation:{
                 visible:true,
                 header:{
-                    text:'This interactive experience is brough to you by the best company in the world!',
-                    media:'https://montecarlo.vteximg.com.br/arquivos/ids/214433/Jolie_CocaCola_categoria-2.jpg?v=636773614271570000'
+                    text:'',
+                    media:''
                 },
                 items:[]
             }
         };
+
+        $scope.twitter =[];
+        $scope.activationItems=[];
+
+
+        vff.onController('data',(e)=>{
+            $scope.data = e.data;
+            $scope.$apply();
+        }, {changeOnly : false});
 
         $scope.selectTab = function(tab) {
             $scope.selectedTab = tab;
@@ -57,7 +66,7 @@ angular.module('socialApp',[])
         handleOrientation();
         window.addEventListener('resize', handleOrientation);
 
-        let integrationKey = 'Syx4glHG3Ir1WNgeSfhISkGNxxHfnL';
+        let integrationKey = 'BJedgoUUA8ryZuljUIC8SkfOxiUU0U';
 
         function getTweets(handle){
             return new Promise((resolve, reject) => {
@@ -76,17 +85,17 @@ angular.module('socialApp',[])
         function engagementHandler(){
             return function(e){
 
-                let item = $scope.data.activation.items.find(i => i.id === e.data.id);
+                let item = $scope.activationItems.find(i => i.id === e.data.id);
                 if(item){
                     Object.assign(item, e.data);
                 } else {
-                    $scope.data.activation.items.unshift(e.data);
+                    $scope.activationItems.unshift(e.data);
                 }
                 $scope.$apply();
 
             }
         }
-        Array.from(Array(6), (_, i) => (i + 1) + "").forEach(e => vff.on(e, engagementHandler()))
+        Array.from(Array(100), (_, i) => (i + 1) + "").forEach(e => vff.on(e, engagementHandler()));
 
         // setInterval(function(){
         //     getTweets('nuggets').then((tweets) => {

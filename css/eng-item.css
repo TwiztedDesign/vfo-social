@@ -1,34 +1,39 @@
 :root{
-    --eng-item-bg:#555;
+    --eng-item-bg:#212455;
     --eng-item-v-spacing:1em;
     --eng-item-h-spacing:1em;
     --eng-item-padding:1em;
-    --eng-item-border-radius:0.25em;
+    --eng-item-border-radius:0.5em;
 
+    --eng-item-header-bg:#1a1d44;
     --eng-item-header-color:#fff;
-    --eng-item-header-size:1em;
-    --eng-item-header-spacing:1em;
+    --eng-item-header-size:1.5em;
+    --eng-item-header-spacing:0.5em;
 
     --eng-item-answer-color:#fff;
-    --eng-item-answer-bg:rgba(0,0,0,0.5);
-    --eng-item-answer-hover-color:#ff0036;
-    --eng-item-answer-selected-color: #63b9ff;
+    --eng-item-answer-bg:transparent;
+    --eng-item-answer-hover-color:#DF3C9C;
+    --eng-item-answer-selected-color:transparent;
 
     --eng-item-answer-result-color:#fff;
-    --eng-item-answer-result-bg:rgba(255,255,255,0.5);
-    --eng-item-answer-result-bar:green;
+    --eng-item-answer-result-bg:#121430;
+    --eng-item-answer-result-bar:#DF3C9C;
 
     --eng-item-timer-bg:transparent;
-    --eng-item-timer-color:yellow;
+    --eng-item-timer-color:#DF3C9C;
 }
 
 .eng-item{
     background-color: var(--eng-item-bg);
     margin: var(--eng-item-v-spacing) var(--eng-item-h-spacing) 0 var(--eng-item-h-spacing);
-    padding: var(--eng-item-padding);
+    /*padding: var(--eng-item-padding);*/
     position: relative;
     border-radius: var(--eng-item-border-radius);
     overflow: hidden;
+}
+
+.eng-item:last-child{
+    margin: var(--eng-item-v-spacing) var(--eng-item-h-spacing);
 }
 
 .eng-item .eng-item-timer{
@@ -54,13 +59,15 @@
 
 .eng-item .eng-item-header{
     color: var(--eng-item-header-color);
+    background-color: var(--eng-item-header-bg);
     font-size: var(--eng-item-header-size);
-    margin-bottom: var(--eng-item-header-spacing);
+    padding: var(--eng-item-header-spacing);
 }
 
 .eng-item .eng-item-answers{
     display: flex;
     flex-direction: column;
+    /*padding: 0 1em 1em 1em;*/
 }
 
 .eng-item .eng-item-answers .eng-item-answer{
@@ -108,8 +115,8 @@
 .eng-item .eng-item-answers .eng-item-answer .eng-item-answer-result .eng-item-answer-result-bar{
     position: absolute;
     left:0;
-    top:0;
-    height: 100%;
+    /*top:0;*/
+    height: 80%;
     background-color: var(--eng-item-answer-result-bar);
 }
 

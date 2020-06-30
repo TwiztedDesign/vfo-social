@@ -1,12 +1,12 @@
 :root{
-    --eng-tab-bg:#000;
-    --eng-tab-color:#fff;
-    --eng-tab-hover-bg:#000;
-    --eng-tab-hover-color:#ff0036;
-    --eng-tab-active-bg:#323e51;
-    --eng-tab-active-color:#fff;
+    --eng-tab-bg:#1B1E46;
+    --eng-tab-color:#DF3C9C;
+    --eng-tab-hover-bg:#DF3C9C;
+    --eng-tab-hover-color:#1B1E46;
+    --eng-tab-active-bg:#DF3C9C;
+    --eng-tab-active-color:#1B1E46;
 
-    --eng-tab-content-bg:#000;
+    --eng-tab-content-bg:#101129;
     --eng-tab-scroll-width:5px;
     --eng-tab-scroll-bg:transparent;
     --eng-tab-scroll-color:rgba(255,255,255,0.35);
@@ -37,7 +37,8 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    padding: 1vw 0;
+    padding: 1em 0;
+    font-size: 1em;
     cursor: pointer;
     text-decoration: none;
     outline: none;
@@ -109,9 +110,14 @@
 }
 
 @media (orientation: portrait) {
-    .social-eng-block{
+    .vff-mobile .social-eng-block{
         overflow: hidden;
+        flex-direction: column-reverse;
         width: 100vw;
         flex:1;
+    }
+
+    .vff-mobile .social-eng-block .social-eng-tabs .social-eng-tab{
+        font-size: 1.5em;
     }
 }
