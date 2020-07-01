@@ -36,7 +36,7 @@ body{
 
 @media (orientation: portrait) {
     html{
-        font-size: 3.5vw;
+        font-size: 3vw;
     }
 
     .vff-overlay .vff-content{

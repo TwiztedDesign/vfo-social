@@ -1,12 +1,12 @@
 :root{
     --eng-logo-size:80%;
-    --eng-header-title-size:2em;
+    --eng-header-title-size:1.5em;
     --eng-header-title-color:#fff;
 
-    --eng-header-subtitle-size:1.2em;
+    --eng-header-subtitle-size:1em;
     --eng-header-subtitle-color:#fff;
 
-    --eng-header-link-size:1.5em;
+    --eng-header-link-size:1em;
     --eng-header-link-spacing:1em;
     --eng-header-link-color:#fff;
     --eng-header-link-hover-color:#DF3C9C;
