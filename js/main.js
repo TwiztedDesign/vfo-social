@@ -4,6 +4,9 @@ angular.module('socialApp',[])
 
         $scope.data = {
             bgImage:'',
+            settings:{
+                contentAlign:'left'
+            },
             header:{
                 header:'Nuggets',
                 subHeader:'Denver',
@@ -17,9 +20,15 @@ angular.module('socialApp',[])
                 visible:true,
                 items:[
                     {
+                        imgs:[
+                            "../../../img/carmelo-anthony.jpg",
+                            "../../../img/dan-issel.jpg",
+                            "../../../img/david-thompson.jpg"
+                        ],
                         header:"test",
                         desc:"TEST TEST TEST",
                         img: "../../../img/david-thompson.jpg",
+                        time:"00:05:34",
                         cta:"Click ME!"
                     }
                 ]
@@ -27,13 +36,6 @@ angular.module('socialApp',[])
         };
 
         $scope.twitter =[];
-
-
-        vff.onController('data',(e)=>{
-            Object.assign($scope.data,e.data);
-            $scope.$apply();
-        }, {changeOnly : false});
-
         $scope.selectTab = function(tab) {
             $scope.selectedTab = tab;
         };
@@ -45,7 +47,11 @@ angular.module('socialApp',[])
                 background.style.display = 'none';
             } else {
                 background.style.display = 'block';
-                vff.transform(0,0,1,1,0, 0.125, 0.75, 0.875);
+                if($scope.data.settings.contentAlign==='left'){
+                    vff.transform(0,0,1,1,0.25, 0.125, 1, 0.875);
+                }else{
+                    vff.transform(0,0,1,1,0, 0.125, 0.75, 0.875);
+                }
             }
         }
 

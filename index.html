@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="css/vff-overlay.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/engagement.css" />
     <link rel="stylesheet" href="css/video.css" />
     <link rel="stylesheet" href="js/directives/twitter/twitter.css" />
     <link rel="stylesheet" href="js/directives/timeline/timeline.css" />
@@ -14,24 +15,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vff@1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script src="js/main.js"></script>
 
     <script src="js/utils/moment.min.js"></script>
+    <script src="js/utils/sortable.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vff@1"></script>
+    
     <script src="js/directives/twitter/twitter.js"></script>
     <script src="js/directives/twitter/tweet.js"></script>
     <script src="js/directives/timeline/timeline.js"></script>
-    
-
-    <script src="js/eng-item.js"></script>
-
 </head>
 <body class="vff-overlay" ng-app="socialApp" ng-controller="socialController">
-    <div id="background" ng-style="{'background-image':'url('+data.bgImage+')'}"></div>
+    <div id="background" ng-class="{left:data.settings.contentAlign==='left'}" ng-style="{'background-image':'url('+data.bgImage+')'}"></div>
     <div class="vff-content">
-        <div class="social">
+        <div class="social" ng-style="{'flex-direction':data.settings.contentAlign==='left'?'row-reverse':'row'}">
             <div class="social-video-block">
-                <div class="social-header">
+                <!-- <div class="social-header">
                     <img class="social-header-logo" src="{{data.header.logo}}"/>
                     <div class="social-header-title-group">
                         <h1 class="social-header-title">{{data.header.header}}</h1>
@@ -44,7 +45,7 @@
                         <a ng-if="data.header.link4 && data.header.link4!==''" class="social-header-link" href="{{data.header.link4.url}}" target="_blank">{{data.header.link4.name}}</a>
                         <a ng-if="data.header.link5 && data.header.link5!==''" class="social-header-link" href="{{data.header.link5.url}}" target="_blank">{{data.header.link5.name}}</a>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div id="social-eng-block" class="social-eng-block active">
                 <div class="social-eng-tabs">
@@ -55,7 +56,7 @@
                     <twitter data="data.twitter"></twitter>
                 </div>
                 <div class="social-eng-tab-content" ng-if="selectedTab==='timeline'">
-                    <timeline data="data.timeline"></timeline>
+                    <timeline data="data.timeline" edit="true"></timeline>
                 </div>
             </div>
         </div>

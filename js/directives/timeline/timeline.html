@@ -1,34 +1,40 @@
-<div class="timeline">
+<div class="timeline" ng-class="{edit:edit}">
     <div class="tl-item" ng-repeat="item in data.items">
-            <div class="tl-item-content">
-                <div class="tl-item-imgs">
-                    <div class="tl-item-img">
-                        <img src="../../../img/carmelo-anthony.jpg"/>
-                    </div>
-                    <div class="tl-item-img">
-                        <img src="../../../img/dan-issel.jpg"/>
-                    </div>
-                    <div class="tl-item-img">
-                        <img src="../../../img/david-thompson.jpg"/>
-                    </div>
+        <div class="tl-item-menu" ng-if="edit">
+            <div class="tl-item-menu-button">
+                <span>Duplicate</span>
+            </div>
+            <div class="tl-item-menu-button">
+                <span>Apply style to all</span>
+            </div>
+        </div>
+        <div class="tl-item-content">
+            <div class="tl-item-imgs" sortable="item.imgs">
+                <div class="tl-item-img" ng-repeat="img in item.imgs">
+                    <img ng-src="{{img}}"/>
                 </div>
-                <div class="tl-item-time">
-                    <span>00:05:01</span>
-                </div>
-                <div class="tl-item-info">
-                    <div class="tl-item-header">
-                        <span contenteditable="false">{{item.header}}</span>
-                    </div>
-                    <div class="tl-item-img">
-                        <img ng-src="{{item.img}}"/>
-                    </div>
-                    <div class="tl-item-desc">
-                        <span contenteditable="true">{{item.desc}}</span>
-                    </div>
-                    <div class="tl-item-cta">
-                        <span contenteditable="false">{{item.cta}}</span>
-                    </div>
+                <div class="tl-item-img btn" ng-if="edit">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
                 </div>
             </div>
+            <div class="tl-item-time">
+                <span>{{item.time}}</span>
+            </div>
+            <div class="tl-item-info">
+                <div class="tl-item-header">
+                    <span contenteditable="{{edit}}">{{item.header}}</span>
+                </div>
+                <div class="tl-item-img">
+                    <img ng-src="{{item.img}}"/>
+                </div>
+                <div class="tl-item-desc">
+                    <span contenteditable="{{edit}}">{{item.desc}}</span>
+                </div>
+                <div class="tl-item-cta">
+                    <span contenteditable="{{edit}}">{{item.cta}}</span>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="tl-new-item"></div>
 </div>

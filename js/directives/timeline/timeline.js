@@ -6,10 +6,10 @@ angular.module('socialApp')
             replace:true,
             scope:{
                 data : '=',
-                isController: '='
+                edit: '='
             },
             link: function (scope) {
-                
+
             }
         }
     });

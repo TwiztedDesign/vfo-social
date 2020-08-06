@@ -12,6 +12,22 @@
     --eng-header-link-hover-color:#DF3C9C;
 }
 
+#background{
+    background-color: var(--eng-bg);
+    width: 100%;
+    height: 100%;
+    pointer-events:none;
+    background-position: 0 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 0% 12.5%, 0% 87.5%, 75% 87.5%, 75% 12.5%, 0% 12.5%);
+}
+
+#background.left{
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 25% 12.5%, 25% 87.5%, 100% 87.5%, 100% 12.5%, 25% 12.5%);
+}
+
+
 .social-video-block{
     display: flex;
     flex-direction: column;
