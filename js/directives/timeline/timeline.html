@@ -1,0 +1,34 @@
+<div class="timeline">
+    <div class="tl-item" ng-repeat="item in data.items">
+            <div class="tl-item-content">
+                <div class="tl-item-imgs">
+                    <div class="tl-item-img">
+                        <img src="../../../img/carmelo-anthony.jpg"/>
+                    </div>
+                    <div class="tl-item-img">
+                        <img src="../../../img/dan-issel.jpg"/>
+                    </div>
+                    <div class="tl-item-img">
+                        <img src="../../../img/david-thompson.jpg"/>
+                    </div>
+                </div>
+                <div class="tl-item-time">
+                    <span>00:05:01</span>
+                </div>
+                <div class="tl-item-info">
+                    <div class="tl-item-header">
+                        <span contenteditable="false">{{item.header}}</span>
+                    </div>
+                    <div class="tl-item-img">
+                        <img ng-src="{{item.img}}"/>
+                    </div>
+                    <div class="tl-item-desc">
+                        <span contenteditable="true">{{item.desc}}</span>
+                    </div>
+                    <div class="tl-item-cta">
+                        <span contenteditable="false">{{item.cta}}</span>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

@@ -7,22 +7,23 @@
 
     <link rel="stylesheet" href="css/vff-overlay.css" />
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/social-eng.css" />
-    <link rel="stylesheet" href="css/social-video.css" />
-    <link rel="stylesheet" href="css/sns-item.css" />
-    <link rel="stylesheet" href="css/eng-item.css" />
-    <link rel="stylesheet" href="css/chat-item.css" />
+    <link rel="stylesheet" href="css/video.css" />
+    <link rel="stylesheet" href="js/directives/twitter/twitter.css" />
+    <link rel="stylesheet" href="js/directives/timeline/timeline.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-<!--    <script src="https://unpkg.com/vff@1"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/vff"></script>
-    <script src="js/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vff@1"></script>
     <script src="js/main.js"></script>
-    <script src="js/tweet-item.js"></script>
+
+    <script src="js/utils/moment.min.js"></script>
+    <script src="js/directives/twitter/twitter.js"></script>
+    <script src="js/directives/twitter/tweet.js"></script>
+    <script src="js/directives/timeline/timeline.js"></script>
+    
+
     <script src="js/eng-item.js"></script>
-    <script src="js/ig-data.js"></script>
 
 </head>
 <body class="vff-overlay" ng-app="socialApp" ng-controller="socialController">
@@ -37,7 +38,6 @@
                         <h2 class="social-header-subtitle">{{data.header.subHeader}}</h2>
                     </div>
                     <div class="social-header-links">
-                        <!--<a class="social-header-link" href="{{link.url}}" target="_blank" ng-repeat="link in data.header.links">{{link.name}}</a>-->
                         <a ng-if="data.header.link1 && data.header.link1!==''" class="social-header-link" href="{{data.header.link1.url}}" target="_blank">{{data.header.link1.name}}</a>
                         <a ng-if="data.header.link2 && data.header.link2!==''" class="social-header-link" href="{{data.header.link2.url}}" target="_blank">{{data.header.link2.name}}</a>
                         <a ng-if="data.header.link3 && data.header.link3!==''" class="social-header-link" href="{{data.header.link3.url}}" target="_blank">{{data.header.link3.name}}</a>
@@ -49,64 +49,13 @@
             <div id="social-eng-block" class="social-eng-block active">
                 <div class="social-eng-tabs">
                     <a class="social-eng-tab" ng-if="data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    <!--<a class="social-eng-tab" ng-class="{active:selectedTab==='facebook'}" ng-click="selectTab('facebook')"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
-                    <a class="social-eng-tab" ng-class="{active:selectedTab==='chat'}" ng-click="selectTab('chat')"><i class="fa fa-comments" aria-hidden="true"></i></a>
-                    <a class="social-eng-tab" ng-class="{active:selectedTab==='eng'}" ng-click="selectTab('eng')"><i class="fa fa-question" aria-hidden="true"></i></a>
-                    <a class="social-eng-tab" ng-class="{active:selectedTab==='ig'}" ng-click="selectTab('ig')"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a class="social-eng-tab" ng-if="data.timeline.visible" ng-class="{active:selectedTab==='timeline'}" ng-click="selectTab('timeline')"><i class="fa fa-bars" aria-hidden="true"></i></a>
                 </div>
                 <div class="social-eng-tab-content" ng-if="selectedTab==='twitter'">
-                    <div class="social-eng-tab-header" ng-if="(data.twitter.header.text && data.twitter.header.text!=='') || (data.twitter.header.media && data.twitter.header.media!=='')">
-                        <img class="social-eng-tab-header-media" ng-if="data.twitter.header.media && data.twitter.header.media!==''" src="{{data.twitter.header.media}}"/>
-                        <div class="social-eng-tab-header-text">{{data.twitter.header.text}}</div>
-                    </div>
-                    <div class="social-eng-tab-items">
-                        <tweet-item tweet="item" ng-repeat="item in twitter"></tweet-item>
-                    </div>
+                    <twitter data="data.twitter"></twitter>
                 </div>
-                <div class="social-eng-tab-content" ng-if="selectedTab==='ig'">
-                    <div class="social-eng-tab-header" ng-if="(data.activation.header.text && data.activation.header.text!=='') || (data.activation.header.media && data.activations.header.media!=='')">
-                        <img class="social-eng-tab-header-media" ng-if="data.activation.header.media && data.activation.header.media!==''" src="{{data.activation.header.media}}"/>
-                        <div class="social-eng-tab-header-text">{{data.activation.header.text}}</div>
-                    </div>
-                    <div class="social-eng-tab-items">
-                        <div  ng-repeat="item in igData" style="padding: 1em">
-                            <img src="{{item.node.display_url}}" style="width: 100%;height:auto" />
-                        </div>
-                    </div>
-                </div>
-                <div class="social-eng-tab-content" ng-show="selectedTab==='chat'">
-                    <div class="social-eng-tab-header" ng-if="(data.activation.header.text && data.activation.header.text!=='') || (data.activation.header.media && data.activations.header.media!=='')">
-                        <img class="social-eng-tab-header-media" ng-if="data.activation.header.media && data.activation.header.media!==''" src="{{data.activation.header.media}}"/>
-                        <div class="social-eng-tab-header-text">{{data.activation.header.text}}</div>
-                    </div>
-                    <div class="social-eng-tab-items" id="chat-view">
-                        <div class="chat-item" ng-repeat="item in chat">
-                            <img ng-if="item.img && item.img!==''" class="chat-item-avatar"/>
-                            <div ng-if="!item.img || item.img===''" class="chat-item-avatar">
-                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                            </div>
-                            <div class="chat-item-content">
-                                <div class="chat-item-header">
-                                    <div class="chat-item-name">{{item.name}}</div>
-                                    <div class="chat-item-time">{{moment(item.time).fromNow()}}</div>
-                                </div>
-                                <div class="chat-item-text">{{item.text}}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-input-group">
-                        <textarea class="chat-input-text" placeholder="Say something..." ng-model="newChatItem"></textarea>
-                        <a class="chat-input-send" ng-click="postChat()"><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-                <div class="social-eng-tab-content" ng-show="selectedTab==='eng'">
-                    <div class="social-eng-tab-header" ng-if="(data.activation.header.text && data.activation.header.text!=='') || (data.activation.header.media && data.activations.header.media!=='')">
-                        <img class="social-eng-tab-header-media" ng-if="data.activation.header.media && data.activation.header.media!==''" src="{{data.activation.header.media}}"/>
-                        <div class="social-eng-tab-header-text">{{data.activation.header.text}}</div>
-                    </div>
-                    <div class="social-eng-tab-items">
-                        <eng-item item="item" ng-repeat="item in activationItems"></eng-item>
-                    </div>
+                <div class="social-eng-tab-content" ng-if="selectedTab==='timeline'">
+                    <timeline data="data.timeline"></timeline>
                 </div>
             </div>
         </div>
