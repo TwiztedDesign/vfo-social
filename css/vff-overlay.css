@@ -6,7 +6,7 @@
 
 html{
     overflow: hidden;
-    font-size: 1vw;
+    font-size: 12px;
 }
 
 
@@ -32,6 +32,18 @@ body{
     left:0;
     right:0;
     bottom: 0;
+}
+
+.vff-overlay .edit-text{
+    width: 100%;
+    background-color: transparent;
+    border:1px dashed;
+    border-color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color:inherit;
+    font-family: inherit;
+    resize: vertical;
 }
 
 @media (orientation: portrait) {

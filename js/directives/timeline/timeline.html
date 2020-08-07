@@ -1,40 +1,66 @@
-<div class="timeline" ng-class="{edit:edit}">
-    <div class="tl-item" ng-repeat="item in data.items">
-        <div class="tl-item-menu" ng-if="edit">
-            <div class="tl-item-menu-button">
-                <span>Duplicate</span>
-            </div>
-            <div class="tl-item-menu-button">
-                <span>Apply style to all</span>
-            </div>
-        </div>
-        <div class="tl-item-content">
-            <div class="tl-item-imgs" sortable="item.imgs">
-                <div class="tl-item-img" ng-repeat="img in item.imgs">
-                    <img ng-src="{{img}}"/>
+<div class="timeline" ng-class="{edit:edit}" >
+    <div class="tl-items" sortable="data.items">
+        <div class="tl-item" ng-repeat="item in data.items">
+            <div class="tl-item-menu" ng-if="edit">
+                <div class="tl-item-menu-button sort-handle">
+                    <i class="fa fa-arrows-v" aria-hidden="true"></i>
                 </div>
-                <div class="tl-item-img btn" ng-if="edit">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
+                <div class="tl-item-menu-button" ng-click="duplicate(item)">
+                    <i class="fa fa-clone" aria-hidden="true"></i>
+                </div>
+                <div class="tl-item-menu-button" ng-click="remove(item)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
                 </div>
             </div>
-            <div class="tl-item-time">
-                <span>{{item.time}}</span>
-            </div>
-            <div class="tl-item-info">
-                <div class="tl-item-header">
-                    <span contenteditable="{{edit}}">{{item.header}}</span>
+            <div class="tl-item-content">
+                <div class="tl-item-imgs-wrap" ng-if="edit?true:data.showAvatars">
+                    <div class="tl-item-imgs" sortable="item.imgs">
+                        <div class="tl-item-img" ng-class="{'sort-handle':edit}" ng-repeat="img in item.imgs" >
+                            <img ng-src="{{img}}"/>
+                        </div>
+                        <div class="tl-item-img" ng-class="{'sort-handle':edit}" ng-if="(!item.imgs || item.imgs.length===0) && !edit"></div>
+                    </div>
+                    <div class="tl-item-imgs-menu" ng-if="edit">
+                        <div class="tl-item-imgs-menu-item">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="tl-item-img">
-                    <img ng-src="{{item.img}}"/>
+                <div class="tl-item-time">
+                    <div class="tl-item-time-wrap">
+                        <span class="tl-item-time-content">{{item.time}}</span>
+                        <span class="tl-item-time-placeholder">00:00:00</span>
+                    </div>
                 </div>
-                <div class="tl-item-desc">
-                    <span contenteditable="{{edit}}">{{item.desc}}</span>
-                </div>
-                <div class="tl-item-cta">
-                    <span contenteditable="{{edit}}">{{item.cta}}</span>
+                <div class="tl-item-info">
+                    <div class="tl-item-header" ng-if="edit?true:item.header && item.header!==''">
+                        <span ng-if="!edit">{{item.header}}</span>
+                        <input ng-model="item.header" ng-if="edit" class="edit-text"/>
+                    </div>
+                    <div class="tl-item-img" ng-if="edit?true:item.img && item.img!==''">
+                        <img ng-if="item.img && item.img!==''" ng-src="{{item.img}}"/>
+                        <div class="tl-item-img-new" ng-if="edit && (!item.img || item.img==='')">
+                            <i class="fa fa-picture-o" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="tl-item-desc" ng-if="edit?true:item.desc && item.desc!==''">
+                        <span ng-if="!edit">{{item.desc}}</span>
+                        <textarea ng-model="item.desc" ng-if="edit" class="edit-text"></textarea>
+                    </div>
+                    <div class="tl-item-cta" ng-if="edit?true:item.cta && item.cta!==''">
+                        <span ng-if="!edit">{{item.cta}}</span>
+                        <input ng-model="item.cta" ng-if="edit" class="edit-text"/>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="tl-new-item"></div>
+    <div class="tl-new-item" ng-click="newItem()">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <span>New item</span>
+    </div>
+    <div class="tl-new-item" ng-click="save()">
+        <i class="fa fa-save" aria-hidden="true"></i>
+        <span>Save</span>
+    </div>
 </div>

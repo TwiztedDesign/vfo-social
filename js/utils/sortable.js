@@ -28,7 +28,6 @@ angular.module('socialApp')
                         let item = removeItem(e.oldIndex);
                         addItem(item, e.newIndex);
                         scope.$apply();
-                        vff.state.take();
                     }
                 });
             }

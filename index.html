@@ -27,37 +27,24 @@
     <script src="js/directives/twitter/tweet.js"></script>
     <script src="js/directives/timeline/timeline.js"></script>
 </head>
-<body class="vff-overlay" ng-app="socialApp" ng-controller="socialController">
-    <div id="background" ng-class="{left:data.settings.contentAlign==='left'}" ng-style="{'background-image':'url('+data.bgImage+')'}"></div>
+<body class="vff-overlay" ng-app="socialApp" ng-controller="socialController" ng-show="ready">
+    <div id="background" ng-class="{right:data.settings.contentAlign==='right'}" ng-style="{'background-image':'url('+data.bgImage+')'}"></div>
     <div class="vff-content">
-        <div class="social" ng-style="{'flex-direction':data.settings.contentAlign==='left'?'row-reverse':'row'}">
-            <div class="social-video-block">
-                <!-- <div class="social-header">
-                    <img class="social-header-logo" src="{{data.header.logo}}"/>
-                    <div class="social-header-title-group">
-                        <h1 class="social-header-title">{{data.header.header}}</h1>
-                        <h2 class="social-header-subtitle">{{data.header.subHeader}}</h2>
-                    </div>
-                    <div class="social-header-links">
-                        <a ng-if="data.header.link1 && data.header.link1!==''" class="social-header-link" href="{{data.header.link1.url}}" target="_blank">{{data.header.link1.name}}</a>
-                        <a ng-if="data.header.link2 && data.header.link2!==''" class="social-header-link" href="{{data.header.link2.url}}" target="_blank">{{data.header.link2.name}}</a>
-                        <a ng-if="data.header.link3 && data.header.link3!==''" class="social-header-link" href="{{data.header.link3.url}}" target="_blank">{{data.header.link3.name}}</a>
-                        <a ng-if="data.header.link4 && data.header.link4!==''" class="social-header-link" href="{{data.header.link4.url}}" target="_blank">{{data.header.link4.name}}</a>
-                        <a ng-if="data.header.link5 && data.header.link5!==''" class="social-header-link" href="{{data.header.link5.url}}" target="_blank">{{data.header.link5.name}}</a>
-                    </div>
-                </div> -->
-            </div>
+        <div class="social" ng-style="{'flex-direction':data.settings.contentAlign==='right'?'row-reverse':'row'}">          
             <div id="social-eng-block" class="social-eng-block active">
                 <div class="social-eng-tabs">
-                    <a class="social-eng-tab" ng-if="data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    <a class="social-eng-tab" ng-if="data.timeline.visible" ng-class="{active:selectedTab==='timeline'}" ng-click="selectTab('timeline')"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                    <a class="social-eng-tab" ng-if="edit?true:data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a class="social-eng-tab" ng-if="edit?true:data.timeline.visible" ng-class="{active:selectedTab==='timeline'}" ng-click="selectTab('timeline')"><i class="fa fa-bars" aria-hidden="true"></i></a>
                 </div>
                 <div class="social-eng-tab-content" ng-if="selectedTab==='twitter'">
                     <twitter data="data.twitter"></twitter>
                 </div>
-                <div class="social-eng-tab-content" ng-if="selectedTab==='timeline'">
-                    <timeline data="data.timeline" edit="true"></timeline>
+                <div class="social-eng-tab-content" ng-show="selectedTab==='timeline'">
+                    <timeline data="data.timeline" edit="true" ></timeline>
                 </div>
+            </div>
+            <div class="social-video-block">
+                
             </div>
         </div>
     </div>
