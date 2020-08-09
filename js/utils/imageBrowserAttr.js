@@ -10,7 +10,6 @@ angular.module('socialApp')
             },
             link            : function(scope, element){
 
-
                 const allowedFileTypes = [
                     "image/apng",
                     "image/bmp",
@@ -62,7 +61,12 @@ angular.module('socialApp')
                         return;
                     }
                     error = false;
-                    errorElement.parentNode.removeChild(errorElement);
+                    try{
+                        errorElement.parentNode.removeChild(errorElement);
+                    } catch (e) {
+
+                    }
+
 
 
                     vff.state.upload(file, (e)=>{
