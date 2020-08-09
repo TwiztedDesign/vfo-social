@@ -42,7 +42,7 @@ angular.module('socialApp')
                         scope.$apply();
                     });
                 };
-                scope.gotoTime = function(){
+                scope.gotoTime = function(val){
                     vff.controller.go(val);
                 };
 
