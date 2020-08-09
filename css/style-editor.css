@@ -1,0 +1,23 @@
+.style-editor{
+    display: flex;
+    background-color: #fff; 
+    height: 50%;
+    font-size: 12px;
+    font-family: 'Yantramanav';
+}
+
+.style-editor-column{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+}
+
+.style-editor .editor-block{
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
+
+.style-editor .editor-block .editor-block-title{
+    min-width: 100px;
+}

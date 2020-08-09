@@ -45,15 +45,15 @@
                         <div class="tl-item-img-new" ng-if="edit" value="item.img" image-browser>
                             <i class="fa fa-picture-o" aria-hidden="true"></i>
                         </div>
+                        <div class="ti-item-img-remove" ng-if="edit && item.img && item.img!==''" ng-click="clearImage(item)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
 
 <!--                        Both Work, use any one of them-->
 <!--                        <div value="item.color" color-picker></div>-->
 <!--                        <color-picker value="item.color"></color-picker>-->
 
 <!--                        <image-browser value="item.img" ng-if="edit && (!item.img || item.img==='')"></image-browser>-->
-                        <div class="ti-item-img-remove" ng-if="edit && item.img && item.img!==''" ng-click="clearImage(item)">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
                     </div>
                     <div class="tl-item-desc" ng-if="edit?true:item.desc && item.desc!==''">
                         <span ng-if="!edit">{{item.desc}}</span>
@@ -64,6 +64,14 @@
                         <input ng-model="item.cta" ng-if="edit" class="edit-text"/>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="style-editor scroll">
+        <div class="style-editor-column">
+            <div class="editor-block">
+                <label class="editor-block-title">Background</label>
+                <color-picker value="style.timelineItemBg"></color-picker>
             </div>
         </div>
     </div>

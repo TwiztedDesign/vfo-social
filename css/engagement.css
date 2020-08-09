@@ -78,6 +78,10 @@
     flex:1;
 }
 
+.scroll{
+    overflow: auto;
+}
+
 .scroll::-webkit-scrollbar {
     all:unset;
 }

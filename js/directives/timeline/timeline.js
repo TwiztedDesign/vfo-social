@@ -19,6 +19,8 @@ angular.module('socialApp')
                     cta:""
                 }
 
+                scope.style = vff.state.data.__style;
+
                 scope.newItem = function(){
                     scope.data.items.push(JSON.parse(JSON.stringify(newItem)));
                 }
