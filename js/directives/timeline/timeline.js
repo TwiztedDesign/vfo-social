@@ -24,7 +24,8 @@ angular.module('socialApp')
                 }
 
                 scope.duplicate = function(item){
-                    scope.data.items.push(JSON.parse(JSON.stringify(item)));
+                    //Use angular.toJson to strip $$hashKey (default track by value) from the object forcing the ng-repeat to create a new one
+                    scope.data.items.push(JSON.parse(angular.toJson(item)));
                 }
 
                 scope.remove = function(item){
@@ -38,6 +39,7 @@ angular.module('socialApp')
                 scope.getTime = function(item){
                     vff.controller.currentTime().then(time => {
                         item.time = time;
+                        scope.$apply();
                     });
                 };
                 scope.gotoTime = function(){

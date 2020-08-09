@@ -42,10 +42,15 @@
                     </div>
                     <div class="tl-item-img" ng-if="edit?true:item.img && item.img!==''">
                         <img ng-if="item.img && item.img!==''" ng-src="{{item.img}}"/>
-                        <div class="tl-item-img-new" ng-if="edit && (!item.img || item.img==='')">
+                        <div class="tl-item-img-new" ng-if="edit && (!item.img || item.img==='')" value="item.img" image-browser>
                             <i class="fa fa-picture-o" aria-hidden="true"></i>
                         </div>
-                        <image-browser value="item.img" ng-if="edit && (!item.img || item.img==='')"></image-browser>
+
+<!--                        Both Work, use any one of them-->
+<!--                        <div value="item.color" color-picker></div>-->
+<!--                        <color-picker value="item.color"></color-picker>-->
+
+<!--                        <image-browser value="item.img" ng-if="edit && (!item.img || item.img==='')"></image-browser>-->
                         <div class="ti-item-img-remove" ng-if="edit && item.img && item.img!==''" ng-click="clearImage(item)">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </div>
