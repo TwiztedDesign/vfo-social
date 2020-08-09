@@ -41,8 +41,8 @@
                         <input ng-model="item.header" ng-if="edit" class="edit-text"/>
                     </div>
                     <div class="tl-item-img" ng-if="edit?true:item.img && item.img!==''">
-                        <img ng-if="item.img && item.img!==''" ng-src="{{item.img}}"/>
-                        <div class="tl-item-img-new" ng-if="edit && (!item.img || item.img==='')" value="item.img" image-browser>
+<!--                        <img ng-if="item.img && item.img!==''" ng-src="{{item.img}}"/>-->
+                        <div class="tl-item-img-new" ng-if="edit" value="item.img" image-browser>
                             <i class="fa fa-picture-o" aria-hidden="true"></i>
                         </div>
 

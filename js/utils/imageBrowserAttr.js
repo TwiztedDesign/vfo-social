@@ -10,14 +10,36 @@ angular.module('socialApp')
             },
             link            : function(scope, element){
 
+
+                const allowedFileTypes = [
+                    "image/apng",
+                    "image/bmp",
+                    "image/gif",
+                    "image/jpeg",
+                    'image/jpg',
+                    "image/png",
+                    "image/svg",
+                    "image/svg+xml",
+                    "image/tiff",
+                    "image/webp",
+                    "image/x-icon"
+                ];
+
+
                 let inputElement = document.createElement('input');
                 let imageElement = document.createElement('img');
+                let errorElement = document.createElement('div');
                 let previewOn = false;
+                let error = false;
                 if(scope.value){
                     imageElement.src = scope.value;
                     element.after(imageElement);
                     previewOn = true;
                 }
+
+                scope.$watch('value', () => {
+                    imageElement.src = scope.value;
+                });
 
 
                 function readFileAsync(file) {
@@ -34,6 +56,15 @@ angular.module('socialApp')
 
                 function handleFiles() {
                     let file = this.files[0];
+                    if(!allowedFileTypes.includes(file.type)){
+                        errorElement.innerText = "File type not allowed"
+                        if(!error) element.after(errorElement);
+                        return;
+                    }
+                    error = false;
+                    errorElement.parentNode.removeChild(errorElement);
+
+
                     vff.state.upload(file, (e)=>{
                         console.log("upload file", e);
                         readFileAsync(file).then(base64 => {
