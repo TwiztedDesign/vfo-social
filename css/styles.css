@@ -1,5 +1,5 @@
 :root{
-    --eng-bg: #121430;
+    --eng-bg: #000;
 
     --eng-toggle-bg:#000;
     --eng-toggle-color:#fff;
@@ -31,41 +31,8 @@ body{
     display: flex;
 }
 
-.social .social-eng-toggle{
-    position: absolute;
-    z-index: 99999;
-    top:1vw;
-    right:1vw;
-    background-color: var(--eng-toggle-bg);
-    color:var(--eng-toggle-color);
-    border-radius: 50%;
-    width: 3vw;
-    height: 3vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: FontAwesome;
-    font-size: 1.3em;
-    cursor: pointer;
-}
-
-.social .social-eng-toggle::after{
-    content: "\f0c9";
-}
-
-.social .social-eng-toggle.active{
-    right:26vw;
-    background-color: var(--eng-toggle-active-bg);
-    color:var(--eng-toggle-active-color);
-}
-
-.social .social-eng-toggle.active::after{
-    content: "\f00d";
-}
-
-.social .social-eng-toggle:hover{
-    background-color: var(--eng-toggle-hover-bg);
-    color:var(--eng-toggle-hover-color);
+.social.right{
+    flex-direction: row-reverse;
 }
 
 @media (orientation: portrait) {

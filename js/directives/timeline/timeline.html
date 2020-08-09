@@ -1,5 +1,5 @@
 <div class="timeline" ng-class="{edit:edit}" >
-    <div class="tl-items" sortable="data.items">
+    <div class="tl-items scroll" sortable="data.items">
         <div class="tl-item" ng-repeat="item in data.items">
             <div class="tl-item-menu" ng-if="edit">
                 <div class="tl-item-menu-button sort-handle">
@@ -11,9 +11,12 @@
                 <div class="tl-item-menu-button" ng-click="remove(item)">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </div>
+                <div class="tl-item-menu-button" ng-click="getTime(item)">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                </div>
             </div>
             <div class="tl-item-content">
-                <div class="tl-item-imgs-wrap" ng-if="edit?true:data.showAvatars">
+                <div class="tl-item-imgs-wrap" ng-if="false">
                     <div class="tl-item-imgs" sortable="item.imgs">
                         <div class="tl-item-img" ng-class="{'sort-handle':edit}" ng-repeat="img in item.imgs" >
                             <img ng-src="{{img}}"/>
@@ -28,7 +31,7 @@
                 </div>
                 <div class="tl-item-time">
                     <div class="tl-item-time-wrap">
-                        <span class="tl-item-time-content">{{item.time}}</span>
+                        <span class="tl-item-time-content">{{item.time | timecode}}</span>
                         <span class="tl-item-time-placeholder">00:00:00</span>
                     </div>
                 </div>
@@ -41,6 +44,10 @@
                         <img ng-if="item.img && item.img!==''" ng-src="{{item.img}}"/>
                         <div class="tl-item-img-new" ng-if="edit && (!item.img || item.img==='')">
                             <i class="fa fa-picture-o" aria-hidden="true"></i>
+                        </div>
+                        <image-browser value="item.img" ng-if="edit && (!item.img || item.img==='')"></image-browser>
+                        <div class="ti-item-img-remove" ng-if="edit && item.img && item.img!==''" ng-click="clearImage(item)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="tl-item-desc" ng-if="edit?true:item.desc && item.desc!==''">
@@ -55,12 +62,14 @@
             </div>
         </div>
     </div>
-    <div class="tl-new-item" ng-click="newItem()">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        <span>New item</span>
-    </div>
-    <div class="tl-new-item" ng-click="save()">
-        <i class="fa fa-save" aria-hidden="true"></i>
-        <span>Save</span>
+    <div class="tl-menu" ng-if="edit">
+        <div class="tl-menu-item" ng-click="newItem()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span>New item</span>
+        </div>
+        <div class="tl-menu-item" ng-click="save()">
+            <i class="fa fa-save" aria-hidden="true"></i>
+            <span>Save</span>
+        </div>
     </div>
 </div>

@@ -5,8 +5,9 @@ angular.module('socialApp',[])
         $scope.style = vff.state.data.__style;
         $scope.edit = false;
         $scope.ready = false;
+        $scope.engVisibility=true;
 
-        $scope.data.timeline = $scope.data.timelin ||  
+        $scope.data.timeline = $scope.data.timeline ||  
         {        
             visible:true,
             showAvatars:false,
@@ -16,7 +17,7 @@ angular.module('socialApp',[])
                     header:"",
                     desc:"",
                     img: "",
-                    time:"",
+                    time:0,
                     cta:""
                 }
             ]
@@ -25,62 +26,51 @@ angular.module('socialApp',[])
         $scope.data.settings = $scope.data.settings || 
         {
             contentAlign:'left',
+            allowToggle:true,
+            resizeVideo:true,
             bgImage:''
         }
-
-        // $scope.data = {
-        //     bgImage:'',
-        //     settings:{
-        //         contentAlign:'left'
-        //     },
-        //     header:{
-        //         header:'Nuggets',
-        //         subHeader:'Denver',
-        //         logo:'https://www.videoflow.io/img/logo2.svg',
-        //     },
-        //     twitter     : {
-        //         visible: true,
-        //         handle: 'nuggets'
-        //     },
-        //     timeline:{
-        //         visible:true,
-        //         showAvatars:false,
-        //         items:[
-        //             {
-        //                 imgs:[
-        //                     "../../../img/carmelo-anthony.jpg",
-        //                     "../../../img/dan-issel.jpg",
-        //                     "../../../img/david-thompson.jpg"
-        //                 ],
-        //                 header:"test",
-        //                 desc:"TEST TEST TEST",
-        //                 img: "../../../img/david-thompson.jpg",
-        //                 time:"00:05:34",
-        //                 cta:"Click ME!"
-        //             }
-        //         ]
-        //     }
-        // };
 
         $scope.twitter =[];
         $scope.selectTab = function(tab) {
             $scope.selectedTab = tab;
         };
 
+        $scope.showTabs = function(){
+            let count=0;
+            if($scope.data.timeline.visible){
+                count++;
+            }
+            return count>1;
+        }
+
+        $scope.toggleEng = function(){
+            if($scope.data.settings.allowToggle){
+                $scope.engVisibility = !$scope.engVisibility;
+                handleOrientation();
+            }else{
+                return;
+            }
+        }
+
         vff.ready(()=>{
             $scope.edit = vff.isController();
+            $scope.$apply();
+
             handleOrientation();
             $scope.ready = true;
-            $scope.$apply();
         });
 
         vff.state.on(e => {
+            handleOrientation();
             $scope.$apply();
         });
 
+        
+
         let background = document.getElementById('background');
         function handleOrientation() {
-            if (vff.isMobile || window.innerWidth < window.innerHeight || $scope.engVisibility) {
+            if (vff.isMobile || (!$scope.engVisibility && $scope.data.settings.allowToggle)) {
                 vff.transform(0,0,1,1,0);
                 background.style.display = 'none';
             } else {
@@ -93,7 +83,7 @@ angular.module('socialApp',[])
             }
         }
 
-        handleOrientation();
+        //handleOrientation();
         window.addEventListener('resize', handleOrientation);
 
         
