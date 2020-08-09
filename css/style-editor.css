@@ -1,7 +1,7 @@
 .style-editor{
     display: flex;
     background-color: #fff; 
-    height: 50%;
+    height: 30%;
     font-size: 12px;
     font-family: 'Yantramanav';
 }
@@ -19,5 +19,5 @@
 }
 
 .style-editor .editor-block .editor-block-title{
-    min-width: 100px;
+    width: 100px;
 }
