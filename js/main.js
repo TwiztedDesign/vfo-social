@@ -1,6 +1,6 @@
 angular.module('socialApp',[])
     .controller('socialController', ['$scope','$http', function($scope, $http) {
-        $scope.selectedTab = 'twitter';
+        $scope.selectedTab = 'timeline';
         $scope.data = vff.state.data;
         $scope.style = vff.state.data.__style;
         $scope.edit = false;
@@ -128,6 +128,7 @@ angular.module('socialApp',[])
 
         vff.state.on(e => {
             handleOrientation();
+            $scope.temp.twitterHandle = $scope.data.twitter.handle;
             $scope.$apply();
         });
 

@@ -185,6 +185,18 @@ body{
         right:0;
         bottom: 0;
     }
+
+    .vff-overlay .vff-content:after{
+        content:'';
+        position: absolute;
+        height: 40px;
+        top:50%;
+        transform: translateX(-50%);
+        left:0;
+        width: 120%;
+        pointer-events: none;
+        box-shadow:inset 0 20px 20px rgba(0,0,0,0.5);
+    }
 }
 @media (orientation: landscape) {
 
