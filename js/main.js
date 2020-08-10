@@ -21,7 +21,7 @@ angular.module('socialApp',[])
         $scope.data.twitter = vff.state.data.twitter ||  
         {        
             visible:true,
-            handle:'nuggets',
+            handle:'',
             appKey:''
         }
 
@@ -127,6 +127,7 @@ angular.module('socialApp',[])
         });
 
         vff.state.on(e => {
+            $scope.temp.twitterHandle = $scope.data.twitter.handle || 'twiztedTDesign';
             handleOrientation();
             $scope.$apply();
         });
