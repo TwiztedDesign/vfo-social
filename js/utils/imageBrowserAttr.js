@@ -70,7 +70,7 @@ angular.module('socialApp')
                     element.addClass('loading');
 
 
-                    vff.state.upload(file, (e)=>{
+                    vff.upload(file, (e)=>{
                         console.log("upload file", e);
                         // readFileAsync(file).then(base64 => {
                         //     imageElement.src = base64;

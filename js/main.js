@@ -1,14 +1,14 @@
 angular.module('socialApp',[])
     .controller('socialController', ['$scope','$http', function($scope, $http) {
         $scope.selectedTab = 'timeline';
-        $scope.data = vff.state.data;
-        $scope.style = vff.state.data.__style;
+        $scope.data = vff.state
+        $scope.style = vff.style;
         $scope.edit = false;
         $scope.ready = false;
         $scope.engVisibility=true;
         $scope.tabsMenu=false;
 
-        $scope.data.timeline = vff.state.data.timeline ||  
+        $scope.data.timeline = vff.state.timeline ||
         {        
             visible:true,
             showAvatars:false,
@@ -25,7 +25,7 @@ angular.module('socialApp',[])
             ]
         }
 
-        $scope.data.settings = vff.state.data.settings || 
+        $scope.data.settings = vff.state.settings ||
         {
             contentAlign:'left',
             allowToggle:true,
@@ -61,7 +61,7 @@ angular.module('socialApp',[])
         }
 
         $scope.save = function(){
-            vff.state.take();
+            vff.send();
         }
 
         $scope.toggleTabsMenu = function(){
@@ -91,8 +91,12 @@ angular.module('socialApp',[])
             $scope.ready = true;
             $scope.$apply();
         });
-
-        vff.state.on(e => {
+        vff.onModeChange(e => {
+            $scope.edit = vff.isController();
+            handleOrientation();
+            $scope.$apply();
+        });
+        vff.onStateChange(e => {
             handleOrientation();
             $scope.$apply();
         });
