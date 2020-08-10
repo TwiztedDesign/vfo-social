@@ -18,10 +18,6 @@
                     <i class="fa fa-clock-o" aria-hidden="true"></i>
                     <div class="tl-item-menu-button-tooltip">Set timestamp</div>
                 </div>
-                <div class="tl-item-menu-button" ng-click="toggleItemsMenu()">
-                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                    <div class="tl-item-menu-button-tooltip">Style</div>
-                </div>
             </div>
             <div class="tl-item-content">
                 <div class="tl-item-avatars-wrap" ng-if="data.showAvatars">
@@ -83,74 +79,5 @@
             <i class="fa fa-cloud-upload" aria-hidden="true"></i>
             <span>Save</span>
         </div>
-    </div>
-    <div class="style-editor scroll" ng-if="itemsMenu && edit">
-        <div class="style-editor-columns">
-            <div class="style-editor-column">
-                <div class="editor-block">
-                    <input type="checkbox" id="showTmeline" ng-model="data.visible">
-                    <label for="showTmeline">Show timeline</label>
-                </div>
-                <!-- <div class="editor-block">
-                    <input type="checkbox" id="showAvatars" ng-model="data.showAvatars">
-                    <label for="showAvatars">Show avatars</label>
-                </div> -->
-                <div class="editor-block">
-                    <input type="checkbox" id="showTimestamps" ng-model="data.showTimestamps">
-                    <label for="showTimestamps">Show timestamps</label>
-                </div>
-            </div>
-        </div>
-        <div class="style-editor-columns">
-            <div class="style-editor-column">
-                <div class="editor-block">
-                    <label class="editor-block-title">Item background</label>
-                    <color-picker value="style.timelineItemBg"></color-picker>
-                </div>
-                <div class="editor-block">
-                    <label class="editor-block-title">Header background</label>
-                    <color-picker value="style.timelineItemHeaderBg"></color-picker>
-                </div>
-                <div class="editor-block">
-                    <label class="editor-block-title">Header text</label>
-                    <color-picker value="style.timelineItemHeaderColor"></color-picker>
-                </div>
-                <div class="editor-block">
-                    <label class="editor-block-title">Description background</label>
-                    <color-picker value="style.timelineItemDescBg"></color-picker>
-                </div>
-                <div class="editor-block">
-                    <label class="editor-block-title">Description text</label>
-                    <color-picker value="style.timelineItemDescColor"></color-picker>
-                </div>
-                <div class="editor-block">
-                    <label class="editor-block-title">Items spacing</label>
-                    <input type="range" min="0" max="10" step="0.1" transform="{0}rem" ng-model="style.timelineItemSpacing"/>
-                </div>
-            </div>
-            <div class="style-editor-column">
-                <div class="editor-block">
-                    <label class="editor-block-title">Call to action background</label>
-                    <color-picker value="style.timelineItemCtaBg"></color-picker>
-                </div>
-                <div class="editor-block">
-                    <label class="editor-block-title">Call to action text</label>
-                    <color-picker value="style.timelineItemCtaColor"></color-picker>
-                </div>
-                <div class="editor-block">
-                    <label class="editor-block-title">Time background</label>
-                    <color-picker value="style.timelineItemTimeBg"></color-picker>
-                </div>
-                <div class="editor-block">
-                    <label class="editor-block-title">Time text</label>
-                    <color-picker value="style.timelineItemTimeColor"></color-picker>
-                </div>
-                <div class="editor-block">
-                    <label class="editor-block-title">Time dash</label>
-                    <color-picker value="style.timelineItemTimeDashColor"></color-picker>
-                </div>
-            </div>
-        </div>
-        
     </div>
 </div>

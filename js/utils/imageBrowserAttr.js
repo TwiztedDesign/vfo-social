@@ -82,8 +82,10 @@ angular.module('socialApp')
                             onSuccess : ()=> {
                                 scope.value = e.urls.cdnUrl;
                                 element.removeClass('loading');
+                                // vff.state.take();
                                 // imageElement.src = e.urls.cdnUrl;
                                 scope.$apply();
+                                vff.state.take();
                             }
                         })
                     },)

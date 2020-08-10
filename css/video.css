@@ -39,6 +39,7 @@
     height: calc(var(--eng-width) / 1.778 / 2 );
     align-items: center;
     padding: 0 4rem;
+    position: relative;
 }
 
 .social-video-block .social-header .social-header-logo{

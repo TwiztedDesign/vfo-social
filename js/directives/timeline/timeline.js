@@ -9,7 +9,6 @@ angular.module('socialApp')
                 edit: '='
             },
             link: function (scope) {
-                scope.itemsMenu=false;
                 let newItem = {
                     imgs:[],
                     header:"",
@@ -54,13 +53,6 @@ angular.module('socialApp')
                 scope.save = function(){
                     scope.itemsMenu=false;
                     vff.state.take();
-                }
-
-                scope.toggleItemsMenu = function(){
-                    if(scope.itemsMenu){
-                        vff.state.take();
-                    }
-                    scope.itemsMenu = !scope.itemsMenu;
                 }
             }
         }

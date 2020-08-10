@@ -1,29 +1,28 @@
 angular.module('socialApp',[])
     .controller('socialController', ['$scope','$http', function($scope, $http) {
-        $scope.selectedTab = 'timeline';
+        $scope.selectedTab = 'twitter';
         $scope.data = vff.state.data;
         $scope.style = vff.state.data.__style;
         $scope.edit = false;
         $scope.ready = false;
         $scope.engVisibility=true;
-        $scope.tabsMenu=false;
+        $scope.settingsMenu=false;
+        $scope.selectedSettings='';
         $scope.themes = themes;
 
         $scope.data.timeline = vff.state.data.timeline ||  
         {        
             visible:true,
             showAvatars:false,
-            showTimestamps:false,
-            items:[
-                {
-                    imgs:[],
-                    header:"",
-                    desc:"",
-                    img: "",
-                    time:0,
-                    cta:""
-                }
-            ]
+            showTimestamps:true,
+            items:[]
+        }
+
+        $scope.data.twitter = vff.state.data.twitter ||  
+        {        
+            visible:true,
+            handle:'nuggets',
+            appKey:''
         }
 
         $scope.data.settings = vff.state.data.settings || 
@@ -39,14 +38,17 @@ angular.module('socialApp',[])
             }
         }
 
-        $scope.twitter =[];
         $scope.selectTab = function(tab) {
             $scope.selectedTab = tab;
+            $scope.selectedSettings = tab;
         };
 
         $scope.showTabs = function(){
             let count=0;
             if($scope.data.timeline.visible){
+                count++;
+            }
+            if($scope.data.twitter.visible){
                 count++;
             }
             return count>1;
@@ -65,17 +67,17 @@ angular.module('socialApp',[])
             vff.state.take();
         }
 
-        $scope.toggleTabsMenu = function(){
-            if($scope.tabsMenu){
-                $scope.save();
+        $scope.toggleSettingsMenu = function(menu){
+            if(!$scope.settingsMenu || menu!==$scope.selectedSettings){
+                $scope.selectedSettings = menu || 'general';
+                $scope.settingsMenu = true;
+                $scope.engVisibility = true;
+                handleOrientation();   
             }
-            $scope.tabsMenu = !$scope.tabsMenu;
-            $scope.engVisibility = true;
-            handleOrientation();   
         }
 
-        $scope.saveTabsSettings = function(){
-            $scope.tabsMenu = false;
+        $scope.saveSettings = function(){
+            $scope.settingsMenu = false;
             $scope.save();
         }
 
@@ -86,15 +88,18 @@ angular.module('socialApp',[])
                 $scope.data.settings.contentAlign='right';
             }
             $scope.engVisibility = true;
+            $scope.save();
             handleOrientation();        
         }
 
         $scope.clearHeaderLogo = function(){
             $scope.data.settings.header.logo='';
+            $scope.save();
         }
 
         $scope.clearBg = function(){
             $scope.data.settings.bgImage='';
+            $scope.save();
         }
 
         $scope.applyTheme = function(theme){
@@ -105,6 +110,13 @@ angular.module('socialApp',[])
             $scope.style.engTabActiveBg = theme[3];
             $scope.style.engTabActiveColor = theme[4];
             $scope.style.engTabContentBg = theme[0];
+        }
+
+        $scope.temp={
+            twitterHandle:''
+        }
+        $scope.setTwitterHandle = function(){
+            $scope.data.twitter.handle = $scope.temp.twitterHandle;
         }
 
         vff.ready(()=>{
@@ -137,7 +149,5 @@ angular.module('socialApp',[])
         }
 
         //handleOrientation();
-        window.addEventListener('resize', handleOrientation);
-
-        
+        window.addEventListener('resize', handleOrientation);  
     }]);

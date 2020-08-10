@@ -12,7 +12,7 @@ angular.module('socialApp')
                             </div>
                             <div class="tweet-content">
                                 <div class="tweet-content-text"></div>
-                                <img class="tweet-content-media" src="{{media.media_url_https}}" ng-repeat="media in tweet.entities.media"/>
+                                <img class="tweet-content-media" ng-src="{{media.media_url_https}}" ng-repeat="media in tweet.entities.media"/>
                             </div>
                             <div class="tweet-footer">
                                 <div class="tweet-menu">

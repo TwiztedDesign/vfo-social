@@ -10,8 +10,8 @@
 .style-editor h1, .style-editor h2, .style-editor h3{
     margin: 0;
     padding: 5px;
-    background-color: #eaeaea;
-    color:#0095FF;
+    color:#333;
+    border-bottom: 1px solid #ddd;
 }
 
 .style-editor i{

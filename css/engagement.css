@@ -39,27 +39,6 @@
     position: relative;
 }
 
-.social-eng-block .social-eng-tabs .social-eng-tabs-menu-toggle{
-    position: absolute;
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    color:#0095FF;
-    border-radius: 50%;
-    right:5%;
-    cursor: pointer;
-    top:50%;
-    transform: translateY(-50%);
-}
-
-.social-eng-block .social-eng-tabs .social-eng-tabs-menu-toggle:hover{
-    color: #fff;
-    background-color:#0095FF;
-}
-
 .social-eng-block .social-eng-tabs .social-eng-tabs-menu{
     position: absolute;
     width: 100%;
@@ -85,6 +64,33 @@
     text-decoration: none;
     outline: none;
     -webkit-tap-highlight-color: transparent;
+    position: relative;
+}
+
+.social-eng-block .social-eng-tabs .social-eng-tab .social-eng-tabs-menu-toggle{
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color:#0095FF;
+    border-radius: 50%;
+    right:5%;
+    cursor: pointer;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+.social-eng-block .social-eng-tabs .social-eng-tab .social-eng-tabs-menu-toggle:hover{
+    color: #fff;
+    background-color:#0095FF;
+}
+
+.social-eng-block .social-eng-tabs .social-eng-tab:hover .social-eng-tabs-menu-toggle{
+    display: flex;
 }
 
 .social-eng-block .social-eng-tabs .social-eng-tab:hover{
@@ -168,6 +174,7 @@
 .social.right .social-eng-block .social-eng-toggles{
     left:initial;
     right:105%;
+    align-items: flex-end;
 }
 
 .social-eng-block .social-eng-toggles .social-eng-toggle{

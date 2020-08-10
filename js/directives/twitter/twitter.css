@@ -3,8 +3,6 @@
     --tweet-header-bg:#1a1d44;
     --tweet-name-color:#fff;
     --tweet-handle-color:#ddd;
-    --tweet-border-radius:0.5em;
-
 
     --tweet-content-color:#ccc;
     --tweet-content-link-color:#32ADA7;
@@ -17,9 +15,8 @@
     --tweet-time-color:#fff;
 }
 
-.twitter-tab.active{
-    background:var(--twitter-tab-active-bg);
-    color:var(--twitter-tab-active-color);
+.tweets{
+    overflow: auto;
 }
 
 .tweet {
@@ -28,7 +25,6 @@
     margin: 1em;
     background-color: var(--tweet-bg);
     overflow: hidden;
-    border-radius: var(--tweet-border-radius);
     flex: 0 0 auto;
 }
 

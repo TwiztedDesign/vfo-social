@@ -6,20 +6,29 @@ angular.module('socialApp')
             replace:true,
             scope:{
                 data : '=',
-                isController: '='
+                edit: '='
             },
             link: function (scope) {
+                scope.$watch('data.handle', () => {
+                    getTweets().then((tweets) => {
+                        console.log(tweets);
+                        scope.tweets = tweets;
+                        scope.$apply();
+                    });
+                });
+
+                scope.tweets =[];
                 let integrationKey = 'BJl4MiIt0IrybVGsIFALBJf4fjUKA8';
-                function getTweets(handle){
+                function getTweets(){
                     return new Promise((resolve, reject) => {
-                        $http.get(`https://www.videoflow.io/ext/${integrationKey}/tweets?handle=${handle}`).then(res => {
+                        $http.get(`https://www.videoflow.io/ext/${integrationKey}/tweets?handle=${scope.data.handle}`).then(res => {
                             let tweets = res.data.data;
                             resolve(tweets);
                         }, reject);
                     })
                 }
         
-                getTweets(scope.handle).then((tweets) => {
+                getTweets().then((tweets) => {
                     console.log(tweets);
                     scope.tweets = tweets;
                     scope.$apply();

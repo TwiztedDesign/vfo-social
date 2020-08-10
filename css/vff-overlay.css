@@ -137,6 +137,7 @@ body{
 .vff-overlay .image-browser .image-browser-menu .image-browser-menu-button span{
     white-space: pre;
     margin-left: 0.5rem;
+    font-size: 0.75em;
 }
 
 .vff-overlay .image-browser .image-browser-menu .image-browser-menu-button.loading i{
