@@ -47,6 +47,7 @@ angular.module('socialApp')
                     });
                 };
                 scope.gotoTime = function(seconds){
+                    try { seconds = parseFloat(seconds);} catch (e) { }
                     vff.controller.go(seconds);
                 };
 
