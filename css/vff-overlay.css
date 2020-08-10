@@ -44,10 +44,12 @@ body{
     color:inherit;
     font-family: inherit;
     resize: vertical;
+    text-align: inherit;
 }
 
 .vff-overlay .edit-text::placeholder {
     color: inherit;
+    text-align: inherit;
     opacity: 0.5;
   }
 

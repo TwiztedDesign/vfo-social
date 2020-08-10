@@ -76,6 +76,15 @@ angular.module('socialApp',[])
             $scope.save();
         }
 
+        $scope.toggleAlignment = function(){
+            if($scope.data.settings.contentAlign==='right'){
+                $scope.data.settings.contentAlign='left';
+            }else{
+                $scope.data.settings.contentAlign='right';
+            }
+            handleOrientation();
+        }
+
         vff.ready(()=>{
             $scope.edit = vff.isController();
             handleOrientation();

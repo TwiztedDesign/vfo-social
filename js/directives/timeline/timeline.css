@@ -346,10 +346,12 @@
     padding: 5px;
     background-color:var(--timeline-item-cta-bg);
     color:var(--timeline-item-cta-color);
+    text-align: center;
 }
 
 .timeline .tl-item .tl-item-content .tl-item-info .tl-item-cta span{
     color:inherit;
+    text-align: inherit;
 }
 
 .timeline .tl-item .tl-item-content .tl-item-click{

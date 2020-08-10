@@ -155,11 +155,22 @@
     object-fit: contain;
 }
 
-.social-eng-block .social-eng-toggle{
+.social-eng-block .social-eng-toggles{
     position: absolute;
-    z-index: 99999;
     top:50%;
     left:105%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+}
+
+.social.right .social-eng-block .social-eng-toggles{
+    left:initial;
+    right:105%;
+}
+
+.social-eng-block .social-eng-toggles .social-eng-toggle{
+    z-index: 99999;
     background-color: var(--eng-toggle-bg);
     color:var(--eng-toggle-color);
     border-radius: 50%;
@@ -169,21 +180,12 @@
     justify-content: center;
     align-items: center;
     font-family: FontAwesome;
-    font-size: 1.3em;
+    font-size: 1.3rem;
     cursor: pointer;
+    margin: 0.5rem 0;
 }
 
-.social.right .social-eng-block .social-eng-toggle{
-    left:initial;
-    right:105%;
-}
-
-.social-eng-block .social-eng-toggle::after{
-    content: "\f0c9";
-}
-
-.social-eng-block .social-eng-toggle.active{
-    right:26vw;
+.social-eng-block .social-eng-toggles .social-eng-toggle.active{
     background-color: var(--eng-toggle-active-bg);
     color:var(--eng-toggle-active-color);
 }
@@ -192,7 +194,7 @@
     content: "\f00d";
 }
 
-.social-eng-block .social-eng-toggle:hover{
+.social-eng-block .social-eng-toggles .social-eng-toggle:hover{
     background-color: var(--eng-toggle-hover-bg);
     color:var(--eng-toggle-hover-color);
 }

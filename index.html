@@ -114,8 +114,12 @@
                     <timeline data="data.timeline" edit="edit"></timeline>
                 </div>
                 <div class="social-eng-toggles">
-                    <div class="social-eng-toggle" ng-if="edit" ng-click="toggleAlignment()"></div>
-                    <div class="social-eng-toggle" ng-if="data.settings.allowToggle && !edit" ng-click="toggleEng()"></div>
+                    <div class="social-eng-toggle" ng-if="edit" ng-click="toggleAlignment()">
+                        <i class="fa fa-arrows-h" aria-hidden="true"></i>
+                    </div>
+                    <div class="social-eng-toggle" ng-if="data.settings.allowToggle" ng-click="toggleEng()">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </div>
                 </div>
             </div>
             <div class="social-video-block" ng-show="engVisibility">
