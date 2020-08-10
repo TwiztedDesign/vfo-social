@@ -46,6 +46,113 @@ body{
     resize: vertical;
 }
 
+.vff-overlay .edit-text::placeholder {
+    color: inherit;
+    opacity: 0.5;
+  }
+
+.vff-overlay .edit-text::-webkit-scrollbar {
+    all:unset;
+}
+
+.vff-overlay .edit-text::-webkit-scrollbar {
+    width: 5px;
+}
+
+.vff-overlay .edit-text::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.vff-overlay .edit-text::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+.vff-overlay .edit-text::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+
+
+
+
+
+
+
+.vff-overlay .image-browser{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.vff-overlay .image-browser img{
+    width: 100%;
+    height: auto;
+}
+
+.vff-overlay .image-browser img.vertical-fit{
+    width: auto;
+    height: 100%;
+}
+
+.vff-overlay .image-browser .image-browser-menu{
+    display: none;
+    position: absolute;
+}
+
+.vff-overlay .image-browser:hover .image-browser-menu{
+    display: flex;
+}
+
+.vff-overlay .image-browser .image-browser-menu.static{
+    display: flex;
+    position: relative;
+}
+
+.vff-overlay .image-browser .image-browser-menu .image-browser-menu-button{
+    width: 3rem;
+    height: 3rem;
+    background-color: #fff;
+    color:#0095FF;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+}
+
+.vff-overlay .image-browser .image-browser-menu .image-browser-menu-button.loading i{
+    display: none;
+}
+
+.vff-overlay .image-browser .image-browser-menu .image-browser-menu-button .loader{
+    display: none;
+}
+
+.vff-overlay .image-browser .image-browser-menu .image-browser-button.loading .loader{
+    display: flex;
+}
+
+.vff-overlay .image-browser .image-browser-menu .image-browser-menu-button:hover{
+    color: #fff;
+    background-color:#0095FF;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+    html{
+        font-size: 8px;
+    }
+  }
+
+@media screen and (max-width: 600px) {
+    html{
+        font-size: 6px;
+    }
+  }
+
 @media (orientation: portrait) {
     html{
         font-size: 3vw;

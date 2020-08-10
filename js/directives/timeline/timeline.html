@@ -3,33 +3,41 @@
         <div class="tl-item" ng-repeat="item in data.items">
             <div class="tl-item-menu" ng-if="edit">
                 <div class="tl-item-menu-button sort-handle">
-                    <i class="fa fa-arrows-v" aria-hidden="true"></i>
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <div class="tl-item-menu-button-tooltip">Drag to reorder</div>
                 </div>
                 <div class="tl-item-menu-button" ng-click="duplicate(item)">
                     <i class="fa fa-clone" aria-hidden="true"></i>
+                    <div class="tl-item-menu-button-tooltip">Duplicate item</div>
                 </div>
                 <div class="tl-item-menu-button" ng-click="remove(item)">
                     <i class="fa fa-trash" aria-hidden="true"></i>
+                    <div class="tl-item-menu-button-tooltip">Remove item</div>
                 </div>
                 <div class="tl-item-menu-button" ng-click="getTime(item)">
-                    <i class="fa fa-save" aria-hidden="true"></i>
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <div class="tl-item-menu-button-tooltip">Set timestamp</div>
+                </div>
+                <div class="tl-item-menu-button" ng-click="toggleItemsMenu()">
+                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    <div class="tl-item-menu-button-tooltip">Style</div>
                 </div>
             </div>
             <div class="tl-item-content">
-                <div class="tl-item-imgs-wrap" ng-if="false">
-                    <div class="tl-item-imgs" sortable="item.imgs">
-                        <div class="tl-item-img" ng-class="{'sort-handle':edit}" ng-repeat="img in item.imgs" >
+                <div class="tl-item-avatars-wrap" ng-if="data.showAvatars">
+                    <div class="tl-item-avatars" sortable="item.imgs">
+                        <div class="tl-item-avatar" ng-class="{'sort-handle':edit}" ng-repeat="img in item.imgs" >
                             <img ng-src="{{img}}"/>
                         </div>
                         <div class="tl-item-img" ng-class="{'sort-handle':edit}" ng-if="(!item.imgs || item.imgs.length===0) && !edit"></div>
                     </div>
-                    <div class="tl-item-imgs-menu" ng-if="edit">
-                        <div class="tl-item-imgs-menu-item">
+                    <div class="tl-item-avatars-menu" ng-if="edit">
+                        <div class="tl-item-avatars-menu-item">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
-                <div class="tl-item-time">
+                <div class="tl-item-time" ng-if="data.showTimestamps">
                     <div class="tl-item-time-wrap">
                         <span class="tl-item-time-content">{{item.time | timecode}}</span>
                         <span class="tl-item-time-placeholder">00:00:00</span>
@@ -38,79 +46,31 @@
                 <div class="tl-item-info">
                     <div class="tl-item-header" ng-if="edit?true:item.header && item.header!==''">
                         <span ng-if="!edit">{{item.header}}</span>
-                        <input ng-model="item.header" ng-if="edit" class="edit-text"/>
+                        <input placeholder="Title" ng-model="item.header" ng-if="edit" class="edit-text"/>
                     </div>
                     <div class="tl-item-img" ng-if="edit?true:item.img && item.img!==''">
-<!--                        <img ng-if="item.img && item.img!==''" ng-src="{{item.img}}"/>-->
-                        <div class="tl-item-img-new" ng-if="edit" value="item.img" image-browser>
-                            <i class="fa fa-picture-o" aria-hidden="true"></i>
+                        <img ng-if="item.img && item.img!==''" ng-src="{{item.img}}"/>
+                        <div class="tl-item-img-menu" ng-class="{static:!item.img && item.img===''}" ng-if="edit">
+                            <div class="tl-item-img-menu-button" ng-if="edit" value="item.img" image-browser>
+                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                <i class="fa fa-cog fa-spin loader"></i>
+                            </div>
+                            <div class="tl-item-img-menu-button" ng-if="edit && item.img && item.img!==''" ng-click="clearImage(item)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </div>
                         </div>
-                        <div class="ti-item-img-remove" ng-if="edit && item.img && item.img!==''" ng-click="clearImage(item)">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-
-<!--                        Both Work, use any one of them-->
-<!--                        <div value="item.color" color-picker></div>-->
-<!--                        <color-picker value="item.color"></color-picker>-->
-
-<!--                        <image-browser value="item.img" ng-if="edit && (!item.img || item.img==='')"></image-browser>-->
                     </div>
                     <div class="tl-item-desc" ng-if="edit?true:item.desc && item.desc!==''">
                         <span ng-if="!edit">{{item.desc}}</span>
-                        <textarea ng-model="item.desc" ng-if="edit" class="edit-text"></textarea>
+                        <textarea placeholder="Description" rows="5" ng-model="item.desc" ng-if="edit" class="edit-text"></textarea>
                     </div>
                     <div class="tl-item-cta" ng-if="edit?true:item.cta && item.cta!==''">
                         <span ng-if="!edit">{{item.cta}}</span>
-                        <input ng-model="item.cta" ng-if="edit" class="edit-text"/>
+                        <input placeholder="Call to Action" ng-model="item.cta" ng-if="edit" class="edit-text"/>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="style-editor scroll">
-        <div class="style-editor-column">
-            <div class="editor-block">
-                <label class="editor-block-title">Item background</label>
-                <color-picker value="style.timelineItemBg"></color-picker>
-            </div>
-            <div class="editor-block">
-                <label class="editor-block-title">Header background</label>
-                <color-picker value="style.timelineItemHeaderBg"></color-picker>
-            </div>
-            <div class="editor-block">
-                <label class="editor-block-title">Header text</label>
-                <color-picker value="style.timelineItemHeaderColor"></color-picker>
-            </div>
-            <div class="editor-block">
-                <label class="editor-block-title">Description background</label>
-                <color-picker value="style.timelineItemDescBg"></color-picker>
-            </div>
-            <div class="editor-block">
-                <label class="editor-block-title">Description text</label>
-                <color-picker value="style.timelineItemDescColor"></color-picker>
-            </div>
-        </div>
-        <div class="style-editor-column">
-            <div class="editor-block">
-                <label class="editor-block-title">Call to action background</label>
-                <color-picker value="style.timelineItemCtaBg"></color-picker>
-            </div>
-            <div class="editor-block">
-                <label class="editor-block-title">Call to action text</label>
-                <color-picker value="style.timelineItemCtaColor"></color-picker>
-            </div>
-            <div class="editor-block">
-                <label class="editor-block-title">Time background</label>
-                <color-picker value="style.timelineItemTimeBg"></color-picker>
-            </div>
-            <div class="editor-block">
-                <label class="editor-block-title">Time text</label>
-                <color-picker value="style.timelineItemTimeColor"></color-picker>
-            </div>
-            <div class="editor-block">
-                <label class="editor-block-title">Time dash</label>
-                <color-picker value="style.timelineItemTimeDashColor"></color-picker>
-            </div>
+            <div class="tl-item-click" ng-click="gotoTime(item.time)" ng-if="!edit"></div>
         </div>
     </div>
     <div class="tl-menu" ng-if="edit">
@@ -119,8 +79,77 @@
             <span>New item</span>
         </div>
         <div class="tl-menu-item" ng-click="save()">
-            <i class="fa fa-save" aria-hidden="true"></i>
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
             <span>Save</span>
         </div>
+    </div>
+    <div class="style-editor scroll" ng-if="itemsMenu && edit">
+        <div class="style-editor-columns">
+            <div class="style-editor-column">
+                <div class="editor-block">
+                    <input type="checkbox" id="showTmeline" ng-model="data.visible">
+                    <label for="showTmeline">Show timeline</label>
+                </div>
+                <div class="editor-block">
+                    <input type="checkbox" id="showAvatars" ng-model="data.showAvatars">
+                    <label for="showAvatars">Show avatars</label>
+                </div>
+                <div class="editor-block">
+                    <input type="checkbox" id="showTimestamps" ng-model="data.showTimestamps">
+                    <label for="showTimestamps">Show timestamps</label>
+                </div>
+            </div>
+        </div>
+        <div class="style-editor-columns">
+            <div class="style-editor-column">
+                <div class="editor-block">
+                    <label class="editor-block-title">Item background</label>
+                    <color-picker value="style.timelineItemBg"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Header background</label>
+                    <color-picker value="style.timelineItemHeaderBg"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Header text</label>
+                    <color-picker value="style.timelineItemHeaderColor"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Description background</label>
+                    <color-picker value="style.timelineItemDescBg"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Description text</label>
+                    <color-picker value="style.timelineItemDescColor"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Items spacing</label>
+                    <input type="range" min="0" max="10" step="0.1" transform="{0}rem" ng-model="style.timelineItemSpacing"/>
+                </div>
+            </div>
+            <div class="style-editor-column">
+                <div class="editor-block">
+                    <label class="editor-block-title">Call to action background</label>
+                    <color-picker value="style.timelineItemCtaBg"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Call to action text</label>
+                    <color-picker value="style.timelineItemCtaColor"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Time background</label>
+                    <color-picker value="style.timelineItemTimeBg"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Time text</label>
+                    <color-picker value="style.timelineItemTimeColor"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Time dash</label>
+                    <color-picker value="style.timelineItemTimeDashColor"></color-picker>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

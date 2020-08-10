@@ -17,6 +17,11 @@
     --tweet-time-color:#fff;
 }
 
+.twitter-tab.active{
+    background:var(--twitter-tab-active-bg);
+    color:var(--twitter-tab-active-color);
+}
+
 .tweet {
     display: flex;
     flex-direction: column;

@@ -6,11 +6,13 @@ angular.module('socialApp',[])
         $scope.edit = false;
         $scope.ready = false;
         $scope.engVisibility=true;
+        $scope.tabsMenu=false;
 
-        $scope.data.timeline = $scope.data.timeline ||  
+        $scope.data.timeline = vff.state.data.timeline ||  
         {        
             visible:true,
             showAvatars:false,
+            showTimestamps:false,
             items:[
                 {
                     imgs:[],
@@ -23,12 +25,17 @@ angular.module('socialApp',[])
             ]
         }
 
-        $scope.data.settings = $scope.data.settings || 
+        $scope.data.settings = vff.state.data.settings || 
         {
             contentAlign:'left',
             allowToggle:true,
             resizeVideo:true,
-            bgImage:''
+            bgImage:'',
+            header:{
+                logo:'',
+                title:'',
+                subtitle:''
+            }
         }
 
         $scope.twitter =[];
@@ -53,12 +60,27 @@ angular.module('socialApp',[])
             }
         }
 
+        $scope.save = function(){
+            vff.state.take();
+        }
+
+        $scope.toggleTabsMenu = function(){
+            if($scope.tabsMenu){
+                $scope.save();
+            }
+            $scope.tabsMenu = !$scope.tabsMenu;
+        }
+
+        $scope.saveTabsSettings = function(){
+            $scope.tabsMenu = false;
+            $scope.save();
+        }
+
         vff.ready(()=>{
             $scope.edit = vff.isController();
-            $scope.$apply();
-
             handleOrientation();
             $scope.ready = true;
+            $scope.$apply();
         });
 
         vff.state.on(e => {

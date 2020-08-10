@@ -9,7 +9,7 @@ angular.module('socialApp')
                 edit: '='
             },
             link: function (scope) {
-
+                scope.itemsMenu=false;
                 let newItem = {
                     imgs:[],
                     header:"",
@@ -27,11 +27,13 @@ angular.module('socialApp')
 
                 scope.duplicate = function(item){
                     //Use angular.toJson to strip $$hashKey (default track by value) from the object forcing the ng-repeat to create a new one
-                    scope.data.items.push(JSON.parse(angular.toJson(item)));
+                    scope.data.items.splice(scope.data.items.indexOf(item),0,JSON.parse(angular.toJson(item)));
                 }
 
                 scope.remove = function(item){
-                    scope.data.items.splice(scope.data.items.indexOf(item),1);
+                    if (window.confirm("Delete current item?")) { 
+                        scope.data.items.splice(scope.data.items.indexOf(item),1);
+                    }
                 }
 
                 scope.clearImage = function(item){
@@ -49,7 +51,15 @@ angular.module('socialApp')
                 };
 
                 scope.save = function(){
+                    scope.itemsMenu=false;
                     vff.state.take();
+                }
+
+                scope.toggleItemsMenu = function(){
+                    if(scope.itemsMenu){
+                        vff.state.take();
+                    }
+                    scope.itemsMenu = !scope.itemsMenu;
                 }
             }
         }

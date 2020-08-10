@@ -26,31 +26,31 @@ angular.module('socialApp')
 
 
                 let inputElement = document.createElement('input');
-                let imageElement = document.createElement('img');
+                // let imageElement = document.createElement('img');
                 let errorElement = document.createElement('div');
-                let previewOn = false;
+                // let previewOn = false;
                 let error = false;
                 if(scope.value){
-                    imageElement.src = scope.value;
-                    element.after(imageElement);
-                    previewOn = true;
+                    //imageElement.src = scope.value;
+                    // element.after(imageElement);
+                    // previewOn = true;
                 }
 
                 scope.$watch('value', () => {
-                    imageElement.src = scope.value;
+                    //imageElement.src = scope.value;
                 });
 
 
-                function readFileAsync(file) {
-                    return new Promise((resolve, reject) => {
-                        let reader = new FileReader();
-                        reader.onload = () => {
-                            resolve(reader.result);
-                        };
-                        reader.onerror = reject;
-                        reader.readAsDataURL(file);
-                    })
-                }
+                // function readFileAsync(file) {
+                //     return new Promise((resolve, reject) => {
+                //         let reader = new FileReader();
+                //         reader.onload = () => {
+                //             resolve(reader.result);
+                //         };
+                //         reader.onerror = reject;
+                //         reader.readAsDataURL(file);
+                //     })
+                // }
 
 
                 function handleFiles() {
@@ -67,19 +67,21 @@ angular.module('socialApp')
 
                     }
 
+                    element.addClass('loading');
 
 
                     vff.state.upload(file, (e)=>{
                         console.log("upload file", e);
-                        readFileAsync(file).then(base64 => {
-                            imageElement.src = base64;
-                            if(!previewOn){
-                                element.after(imageElement);
-                            }
-                        });
+                        // readFileAsync(file).then(base64 => {
+                        //     imageElement.src = base64;
+                        //     if(!previewOn){
+                        //         element.after(imageElement);
+                        //     }
+                        // });
                         UploadService.uploadFile(file, e.urls.uploadUrl, {
                             onSuccess : ()=> {
                                 scope.value = e.urls.cdnUrl;
+                                element.removeClass('loading');
                                 // imageElement.src = e.urls.cdnUrl;
                                 scope.$apply();
                             }

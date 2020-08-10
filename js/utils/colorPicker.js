@@ -30,7 +30,7 @@ angular.module('socialApp')
                     }
                 })
                 .on('init', instance => {
-
+                    scope.$apply();
                 })
                 .on('change', (color) => {
                     scope.value = color.toHEXA().toString();

@@ -14,18 +14,20 @@
 
     --eng-tab-header-bg:#333;
     --eng-tab-header-color:#fff;
+
+    --eng-width: 25vw;
 }
 
 .social-eng-block{
     display: flex;
     flex-direction: column;
-    width: 25vw;
+    width: var(--eng-width);
     position: relative;
-    transform: translateX(-25vw);
+    transform: translateX(calc(-1 * var(--eng-width)));
 }
 
 .social.right .social-eng-block{
-    transform: translateX(25vw);
+    transform: translateX(var(--eng-width));
 }
 
 .social-eng-block.active, .social.right .social-eng-block.active{
@@ -34,6 +36,40 @@
 
 .social-eng-block .social-eng-tabs{
     display: flex;
+    position: relative;
+}
+
+.social-eng-block .social-eng-tabs .social-eng-tabs-menu-toggle{
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color:#0095FF;
+    border-radius: 50%;
+    right:5%;
+    cursor: pointer;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+.social-eng-block .social-eng-tabs .social-eng-tabs-menu-toggle:hover{
+    color: #fff;
+    background-color:#0095FF;
+}
+
+.social-eng-block .social-eng-tabs .social-eng-tabs-menu{
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+    z-index: 500;
+    top: 100%;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
 }
 
 .social-eng-block .social-eng-tabs .social-eng-tab{

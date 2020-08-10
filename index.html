@@ -35,6 +35,7 @@
     <script src="js/utils/imageBrowser.js"></script>
     <script src="js/utils/imageBrowserAttr.js"></script>
     <script src="js/utils/colorPicker.js"></script>
+    <script src="js/utils/transform.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vff@1"></script>
 <!--    <script src="http://localhost:8081/vff.js"></script>-->
@@ -49,21 +50,99 @@
         <div class="social" ng-class="{right:data.settings.contentAlign==='right'}">          
             <div id="social-eng-block" class="social-eng-block" ng-class="{active:data.settings.allowToggle?engVisibility:true}">
                 <div class="social-eng-tabs" ng-if="edit?true:showTabs()">
-                    <a class="social-eng-tab" ng-if="edit?true:data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    <a class="social-eng-tab" ng-if="edit?true:data.timeline.visible" ng-class="{active:selectedTab==='timeline'}" ng-click="selectTab('timeline')"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                    <a class="social-eng-tab" ng-if="edit?true:data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')">
+                        <i class="fa fa-twitter" aria-hidden="true" ng-style="{opacity:data.twitter.visible?1:0.25}"></i>
+                    </a>
+                    <a class="social-eng-tab" ng-if="edit?true:data.timeline.visible" ng-class="{active:selectedTab==='timeline'}" ng-click="selectTab('timeline')">
+                        <i class="fa fa-bars" aria-hidden="true" ng-style="{opacity:data.timeline.visible?1:0.25}"></i>
+                    </a>
+                    <div class="social-eng-tabs-menu-toggle" ng-click="toggleTabsMenu()" ng-if="edit">
+                        <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    </div>
+                    <div class="social-eng-tabs-menu" ng-if="tabsMenu && edit">
+                        <div class="style-editor scroll">
+                            <h2><i class="fa fa-paint-brush" aria-hidden="true"></i>Tabs Style</h2>
+                            <div class="style-editor-columns">
+                                <div class="style-editor-column">
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Tab content background</label>
+                                        <color-picker value="style.engTabContentBg"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Tab background</label>
+                                        <color-picker value="style.engTabBg"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Tab color</label>
+                                        <color-picker value="style.engTabColor"></color-picker>
+                                    </div>
+                                </div>
+                                <div class="style-editor-column">
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Tab hover bg</label>
+                                        <color-picker value="style.engTabHoverBg"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Tab hover color</label>
+                                        <color-picker value="style.engTabHoverColor"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Tab active bg</label>
+                                        <color-picker value="style.engTabActiveBg"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Tab active color</label>
+                                        <color-picker value="style.engTabActiveColor"></color-picker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="style-editor">
+                            <div class="style-editor-menu">
+                                <div class="style-editor-menu-item" ng-click="saveTabsSettings()">
+                                    <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                    <span>Save</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="social-eng-tab-content" ng-if="selectedTab==='twitter'">
+                <div class="social-eng-tab-content" ng-if="selectedTab==='twitter' && (data.twitter.visible || edit)">
                     <twitter data="data.twitter"></twitter>
                 </div>
-                <div class="social-eng-tab-content" ng-show="selectedTab==='timeline'">
-                    <timeline data="data.timeline" edit="edit" ></timeline>
+                <div class="social-eng-tab-content" ng-show="selectedTab==='timeline' && (data.timeline.visible || edit)">
+                    <timeline data="data.timeline" edit="edit"></timeline>
                 </div>
-                <div class="social-eng-toggle" ng-if="data.settings.allowToggle" ng-click="toggleEng()">
-                    
+                <div class="social-eng-toggles">
+                    <div class="social-eng-toggle" ng-if="edit" ng-click="toggleAlignment()"></div>
+                    <div class="social-eng-toggle" ng-if="data.settings.allowToggle && !edit" ng-click="toggleEng()"></div>
                 </div>
             </div>
-            <div class="social-video-block">
-                
+            <div class="social-video-block" ng-show="engVisibility">
+                <div class="social-header">
+                    <div class="social-header-logo image-browser">
+                        <img class="vertical-fit" ng-if="data.settings.header.logo && data.settings.header.logo!==''" ng-src="{{data.settings.header.logo}}"/>
+                        <div class="image-browser-menu" ng-class="{static:!data.settings.header.logo && data.settings.header.logo===''}" ng-if="edit">
+                            <div class="image-browser-menu-button" ng-if="edit" value="data.settings.header.logo" image-browser>
+                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                <i class="fa fa-cog fa-spin loader"></i>
+                            </div>
+                            <div class="image-browser-menu-button" ng-if="edit && data.settings.header.logo && data.settings.header.logo!==''" ng-click="clearHeaderLogo()">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-header-text">
+                        <div class="social-header-title" ng-if="edit || (data.settings.header.title && data.settings.header.title!=='')">
+                            <span ng-if="!edit">{{data.settings.header.title}}</span>
+                            <input placeholder="Header Text" ng-model="data.settings.header.title" ng-if="edit" class="edit-text"/>
+                        </div>
+                        <div class="social-header-subtitle" ng-if="edit || (data.settings.header.subtitle && data.settings.header.subtitle!=='')">
+                            <span ng-if="!edit">{{data.settings.header.subtitle}}</span>
+                            <input placeholder="Header Text" ng-model="data.settings.header.subtitle" ng-if="edit" class="edit-text"/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
