@@ -21,10 +21,15 @@ angular.module('socialApp')
                 let integrationKey = 'BJl4MiIt0IrybVGsIFALBJf4fjUKA8';
                 function getTweets(){
                     return new Promise((resolve, reject) => {
-                        $http.get(`https://www.videoflow.io/ext/${integrationKey}/tweets?handle=${scope.data.handle}`).then(res => {
-                            let tweets = res.data.data;
-                            resolve(tweets);
-                        }, reject);
+                        if(scope.data.handle && scope.data.handle!==''){
+                            $http.get(`https://www.videoflow.io/ext/${integrationKey}/tweets?handle=${scope.data.handle}`).then(res => {
+                                let tweets = res.data.data;
+                                resolve(tweets);
+                            }, reject);
+                        }
+                        else{
+                            resolve([]);
+                        }
                     })
                 }
         

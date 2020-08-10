@@ -207,7 +207,7 @@
                                     </div>
                                     <div class="editor-block">
                                         <label class="editor-block-title">Twitter handle</label>
-                                        <input ng-model="temp.twitterHandle" value="{{data.twitter.handle}}"/>
+                                        <input ng-model="temp.twitterHandle"/>
                                         <div class="refresh-button" ng-click="setTwitterHandle()">
                                             <i class="fa fa-refresh" aria-hidden="true"></i>
                                         </div>
@@ -328,6 +328,7 @@
                                 <i class="fa fa-cog fa-spin loader"></i>
                                 <span>Background Image</span>
                             </div>
+                            <color-picker value="style.engBg"></color-picker>
                             <div class="image-browser-menu-button" ng-if="edit && data.settings.bgImage && data.settings.bgImage!==''" ng-click="clearBg()">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </div>

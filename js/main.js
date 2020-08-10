@@ -21,7 +21,7 @@ angular.module('socialApp',[])
         $scope.data.twitter = vff.state.data.twitter ||  
         {        
             visible:true,
-            handle:'nuggets',
+            handle:'',
             appKey:''
         }
 
