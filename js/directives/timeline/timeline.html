@@ -39,8 +39,9 @@
                 </div>
                 <div class="tl-item-time" ng-if="data.showTimestamps">
                     <div class="tl-item-time-wrap">
-                        <span class="tl-item-time-content">{{item.time | timecode}}</span>
+                        <span class="tl-item-time-content" ng-if="!edit">{{item.time | timecode}}</span>
                         <span class="tl-item-time-placeholder">00:00:00</span>
+                        <input ng-model="item.time" ng-if="edit" class="edit-text" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;"/>
                     </div>
                 </div>
                 <div class="tl-item-info">
@@ -90,10 +91,10 @@
                     <input type="checkbox" id="showTmeline" ng-model="data.visible">
                     <label for="showTmeline">Show timeline</label>
                 </div>
-                <div class="editor-block">
+                <!-- <div class="editor-block">
                     <input type="checkbox" id="showAvatars" ng-model="data.showAvatars">
                     <label for="showAvatars">Show avatars</label>
-                </div>
+                </div> -->
                 <div class="editor-block">
                     <input type="checkbox" id="showTimestamps" ng-model="data.showTimestamps">
                     <label for="showTimestamps">Show timestamps</label>

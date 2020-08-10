@@ -38,11 +38,11 @@
     display: flex;
     height: calc(var(--eng-width) / 1.778 / 2 );
     align-items: center;
-    padding: 2rem;
+    padding: 0 4rem;
 }
 
 .social-video-block .social-header .social-header-logo{
-    height: 100%;
+    height: 40%;
 }
 
 @media (orientation: portrait) {

@@ -87,6 +87,7 @@
     position: absolute;
     top:5px;
     left:5px;
+    font-size: 16px;
 }
 
 .timeline .tl-item .tl-item-menu .tl-item-menu-button{
@@ -236,16 +237,19 @@
     padding: 0.25rem 0.5rem;
     position: relative;
     font-size: 1rem;
+    text-align: center;
 }
 .timeline .tl-item .tl-item-content .tl-item-time .tl-item-time-wrap .tl-item-time-content{
     color:inherit;
     font-size: inherit;
     position: absolute;
+    text-align: inherit;
 }
 
 .timeline .tl-item .tl-item-content .tl-item-time .tl-item-time-wrap .tl-item-time-placeholder{
     color:transparent;
     font-size: inherit;
+    text-align: inherit;
     opacity: 0;
 }
 

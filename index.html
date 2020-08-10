@@ -36,6 +36,8 @@
     <script src="js/utils/imageBrowserAttr.js"></script>
     <script src="js/utils/colorPicker.js"></script>
     <script src="js/utils/transform.js"></script>
+    <script src="js/utils/themes.js"></script>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/vff@1"></script>
 <!--    <script src="http://localhost:8081/vff.js"></script>-->
@@ -45,7 +47,7 @@
     <script src="js/directives/timeline/timeline.js"></script>
 </head>
 <body class="vff-overlay" ng-app="socialApp" ng-controller="socialController" ng-show="ready">
-    <div id="background" ng-class="{right:data.settings.contentAlign==='right'}" ng-style="{'background-image':'url('+data.bgImage+')'}"></div>
+    <div id="background" ng-class="{right:data.settings.contentAlign==='right'}" ng-style="{'background-image':'url('+data.settings.bgImage+')'}"></div>
     <div class="vff-content">
         <div class="social" ng-class="{right:data.settings.contentAlign==='right'}">          
             <div id="social-eng-block" class="social-eng-block" ng-class="{active:data.settings.allowToggle?engVisibility:true}">
@@ -56,9 +58,6 @@
                     <a class="social-eng-tab" ng-if="edit?true:data.timeline.visible" ng-class="{active:selectedTab==='timeline'}" ng-click="selectTab('timeline')">
                         <i class="fa fa-bars" aria-hidden="true" ng-style="{opacity:data.timeline.visible?1:0.25}"></i>
                     </a>
-                    <div class="social-eng-tabs-menu-toggle" ng-click="toggleTabsMenu()" ng-if="edit">
-                        <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                    </div>
                     <div class="social-eng-tabs-menu" ng-if="tabsMenu && edit">
                         <div class="style-editor scroll">
                             <h2><i class="fa fa-paint-brush" aria-hidden="true"></i>Tabs Style</h2>
@@ -69,6 +68,24 @@
                                         <color-picker value="style.engTabContentBg"></color-picker>
                                     </div>
                                     <div class="editor-block">
+                                        <label class="editor-block-title">Toggle button background</label>
+                                        <color-picker value="style.engToggleBg"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Toggle botton color</label>
+                                        <color-picker value="style.engToggleColor"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Toggle button hover background</label>
+                                        <color-picker value="style.engToggleHoverBg"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Toggle botton hover color</label>
+                                        <color-picker value="style.engToggleHoverColor"></color-picker>
+                                    </div>
+                                </div>
+                                <div class="style-editor-column">
+                                    <div class="editor-block">
                                         <label class="editor-block-title">Tab background</label>
                                         <color-picker value="style.engTabBg"></color-picker>
                                     </div>
@@ -76,8 +93,6 @@
                                         <label class="editor-block-title">Tab color</label>
                                         <color-picker value="style.engTabColor"></color-picker>
                                     </div>
-                                </div>
-                                <div class="style-editor-column">
                                     <div class="editor-block">
                                         <label class="editor-block-title">Tab hover bg</label>
                                         <color-picker value="style.engTabHoverBg"></color-picker>
@@ -96,6 +111,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- <div class="style-editor-columns">
+                                <div class="style-editor-column">
+                                    <div class="style-theme" ng-repeat="(key, value) in themes">
+                                        <div class="style-theme-colors" style="display: flex;" ng-click="applyTheme(value)">
+                                            <div class="style-theme-color" ng-repeat="color in value track by $index" ng-style="{'background-color':color}" style="width:30px;height:30px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
                         </div>
                         <div class="style-editor">
                             <div class="style-editor-menu">
@@ -114,8 +138,13 @@
                     <timeline data="data.timeline" edit="edit"></timeline>
                 </div>
                 <div class="social-eng-toggles">
-                    <div class="social-eng-toggle" ng-if="edit" ng-click="toggleAlignment()">
+                    <div class="social-eng-toggle edit" ng-if="edit" ng-click="toggleTabsMenu()">
+                        <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                        <span>Edit Styles</span>
+                    </div>
+                    <div class="social-eng-toggle edit" ng-if="edit" ng-click="toggleAlignment()">
                         <i class="fa fa-arrows-h" aria-hidden="true"></i>
+                        <span>Change Alignment</span>
                     </div>
                     <div class="social-eng-toggle" ng-if="data.settings.allowToggle" ng-click="toggleEng()">
                         <i class="fa fa-bars" aria-hidden="true"></i>
@@ -130,13 +159,14 @@
                             <div class="image-browser-menu-button" ng-if="edit" value="data.settings.header.logo" image-browser>
                                 <i class="fa fa-picture-o" aria-hidden="true"></i>
                                 <i class="fa fa-cog fa-spin loader"></i>
+                                <span>Logo</span>
                             </div>
                             <div class="image-browser-menu-button" ng-if="edit && data.settings.header.logo && data.settings.header.logo!==''" ng-click="clearHeaderLogo()">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="social-header-text">
+                    <!-- <div class="social-header-text">
                         <div class="social-header-title" ng-if="edit || (data.settings.header.title && data.settings.header.title!=='')">
                             <span ng-if="!edit">{{data.settings.header.title}}</span>
                             <input placeholder="Header Text" ng-model="data.settings.header.title" ng-if="edit" class="edit-text"/>
@@ -144,6 +174,18 @@
                         <div class="social-header-subtitle" ng-if="edit || (data.settings.header.subtitle && data.settings.header.subtitle!=='')">
                             <span ng-if="!edit">{{data.settings.header.subtitle}}</span>
                             <input placeholder="Header Text" ng-model="data.settings.header.subtitle" ng-if="edit" class="edit-text"/>
+                        </div>
+                    </div> -->
+                    <div class="image-browser" style="position: absolute;right:10px;">
+                        <div class="image-browser-menu always-show" ng-class="{static:!data.settings.bgImage && data.settings.bgImage===''}" ng-if="edit">
+                            <div class="image-browser-menu-button" ng-if="edit" value="data.settings.bgImage" image-browser>
+                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                <i class="fa fa-cog fa-spin loader"></i>
+                                <span>Background Image</span>
+                            </div>
+                            <div class="image-browser-menu-button" ng-if="edit && data.settings.bgImage && data.settings.bgImage!==''" ng-click="clearBg()">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
                 </div>

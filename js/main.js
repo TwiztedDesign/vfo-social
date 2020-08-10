@@ -7,6 +7,7 @@ angular.module('socialApp',[])
         $scope.ready = false;
         $scope.engVisibility=true;
         $scope.tabsMenu=false;
+        $scope.themes = themes;
 
         $scope.data.timeline = vff.state.data.timeline ||  
         {        
@@ -69,6 +70,8 @@ angular.module('socialApp',[])
                 $scope.save();
             }
             $scope.tabsMenu = !$scope.tabsMenu;
+            $scope.engVisibility = true;
+            handleOrientation();   
         }
 
         $scope.saveTabsSettings = function(){
@@ -82,7 +85,26 @@ angular.module('socialApp',[])
             }else{
                 $scope.data.settings.contentAlign='right';
             }
-            handleOrientation();
+            $scope.engVisibility = true;
+            handleOrientation();        
+        }
+
+        $scope.clearHeaderLogo = function(){
+            $scope.data.settings.header.logo='';
+        }
+
+        $scope.clearBg = function(){
+            $scope.data.settings.bgImage='';
+        }
+
+        $scope.applyTheme = function(theme){
+            $scope.style.engTabBg = theme[1];
+            $scope.style.engTabColor = theme[2];
+            $scope.style.engTabHoverBg = theme[3];
+            $scope.style.engTabHoverColor = theme[4];
+            $scope.style.engTabActiveBg = theme[3];
+            $scope.style.engTabActiveColor = theme[4];
+            $scope.style.engTabContentBg = theme[0];
         }
 
         vff.ready(()=>{
