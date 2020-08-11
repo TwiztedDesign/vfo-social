@@ -18,7 +18,7 @@ angular.module('socialApp')
                     cta:""
                 }
 
-                scope.style = vff.state.data.__style;
+                scope.style = vff.style;
 
                 scope.newItem = function(){
                     scope.data.items.push(JSON.parse(JSON.stringify(newItem)));
@@ -40,19 +40,16 @@ angular.module('socialApp')
                 }
 
                 scope.getTime = function(item){
-                    vff.controller.currentTime().then(time => {
-                        item.time = time;
-                        scope.$apply();
-                    });
+                    item.time = vff.video.currentTime;
                 };
                 scope.gotoTime = function(seconds){
                     try { seconds = parseFloat(seconds);} catch (e) { }
-                    vff.controller.go(seconds);
+                    vff.video.goTo(seconds);
                 };
 
                 scope.save = function(){
                     scope.itemsMenu=false;
-                    vff.state.take();
+                    vff.send();
                 }
             }
         }

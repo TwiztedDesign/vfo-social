@@ -1,8 +1,8 @@
 angular.module('socialApp',[])
     .controller('socialController', ['$scope','$http', function($scope, $http) {
         $scope.selectedTab = 'timeline';
-        $scope.data = vff.state.data;
-        $scope.style = vff.state.data.__style;
+        $scope.data = vff.state;
+        $scope.style = vff.style
         $scope.edit = false;
         $scope.ready = false;
         $scope.engVisibility=true;
@@ -10,7 +10,7 @@ angular.module('socialApp',[])
         $scope.selectedSettings='';
         $scope.themes = themes;
 
-        $scope.data.timeline = vff.state.data.timeline ||  
+        $scope.data.timeline = vff.state.timeline ||
         {        
             visible:true,
             showAvatars:false,
@@ -18,14 +18,14 @@ angular.module('socialApp',[])
             items:[]
         }
 
-        $scope.data.twitter = vff.state.data.twitter ||  
+        $scope.data.twitter = vff.state.twitter ||
         {        
             visible:true,
             handle:'',
             appKey:''
         }
 
-        $scope.data.settings = vff.state.data.settings || 
+        $scope.data.settings = vff.state.settings ||
         {
             contentAlign:'left',
             allowToggle:true,
@@ -65,7 +65,7 @@ angular.module('socialApp',[])
         }
 
         $scope.save = function(){
-            vff.state.take();
+            vff.send();
         }
 
         $scope.toggleSettingsMenu = function(menu){
@@ -127,7 +127,7 @@ angular.module('socialApp',[])
             $scope.$apply();
         });
 
-        vff.state.on(e => {
+        vff.onStateChange(e => {
             handleOrientation();
             $scope.temp.twitterHandle = $scope.data.twitter.handle;
             $scope.$apply();

@@ -70,7 +70,7 @@ angular.module('socialApp')
                     element.addClass('loading');
 
 
-                    vff.state.upload(file, (e)=>{
+                    vff.upload(file, (e)=>{
                         console.log("upload file", e);
                         // readFileAsync(file).then(base64 => {
                         //     imageElement.src = base64;
@@ -82,10 +82,10 @@ angular.module('socialApp')
                             onSuccess : ()=> {
                                 scope.value = e.urls.cdnUrl;
                                 element.removeClass('loading');
-                                // vff.state.take();
+                                // vff.send();
                                 // imageElement.src = e.urls.cdnUrl;
                                 scope.$apply();
-                                vff.state.take();
+                                vff.send();
                             }
                         })
                     },)

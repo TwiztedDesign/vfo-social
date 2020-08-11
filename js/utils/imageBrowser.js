@@ -18,7 +18,7 @@ angular.module('socialApp')
                 element[0].addEventListener('vff:change', function(event){
                     if(event.target.selectedFiles.length){
                         let file = event.detail.data[0];
-                        vff.state.upload(file, (e)=>{
+                        vff.upload(file, (e)=>{
                             console.log("upload file");
                             UploadService.uploadFile(file, e.urls.uploadUrl, {
                                 onSuccess : ()=> {
