@@ -11,31 +11,42 @@ angular.module('socialApp')
             },
             link            : function(scope, element){
 
-                // initialize 3d party color picker component
-                Pickr.create({
-                    el: element[0],
-                    theme: 'nano',
-                    // container: element.parent(),
-                    default: scope.value || '#00ff00',
-                    comparison: false,
-                    components: {
-                        // Main components
-                        preview: true,
-                        opacity: true,
-                        hue: true,
-                        // Input / output Options
-                        interaction: {
-                            input: true
-                        }
+                vff.colorpicker(element[0], {
+                    default : scope.value,
+                    onInit : () => {
+                        scope.$apply();
+                    },
+                    onChange : (color) => {
+                        scope.value = color.toHEXA().toString();
+                        scope.$apply();
                     }
                 })
-                .on('init', instance => {
-                    scope.$apply();
-                })
-                .on('change', (color) => {
-                    scope.value = color.toHEXA().toString();
-                    scope.$apply();
-                });
+
+                // initialize 3d party color picker component
+                // Pickr.create({
+                //     el: element[0],
+                //     theme: 'nano',
+                //     // container: element.parent(),
+                //     default: scope.value || '#00ff00',
+                //     comparison: false,
+                //     components: {
+                //         // Main components
+                //         preview: true,
+                //         opacity: true,
+                //         hue: true,
+                //         // Input / output Options
+                //         interaction: {
+                //             input: true
+                //         }
+                //     }
+                // })
+                // .on('init', instance => {
+                //     scope.$apply();
+                // })
+                // .on('change', (color) => {
+                //     scope.value = color.toHEXA().toString();
+                //     scope.$apply();
+                // });
             }
         };
     })
