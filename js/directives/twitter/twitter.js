@@ -2,7 +2,12 @@ angular.module('socialApp')
     .directive('twitter',function($http){
         return{
             restrict: 'E',
-            templateUrl:'/js/directives/twitter/twitter.html',
+            //templateUrl:'/js/directives/twitter/twitter.html',
+            template:`
+            <div class="tweets scroll">
+                <tweet tweet="tweet" ng-repeat="tweet in tweets"></tweet>
+            </div>
+            `,
             replace:true,
             scope:{
                 data : '=',
