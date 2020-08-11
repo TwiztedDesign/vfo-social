@@ -67,8 +67,16 @@
                     <div class="social-eng-tabs-menu" ng-if="settingsMenu && edit">
                         <div class="style-editor scroll" ng-if="selectedSettings==='general'">
                             <h2>General settings</h2>
+                            <div class="editor-block">
+                                <label class="editor-block-title">Toggle text</label>
+                                <input ng-model="data.settings.toggleText" />
+                            </div>
                             <div class="style-editor-columns">
                                 <div class="style-editor-column">
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Background</label>
+                                        <color-picker value="style.engBg"></color-picker>
+                                    </div>
                                     <div class="editor-block">
                                         <label class="editor-block-title">Tab content background</label>
                                         <color-picker value="style.engTabContentBg"></color-picker>
@@ -266,11 +274,11 @@
                             </div>
                             
                         </div>
-                        <div class="style-editor">
+                        <div class="style-editor" style="border-top:1px solid #ddd">
                             <div class="style-editor-menu">
                                 <div class="style-editor-menu-item" ng-click="saveSettings()">
                                     <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                                    <span>Save</span>
+                                    <span>Done</span>
                                 </div>
                             </div>
                         </div>
@@ -293,6 +301,7 @@
                     </div>
                     <div class="social-eng-toggle" ng-if="data.settings.allowToggle" ng-click="toggleEng()">
                         <i class="fa fa-bars" aria-hidden="true"></i>
+                        <span ng-if="data.settings.toggleText && data.settings.toggleText!==''">{{data.settings.toggleText}}</span>
                     </div>
                 </div>
             </div>
@@ -328,7 +337,6 @@
                                 <i class="fa fa-cog fa-spin loader"></i>
                                 <span>Background Image</span>
                             </div>
-                            <color-picker value="style.engBg"></color-picker>
                             <div class="image-browser-menu-button" ng-if="edit && data.settings.bgImage && data.settings.bgImage!==''" ng-click="clearBg()">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </div>
