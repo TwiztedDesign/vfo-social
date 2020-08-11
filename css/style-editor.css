@@ -65,3 +65,22 @@
     color:#fff;
     background-color:#0095FF;
 }
+
+.style-editor .editor-button{
+    display: flex;
+    background: #0095FF;
+    color:#fff;
+    height: 2rem;
+    min-width: 2rem;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.style-editor .editor-button i{
+    margin: 0;;
+}
+
+.style-editor .editor-button:hover{
+    background-color: #43b1ff;
+}

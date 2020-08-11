@@ -30,7 +30,7 @@ angular.module('socialApp',[])
             contentAlign:'left',
             allowToggle:true,
             resizeVideo:true,
-            toggleText:'Toggle Interactivity',
+            toggleText:'Toggle Egagement',
             bgImage:'',
             header:{
                 logo:'',
