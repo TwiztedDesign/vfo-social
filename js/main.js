@@ -126,6 +126,11 @@ angular.module('socialApp',[])
             $scope.ready = true;
             $scope.$apply();
         });
+        vff.onModeChange(() => {
+            $scope.edit = vff.isController();
+            handleOrientation();
+            $scope.$apply();
+        });
 
         vff.onStateChange(e => {
             handleOrientation();
