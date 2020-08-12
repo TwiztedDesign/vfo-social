@@ -12,7 +12,7 @@ angular.module('socialApp',[])
 
         $scope.data.timeline = vff.state.timeline ||
         {        
-            visible:true,
+            visible:false,
             showAvatars:false,
             showTimestamps:true,
             items:[]
@@ -20,7 +20,7 @@ angular.module('socialApp',[])
 
         $scope.data.twitter = vff.state.twitter ||
         {        
-            visible:true,
+            visible:false,
             handle:'',
             appKey:''
         }

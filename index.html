@@ -300,8 +300,10 @@
                         <span>Change Alignment</span>
                     </div>
                     <div class="social-eng-toggle" ng-if="data.settings.allowToggle" ng-click="toggleEng()">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                        <span ng-if="data.settings.toggleText && data.settings.toggleText!==''">{{data.settings.toggleText}}</span>
+                        <i class="fa fa-bars" aria-hidden="true" ng-if="!engVisibility"></i>
+                        <span ng-if="data.settings.toggleText && data.settings.toggleText!=='' && !engVisibility">{{data.settings.toggleText}}</span>
+                        <i class="fa fa-angle-double-left" aria-hidden="true" ng-if="engVisibility && data.settings.contentAlign==='left'"></i>
+                        <i class="fa fa-angle-double-right" aria-hidden="true" ng-if="engVisibility && data.settings.contentAlign==='right'"></i>
                     </div>
                 </div>
             </div>
