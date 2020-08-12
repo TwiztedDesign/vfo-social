@@ -234,6 +234,7 @@
 .timeline .tl-item .tl-item-content .tl-item-time .tl-item-time-wrap{
     background-color: var(--timeline-item-time-bg);
     color:var(--timeline-item-time-color);
+    border:1px solid var(--timeline-item-time-dash-color);
     padding: 0.25rem 0.5rem;
     position: relative;
     font-size: 1rem;
