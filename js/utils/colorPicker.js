@@ -7,7 +7,8 @@ angular.module('socialApp')
             template        : '<div></div>',
             replace         : true,
             scope           : {
-                value       : '='
+                value       : '=',
+                default     : '@'
             },
             link            : function(scope, element){
 
@@ -16,7 +17,7 @@ angular.module('socialApp')
                     el: element[0],
                     theme: 'nano',
                     // container: element.parent(),
-                    default: scope.value || '#00ff00',
+                    default: scope.value || scope.default || '#00ff00',
                     comparison: false,
                     components: {
                         // Main components
