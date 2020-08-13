@@ -12,9 +12,7 @@ angular.module('socialApp')
             link            : function(scope, element){
                 Inputmask({"mask": "99:99:99"}).mask(element[0]);
 
-
                 function format(seconds){
-
                     return new Date(seconds * 1000).toISOString().substr(11, 8);
                 }
                 function parse(hhmmss){
@@ -27,7 +25,7 @@ angular.module('socialApp')
 
                 scope.$watch('value', (value) => {
                     element[0].value = format(value);
-                })
+                });
 
                 element[0].addEventListener('input', () => {
                     scope.value = parse(element[0].value);
