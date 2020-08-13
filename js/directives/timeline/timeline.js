@@ -43,7 +43,8 @@ angular.module('socialApp')
                                 <div class="tl-item-time-wrap">
                                     <span class="tl-item-time-content" ng-if="!edit">{{item.time | timecode}}</span>
                                     <span class="tl-item-time-placeholder">00:00:00</span>
-                                    <input ng-model="item.time" ng-if="edit" class="edit-text" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;"/>
+<!--                                    <input time-input ng-model="item.time" ng-if="edit" class="edit-text time-input" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;"/>-->
+                                    <time-input value="item.time" ng-if="edit" class="edit-text" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;"/>
                                 </div>
                             </div>
                             <div class="tl-item-info">
