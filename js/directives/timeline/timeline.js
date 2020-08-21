@@ -1,5 +1,5 @@
 angular.module('socialApp')
-    .directive('timeline',function(){
+    .directive('timeline',function($window){
         return{
             restrict: 'E',
             //templateUrl:'/js/directives/timeline/timeline.html',
@@ -72,9 +72,16 @@ angular.module('socialApp')
                                     <span ng-if="!edit">{{item.cta}}</span>
                                     <input placeholder="Call to Action" ng-model="item.cta" ng-if="edit" class="edit-text"/>
                                 </div>
+                                <div class="tl-click-action" ng-if="edit">
+                                    <div class="toggle-group">
+                                        <span ng-click="item.clickAction='time'" ng-class="{active:item.clickAction==='time'}">Go to time</span>
+                                        <span ng-click="item.clickAction='link'" ng-class="{active:item.clickAction==='link'}">Go to link</span>
+                                    </div>
+                                    <input placeholder="Enter link URL here" type="text" class="tl-item-link-input" ng-if="item.clickAction==='link'" ng-model="item.link"/>
+                                </div>
                             </div>
                         </div>
-                        <div class="tl-item-click" ng-click="gotoTime(item.time)" ng-if="!edit"></div>
+                        <div class="tl-item-click" ng-click="itemClick(item)" ng-if="!edit"></div>
                     </div>
                 </div>
                 <div class="tl-menu" ng-if="edit">
@@ -101,7 +108,9 @@ angular.module('socialApp')
                     desc:"",
                     img: "",
                     time:0,
-                    cta:""
+                    cta:"",
+                    clickAction:'time',
+                    link:''
                 }
 
                 scope.style = vff.style;
@@ -128,9 +137,14 @@ angular.module('socialApp')
                 scope.getTime = function(item){
                     item.time = vff.video.currentTime;
                 };
-                scope.gotoTime = function(seconds){
-                    try { seconds = parseFloat(seconds);} catch (e) { }
-                    vff.video.goTo(seconds);
+                scope.itemClick = function(item){
+                    if(item.clickAction && item.clickAction==='link'){
+                        $window.open(item.link, '_blank');
+                    }else{
+                        let seconds = item.time;
+                        try { seconds = parseFloat(seconds);} catch (e) { }
+                        vff.video.goTo(seconds);
+                    }
                 };
 
                 scope.save = function(){

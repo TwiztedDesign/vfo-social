@@ -84,3 +84,29 @@
 .style-editor .editor-button:hover{
     background-color: #43b1ff;
 }
+
+.toggle-group{
+    display: flex;
+    min-height: 25px;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 12px;
+    background-color: rgba(0,0,0,.5);
+    cursor: pointer;
+}
+
+.toggle-group span{
+    min-width: 75px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    font-size: 14px;
+    flex:1;
+}
+
+.toggle-group span.active{
+    background-color: #0095ff;
+}
