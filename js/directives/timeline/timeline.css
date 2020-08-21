@@ -240,6 +240,9 @@
     position: relative;
     font-size: 1rem;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .timeline .tl-item .tl-item-content .tl-item-time .tl-item-time-wrap .tl-item-time-content{
     color:inherit;
