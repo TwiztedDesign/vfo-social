@@ -186,7 +186,7 @@ body{
         bottom: 0;
     }
 
-    .vff-overlay .vff-content:after{
+    .vff-overlay .vff-content .social-eng-block:after{
         content:'';
         position: absolute;
         height: 40px;

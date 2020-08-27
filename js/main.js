@@ -9,6 +9,14 @@ angular.module('socialApp',[])
         $scope.settingsMenu=false;
         $scope.selectedSettings='';
         $scope.themes = themes;
+        $scope.cameraSwitch=false;
+        $scope.isMobile = vff.isMobile;
+        $scope.selectedCamera = {
+            crop: [0,0,1,1]
+        }
+
+        console.log("mobile "+vff.isMobile);
+
 
         $scope.data.timeline = vff.state.timeline ||
         {        
@@ -25,12 +33,45 @@ angular.module('socialApp',[])
             appKey:''
         }
 
+        $scope.data.trivia = vff.state.trivia || {
+            visible:false,
+            time:30,
+            multipleQuestions:false,
+            items:[]
+        }
+
+        $scope.data.rss = vff.state.rss || {
+            url:'',
+            visible:false,
+        }
+
+        $scope.data.cameraSwitch = vff.state.cameraSwitch || {
+            cameras:[
+                {
+                    name:'Camera 1',
+                    crop: [0,0,0.5,0.5]
+                },
+                {
+                    name:'Camera 2',
+                    crop: [0.5,0,1,0.5]
+                },
+                {
+                    name:'Camera 3',
+                    crop: [0,0.5,0.5,1]
+                },
+                {
+                    name:'Camera 4',
+                    crop: [0.5,0.5,1,1]
+                }
+            ]
+        }
+
         $scope.data.settings = vff.state.settings ||
         {
             contentAlign:'left',
             allowToggle:true,
             resizeVideo:true,
-            toggleText:'Toggle Egagement',
+            toggleText:'Toggle Engagement',
             bgImage:'',
             header:{
                 logo:'',
@@ -50,6 +91,12 @@ angular.module('socialApp',[])
                 count++;
             }
             if($scope.data.twitter.visible){
+                count++;
+            }
+            if($scope.data.trivia.visible){
+                count++;
+            }
+            if($scope.data.rss.visible){
                 count++;
             }
             return count>1;
@@ -113,12 +160,19 @@ angular.module('socialApp',[])
             $scope.style.engTabContentBg = theme[0];
         }
 
+        $scope.switchCamera = function(camera){
+            $scope.selectedCamera = camera;
+            handleOrientation();
+        }
+
         $scope.temp={
             twitterHandle:''
         }
         $scope.setTwitterHandle = function(){
             $scope.data.twitter.handle = $scope.temp.twitterHandle;
         }
+
+        $scope.rssControl = {}
 
         vff.ready(()=>{
             $scope.edit = vff.isController();
@@ -136,21 +190,27 @@ angular.module('socialApp',[])
             handleOrientation();
             $scope.temp.twitterHandle = $scope.data.twitter.handle;
             $scope.$apply();
+            $scope.rssControl.fetch();
         });
 
+        vff.video.getInfo().then((video)=>{
+            $scope.cameraSwitch = video.metadata.cameraSwitch || false;
+            if($scope.cameraSwitch){
+                $scope.selectedCamera = $scope.data.cameraSwitch.cameras[0];
+            }
+        });
         
-
         let background = document.getElementById('background');
         function handleOrientation() {
             if (vff.isMobile || (!$scope.engVisibility && $scope.data.settings.allowToggle)) {
-                vff.transform(0,0,1,1,0);
+                vff.transform($scope.selectedCamera.crop[0],$scope.selectedCamera.crop[1],$scope.selectedCamera.crop[2],$scope.selectedCamera.crop[3],0);
                 background.style.display = 'none';
             } else {
                 background.style.display = 'block';
                 if($scope.data.settings.contentAlign==='right'){
-                    vff.transform(0,0,1,1,0, 0.125, 0.75, 0.875);
+                    vff.transform($scope.selectedCamera.crop[0],$scope.selectedCamera.crop[1],$scope.selectedCamera.crop[2],$scope.selectedCamera.crop[3],0, 0.125, 0.75, 0.875);
                 }else{
-                    vff.transform(0,0,1,1,0.25, 0.125, 1, 0.875);
+                    vff.transform($scope.selectedCamera.crop[0],$scope.selectedCamera.crop[1],$scope.selectedCamera.crop[2],$scope.selectedCamera.crop[3],0.25, 0.125, 1, 0.875);
                 }
             }
         }

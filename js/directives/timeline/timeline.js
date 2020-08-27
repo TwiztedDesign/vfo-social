@@ -7,22 +7,22 @@ angular.module('socialApp')
             <div class="timeline" ng-class="{edit:edit}" >
                 <div class="tl-items scroll" sortable="data.items">
                     <div class="tl-item" ng-repeat="item in data.items">
-                        <div class="tl-item-menu" ng-if="edit">
-                            <div class="tl-item-menu-button sort-handle">
+                        <div class="eng-item-menu" ng-if="edit">
+                            <div class="eng-item-menu-button sort-handle">
                                 <i class="fa fa-bars" aria-hidden="true"></i>
-                                <div class="tl-item-menu-button-tooltip">Drag to reorder</div>
+                                <div class="eng-item-menu-button-tooltip">Drag to reorder</div>
                             </div>
-                            <div class="tl-item-menu-button" ng-click="duplicate(item)">
+                            <div class="eng-item-menu-button" ng-click="duplicate(item)">
                                 <i class="fa fa-clone" aria-hidden="true"></i>
-                                <div class="tl-item-menu-button-tooltip">Duplicate item</div>
+                                <div class="eng-item-menu-button-tooltip">Duplicate item</div>
                             </div>
-                            <div class="tl-item-menu-button" ng-click="remove(item)">
+                            <div class="eng-item-menu-button" ng-click="remove(item)">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
-                                <div class="tl-item-menu-button-tooltip">Remove item</div>
+                                <div class="eng-item-menu-button-tooltip">Remove item</div>
                             </div>
-                            <div class="tl-item-menu-button" ng-click="getTime(item)">
+                            <div class="eng-item-menu-button" ng-click="getTime(item)">
                                 <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                <div class="tl-item-menu-button-tooltip">Set timestamp</div>
+                                <div class="eng-item-menu-button-tooltip">Set timestamp</div>
                             </div>
                         </div>
                         <div class="tl-item-content">
@@ -84,12 +84,12 @@ angular.module('socialApp')
                         <div class="tl-item-click" ng-click="itemClick(item)" ng-if="!edit"></div>
                     </div>
                 </div>
-                <div class="tl-menu" ng-if="edit">
-                    <div class="tl-menu-item" ng-click="newItem()">
+                <div class="tab-menu" ng-if="edit">
+                    <div class="tab-menu-item" ng-click="newItem()">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                         <span>New item</span>
                     </div>
-                    <div class="tl-menu-item" ng-click="save()">
+                    <div class="tab-menu-item" ng-click="save()">
                         <i class="fa fa-cloud-upload" aria-hidden="true"></i>
                         <span>Save</span>
                     </div>

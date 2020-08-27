@@ -1,0 +1,16 @@
+<div class="trivia" ng-class="{edit:edit}">
+    <div class="trivia-items scroll" sortable="data.items">
+        <trivia-item class="trivia-item" ng-repeat="item in data.items" data="item" edit="edit" ng-if="edit || item.visible" show="show(item)" hide="hide(item)"
+        on-remove="remove(item)" on-duplicate="duplicate(item)"></trivia-item>
+    </div>
+    <div class="tab-menu" ng-if="edit">
+        <div class="tab-menu-item" ng-click="newItem()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span>New item</span>
+        </div>
+        <div class="tab-menu-item" ng-click="save()">
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+            <span>Save</span>
+        </div>
+    </div>
+</div>

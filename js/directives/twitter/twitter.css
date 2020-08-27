@@ -1,5 +1,5 @@
 :root{
-    --tweet-bg:#212455;
+    /* --tweet-bg:#212455;
     --tweet-header-bg:#1a1d44;
     --tweet-name-color:#fff;
     --tweet-handle-color:#ddd;
@@ -11,19 +11,21 @@
     --tweet-mentions-color: #32ADA7;
     --tweet-menu-item-color:#fff;
     --tweet-menu-item-hover-color:#DF3C9C;
-    --tweet-menu-item-spacing:1em;
     --tweet-time-color:#fff;
+
+    --tweet-menu-item-spacing:1em; */
 }
 
 .tweets{
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .tweet {
     display: flex;
     flex-direction: column;
-    margin: 1em;
-    background-color: var(--tweet-bg);
+    margin: var(--item-spacing) 1rem;
+    background-color: var(--item-bg);
     overflow: hidden;
     flex: 0 0 auto;
 }
@@ -31,7 +33,7 @@
 .tweet .tweet-header{
     display: flex;
     padding: 1em;
-    background-color: var(--tweet-header-bg);
+    background-color: var(--item-title-bg);
 }
 
 .tweet .tweet-header .tweet-avatar{
@@ -50,36 +52,37 @@
 .tweet .tweet-header .tweet-header-info .tweet-header-name{
     font-size: 1.5em;
     font-weight: 700;
-    color:var(--tweet-name-color);
+    color:var(--item-title-color);
 }
 
 .tweet .tweet-header .tweet-header-info .tweet-header-handle{
     font-size: 1em;
-    color:var(--tweet-handle-color);
+    color:var(--item-title-color);
 }
 
 .tweet .tweet-content{
     display: flex;
     flex-direction: column;
-    padding: 0 1em 1em 1em;
+    padding: 0 0 1em 0;
 }
 
 .tweet .tweet-content .tweet-content-text{
     font-size: 1.2em;
-    color:var(--tweet-content-color);
-    padding: 0.5em 0;
+    color:var(--item-content-color);
+    background-color: var(--item-content-bg);
+    padding: 0.5em;
 }
 
 .tweet .tweet-content .tweet-content-text .tweet-content-text-link{
     font-size: inherit;
-    color:var(--tweet-content-link-color);
+    color:var(--item-link-color);
     text-decoration: none;
     outline: none;
     cursor: pointer;
 }
 
 .tweet .tweet-content .tweet-content-text .tweet-content-text-link:hover{
-    color:var(--tweet-content-link-hover-color);
+    color:var(--item-link-hcolor);
 }
 
 .tweet .tweet-content .tweet-content-media{
@@ -103,17 +106,17 @@
 }
 
 .tweet .tweet-footer .tweet-menu .tweet-menu-item{
-    padding: 0 var(--tweet-menu-item-spacing);
-    color:var(--tweet-menu-item-color);
+    padding: 0 1rem;
+    color:var(--item-link-color);
     font-size: 1.1em;
     cursor: pointer;
 }
 
 .tweet .tweet-footer .tweet-menu .tweet-menu-item:hover{
-    color:var(--tweet-menu-item-hover-color);
+    color:var(--item-link-hcolor);
 }
 
 .tweet .tweet-footer .tweet-time{
     font-size: 1.1em;
-    color:var(--tweet-time-color);
+    color:var(--item-content-color);
 }

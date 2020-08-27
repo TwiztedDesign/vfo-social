@@ -1,19 +1,19 @@
 :root{
-    --eng-tab-bg:#07263B;
+    /* --eng-tab-bg:#07263B;
     --eng-tab-color:#218791;
     --eng-tab-hover-bg:#218791;
     --eng-tab-hover-color:#0B3049;
     --eng-tab-active-bg:#218791;
     --eng-tab-active-color:#0B3049;
 
-    --eng-tab-content-bg:#071824;
+    --eng-tab-content-bg:#071824; */
     --eng-tab-scroll-width:5px;
     --eng-tab-scroll-bg:transparent;
     --eng-tab-scroll-color:rgba(255,255,255,0.35);
     --eng-tab-scroll-hover-color:rgba(255,255,255,0.6);
 
-    --eng-tab-header-bg:#333;
-    --eng-tab-header-color:#fff;
+    /* --eng-tab-header-bg:#333;
+    --eng-tab-header-color:#fff; */
 
     --eng-width: 25vw;
 }
@@ -42,7 +42,8 @@
 .social-eng-block .social-eng-tabs .social-eng-tabs-menu{
     position: absolute;
     width: 100%;
-    background-color: #fff;
+    background-color:#181e25;
+    color:#fff;
     z-index: 500;
     top: 100%;
     box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
@@ -52,8 +53,8 @@
 }
 
 .social-eng-block .social-eng-tabs .social-eng-tab{
-    background:var(--eng-tab-bg);
-    color:var(--eng-tab-color);
+    background:var(--tab-bg);
+    color:var(--tab-color);
     flex: 1;
     justify-content: center;
     align-items: center;
@@ -94,19 +95,19 @@
 }
 
 .social-eng-block .social-eng-tabs .social-eng-tab:hover{
-    background:var(--eng-tab-hover-bg);
-    color:var(--eng-tab-hover-color);
+    background:var(--tab-hbg);
+    color:var(--tab-hcolor);
 }
 
 .social-eng-block .social-eng-tabs .social-eng-tab.active{
-    background:var(--eng-tab-active-bg);
-    color:var(--eng-tab-active-color);
+    background:var(--tab-abg);
+    color:var(--tab-acolor);
 }
 
 .social-eng-block .social-eng-tab-content {
     display: flex;
     flex: 1;
-    background-color: var(--eng-tab-content-bg);
+    background-color: var(--tab-content-bg);
     flex-direction: column;
     overflow: hidden;
 }
@@ -144,7 +145,7 @@
     background: var(--eng-tab-scroll-hover-color);
 }
 
-.social-eng-block .social-eng-tab-content .social-eng-tab-header{
+/* .social-eng-block .social-eng-tab-content .social-eng-tab-header{
     background-color: var(--eng-tab-header-bg);
     display: flex;
     flex-direction: column;
@@ -159,7 +160,7 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-}
+} */
 
 .social-eng-block .social-eng-toggles{
     position: absolute;
@@ -179,8 +180,8 @@
 
 .social-eng-block .social-eng-toggles .social-eng-toggle{
     z-index: 99999;
-    background-color: var(--eng-toggle-bg);
-    color:var(--eng-toggle-color);
+    background-color: var(--item-link-bg);
+    color:var(--item-link-color);
     border-radius: 2rem;
     min-width: 4rem;
     height: 4rem;
@@ -193,11 +194,32 @@
     margin: 0.5rem 0;
     padding: 0 1rem;
     font-family: "Yantramanav";
+    position: relative;
 }
 
-.social-eng-block .social-eng-toggles .social-eng-toggle span{
+.social-eng-block .social-eng-toggles .social-eng-toggle .social-eng-toggle-click{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height:100%;
+    background-color: transparent;
+    z-index: -1;
+}
+
+.social-eng-block .social-eng-toggles .social-eng-toggle span, .social-eng-block .social-eng-toggles .social-eng-toggle i{
+    pointer-events: none;
+}
+
+.social-eng-block .social-eng-toggles .social-eng-toggle span, .social-eng-block .social-eng-toggles .social-eng-toggle .edit-text{
     white-space: pre;
-    margin-left: 1rem;
+    margin: 0 0 0 1rem;
+}
+
+
+
+.social.right .social-eng-block .social-eng-toggles .social-eng-toggle span, .social.right .social-eng-block .social-eng-toggles .social-eng-toggle .edit-text{
+    margin: 0 1rem 0 0;
 }
 
 .social-eng-block .social-eng-toggles .social-eng-toggle.edit{
@@ -205,18 +227,13 @@
     color:#0095FF;
 }
 
-.social-eng-block .social-eng-toggles .social-eng-toggle.active{
-    background-color: var(--eng-toggle-active-bg);
-    color:var(--eng-toggle-active-color);
-}
-
 .social-eng-block .social-eng-toggle.active::after{
     content: "\f00d";
 }
 
 .social-eng-block .social-eng-toggles .social-eng-toggle:hover{
-    background-color: var(--eng-toggle-hover-bg);
-    color:var(--eng-toggle-hover-color);
+    background-color: var(--item-link-hbg);
+    color:var(--item-link-hcolor);
 }
 
 .social-eng-block .social-eng-toggles .social-eng-toggle.edit:hover{

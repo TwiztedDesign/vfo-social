@@ -1,17 +1,46 @@
+:root{
+    --bg: #000;
+    --tab-bg:#12161B;
+    --tab-color:#fff;
+    --tab-hbg:#0095FF;
+    --tab-hcolor:#fff;
+    --tab-abg:#0095FF;
+    --tab-acolor:#fff;
+    --tab-content-bg:#0b0e11;
+
+    --item-bg:#12161B;
+    --item-title-bg:transparent;
+    --item-title-color:#fff;
+    --item-content-bg:transparent;
+    --item-content-color:#fff;
+    --item-link-bg:#000;
+    --item-link-hbg:#fff;
+    --item-link-color:#fff;
+    --item-link-hcolor:#0095FF;
+    --item-spacing:2.5rem;
+}
+
 .style-editor{
     display: flex;
     flex-direction: column;
-    background-color: #fff; 
     height: 30%;
     font-size: 12px;
     font-family: 'Yantramanav';
 }
 
+.style-editor input[type="text"]{
+    flex: 1;
+    background: #000;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    height: 100%;
+}
+
 .style-editor h1, .style-editor h2, .style-editor h3{
     margin: 0;
     padding: 5px;
-    color:#333;
-    border-bottom: 1px solid #ddd;
+    color:#fff;
+    border-bottom: 1px solid #000;
 }
 
 .style-editor i{
@@ -36,6 +65,7 @@
 
 .style-editor .editor-block .editor-block-title{
     width: 100px;
+    font-size: 14px;;
 }
 
 .style-editor .style-editor-menu{
@@ -45,7 +75,7 @@
 
 .style-editor .style-editor-menu .style-editor-menu-item{
     padding: 5px;
-    background-color: #fff;
+    background-color: #3a414a;
     color:#0095FF;
     display: flex;
     align-items: center;
@@ -68,7 +98,7 @@
 
 .style-editor .editor-button{
     display: flex;
-    background: #0095FF;
+    background: #3a414a;
     color:#fff;
     height: 2rem;
     min-width: 2rem;
@@ -82,7 +112,7 @@
 }
 
 .style-editor .editor-button:hover{
-    background-color: #43b1ff;
+    background-color: #0095FF;
 }
 
 .toggle-group{
@@ -109,4 +139,92 @@
 
 .toggle-group span.active{
     background-color: #0095ff;
+}
+
+.tab-menu{
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-menu .tab-menu-item{
+    padding: 5px;
+    background-color: #3a414a;
+    color:#0095FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.tab-menu .tab-menu-item i{
+    margin-right: 5px;
+}
+
+.tab-menu .tab-menu-item:hover{
+    color:#fff;
+    background-color:#0095FF;
+}
+
+.eng-item-menu{
+    display: none;
+    position: absolute;
+    top:5px;
+    left:5px;
+    font-size: 16px;
+}
+
+.eng-item-menu .eng-item-menu-button{
+    background-color: #fff;
+    color:#0095FF;
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.eng-item-menu .eng-item-menu-button:first-child{
+    border-radius: 5px 0 0 5px;
+}
+
+.eng-item-menu .eng-item-menu-button:last-child{
+    border-radius:0 5px 5px 0;
+}
+
+.eng-item-menu .eng-item-menu-button:not(:last-child){
+    border-right: 1px solid #eee;
+}
+
+.eng-item-menu .eng-item-menu-button .eng-item-menu-button-tooltip{
+    background-color: #fff;
+    color: #0095FF;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    padding: 5px;
+    white-space: pre;
+    pointer-events: none;
+    display: none;
+}
+
+.eng-item-menu .eng-item-menu-button .eng-item-menu-button-tooltip::before{
+    content:'';
+    position: absolute;
+    left:5px;
+    bottom: 100%;
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #fff;
+}
+
+.eng-item-menu .eng-item-menu-button:hover{
+    color: #fff;
+    background-color:#0095FF;
+}
+
+.eng-item-menu .eng-item-menu-button:hover .eng-item-menu-button-tooltip{
+    display: flex;
 }

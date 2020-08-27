@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="css/style-editor.css" />
     <link rel="stylesheet" href="js/directives/twitter/twitter.css" />
     <link rel="stylesheet" href="js/directives/timeline/timeline.css" />
+    <link rel="stylesheet" href="js/directives/trivia/trivia.css" />
+    <link rel="stylesheet" href="js/directives/cameraSwitcher/cameraSwitcher.css" />
+    <link rel="stylesheet" href="js/directives/rss/rss.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"/> <!-- 'nano' theme -->
@@ -22,7 +25,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/inputmask.js"></script>
-
+    <script src="https://static.sekandocdn.net/static/feednami/feednami-client-v1.1.js"></script>
 
 
     <!-- Modern or es5 bundle -->
@@ -40,6 +43,7 @@
     <script src="js/utils/transform.js"></script>
     <script src="js/utils/timeInput.js"></script>
     <script src="js/utils/themes.js"></script>
+    <script src="js/animejs/anime.min.js"></script>
     
 
     <script src="https://cdn.jsdelivr.net/npm/videoflow-framework@0"></script>
@@ -48,11 +52,16 @@
     <script src="js/directives/twitter/twitter.js"></script>
     <script src="js/directives/twitter/tweet.js"></script>
     <script src="js/directives/timeline/timeline.js"></script>
+    <script src="js/directives/trivia/trivia.js"></script>
+    <script src="js/directives/trivia/triviaItem.js"></script>
+    <script src="js/directives/cameraSwitcher/cameraSwitcher.js"></script>
+    <script src="js/directives/rss/rss.js"></script>
 </head>
 <body class="vff-overlay" ng-app="socialApp" ng-controller="socialController" ng-show="ready">
     <div id="background" ng-class="{right:data.settings.contentAlign==='right'}" ng-style="{'background-image':'url('+data.settings.bgImage+')'}"></div>
     <div class="vff-content">
         <div class="social" ng-class="{right:data.settings.contentAlign==='right'}">          
+            <camera-switcher ng-if="isMobile && cameraSwitch" edit="edit" data="data.cameraSwitch" on-switch="switchCamera" selected-camera="selectedCamera" ng-class="{right:data.settings.contentAlign==='right' && engVisibility, left:data.settings.contentAlign!=='right' && engVisibility, full:!engVisibility}"></camera-switcher>
             <div id="social-eng-block" class="social-eng-block" ng-class="{active:data.settings.allowToggle?engVisibility:true}">
                 <div class="social-eng-tabs" ng-if="edit?true:showTabs()">
                     <a class="social-eng-tab" ng-if="edit?true:data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')">
@@ -67,64 +76,95 @@
                             <i class="fa fa-cog" aria-hidden="true"></i>
                         </div>
                     </a>
+                    <a class="social-eng-tab" ng-if="edit?true:data.trivia.visible" ng-class="{active:selectedTab==='trivia'}" ng-click="selectTab('trivia')">
+                        <i class="fa fa-question-circle" aria-hidden="true" ng-style="{opacity:data.trivia.visible?1:0.25}"></i>
+                        <div class="social-eng-tabs-menu-toggle" ng-if="edit" ng-click="toggleSettingsMenu('trivia')">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                    <a class="social-eng-tab" ng-if="edit?true:data.rss.visible" ng-class="{active:selectedTab==='rss'}" ng-click="selectTab('rss')">
+                        <i class="fa fa-rss" aria-hidden="true" ng-style="{opacity:data.rss.visible?1:0.25}"></i>
+                        <div class="social-eng-tabs-menu-toggle" ng-if="edit" ng-click="toggleSettingsMenu('rss')">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </div>
+                    </a>
                     <div class="social-eng-tabs-menu" ng-if="settingsMenu && edit">
                         <div class="style-editor scroll" ng-if="selectedSettings==='general'">
-                            <h2>General settings</h2>
-                            <div class="editor-block">
-                                <label class="editor-block-title">Toggle text</label>
-                                <input ng-model="data.settings.toggleText" />
-                            </div>
                             <div class="style-editor-columns">
                                 <div class="style-editor-column">
                                     <div class="editor-block">
                                         <label class="editor-block-title">Background</label>
-                                        <color-picker value="style.engBg"></color-picker>
+                                        <color-picker value="style.bg" default="#000000"></color-picker>
                                     </div>
                                     <div class="editor-block">
                                         <label class="editor-block-title">Tab content background</label>
-                                        <color-picker value="style.engTabContentBg"></color-picker>
+                                        <color-picker value="style.tabContentBg" default="#0b0e11"></color-picker>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Toggle button background</label>
-                                        <color-picker value="style.engToggleBg"></color-picker>
+                                        <label class="editor-block-title">Item background</label>
+                                        <color-picker value="style.itemBg" default="#12161B"></color-picker>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Toggle botton color</label>
-                                        <color-picker value="style.engToggleColor"></color-picker>
+                                        <label class="editor-block-title">Item title Background</label>
+                                        <color-picker value="style.itemTitleBg" default="transparent"></color-picker>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Toggle button hover background</label>
-                                        <color-picker value="style.engToggleHoverBg"></color-picker>
+                                        <label class="editor-block-title">Item title color</label>
+                                        <color-picker value="style.itemTitleColor" default="#ffffff"></color-picker>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Toggle botton hover color</label>
-                                        <color-picker value="style.engToggleHoverColor"></color-picker>
+                                        <label class="editor-block-title">Item content background</label>
+                                        <color-picker value="style.itemContentBg" default="transparent"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Item content color</label>
+                                        <color-picker value="style.itemContentColor" default="#ffffff"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Link background</label>
+                                        <color-picker value="style.itemLinkBg" default="#000000"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Link color</label>
+                                        <color-picker value="style.itemLinkColor" default="#ffffff"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Link hover background</label>
+                                        <color-picker value="style.itemLinkHbg" default="#ffffff"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Link hover color</label>
+                                        <color-picker value="style.itemLinkHcolor" default="#0095FF"></color-picker>
                                     </div>
                                 </div>
                                 <div class="style-editor-column">
                                     <div class="editor-block">
                                         <label class="editor-block-title">Tab background</label>
-                                        <color-picker value="style.engTabBg"></color-picker>
+                                        <color-picker value="style.tabBg" default="#12161B"></color-picker>
                                     </div>
                                     <div class="editor-block">
                                         <label class="editor-block-title">Tab color</label>
-                                        <color-picker value="style.engTabColor"></color-picker>
+                                        <color-picker value="style.tabColor" default="#ffffff"></color-picker>
                                     </div>
                                     <div class="editor-block">
                                         <label class="editor-block-title">Tab hover bg</label>
-                                        <color-picker value="style.engTabHoverBg"></color-picker>
+                                        <color-picker value="style.tabHbg" default="#0095ff"></color-picker>
                                     </div>
                                     <div class="editor-block">
                                         <label class="editor-block-title">Tab hover color</label>
-                                        <color-picker value="style.engTabHoverColor"></color-picker>
+                                        <color-picker value="style.tabHcolor" default="#ffffff"></color-picker>
                                     </div>
                                     <div class="editor-block">
                                         <label class="editor-block-title">Tab active bg</label>
-                                        <color-picker value="style.engTabActiveBg"></color-picker>
+                                        <color-picker value="style.tabAbg" default="#0095ff"></color-picker>
                                     </div>
                                     <div class="editor-block">
                                         <label class="editor-block-title">Tab active color</label>
-                                        <color-picker value="style.engTabActiveColor"></color-picker>
+                                        <color-picker value="style.tabAcolor" default="#ffffff"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Items spacing</label>
+                                        <input type="range" min="0" max="50" step="0.1" transform="{0}rem" ng-model="style.itemSpacing"/>
                                     </div>
                                 </div>
                             </div>
@@ -155,58 +195,7 @@
                                         <label for="showTimestamps">Show timestamps</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="style-editor-columns">
-                                <div class="style-editor-column">
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Item background</label>
-                                        <color-picker value="style.timelineItemBg"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Header background</label>
-                                        <color-picker value="style.timelineItemHeaderBg"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Header text</label>
-                                        <color-picker value="style.timelineItemHeaderColor"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Description background</label>
-                                        <color-picker value="style.timelineItemDescBg"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Description text</label>
-                                        <color-picker value="style.timelineItemDescColor"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Items spacing</label>
-                                        <input type="range" min="0" max="10" step="0.1" transform="{0}rem" ng-model="style.timelineItemSpacing"/>
-                                    </div>
-                                </div>
-                                <div class="style-editor-column">
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Call to action background</label>
-                                        <color-picker value="style.timelineItemCtaBg"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Call to action text</label>
-                                        <color-picker value="style.timelineItemCtaColor"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Time background</label>
-                                        <color-picker value="style.timelineItemTimeBg"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Time text</label>
-                                        <color-picker value="style.timelineItemTimeColor"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Time dash</label>
-                                        <color-picker value="style.timelineItemTimeDashColor"></color-picker>
-                                    </div>
-                                </div>
-                            </div>
-                            
+                            </div>                            
                         </div>
                         <div class="style-editor scroll" ng-if="selectedSettings==='twitter'">
                             <h2>Twitter settings</h2>
@@ -225,59 +214,65 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="style-editor scroll" ng-if="selectedSettings==='trivia'">
+                            <h2>Trivia settings</h2>
                             <div class="style-editor-columns">
                                 <div class="style-editor-column">
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Item background</label>
-                                        <color-picker value="style.tweetBg"></color-picker>
+                                        <input type="checkbox" id="showTrivia" ng-model="data.trivia.visible">
+                                        <label for="showTrivia">Visible</label>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Header background</label>
-                                        <color-picker value="style.tweetHeaderBg"></color-picker>
+                                        <input type="checkbox" id="showMultipleQuestions" ng-model="data.trivia.multipleQuestions">
+                                        <label for="showMultipleQuestions">Show multiple questions</label>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Name color</label>
-                                        <color-picker value="style.tweetNameColor"></color-picker>
+                                        <label class="editor-block-title">Selected answer background</label>
+                                        <color-picker value="style.triviaItemSelectedAnswerBg" default="transparent"></color-picker>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Handle color</label>
-                                        <color-picker value="style.tweetHandleColor"></color-picker>
+                                        <label class="editor-block-title">Selected answer color</label>
+                                        <color-picker value="style.triviaItemSelectedAnswerColor" default="#5D8097"></color-picker>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Content color</label>
-                                        <color-picker value="style.tweetContentColor"></color-picker>
+                                        <label class="editor-block-title">Correct answer background</label>
+                                        <color-picker value="style.triviaItemCorrectAnswerBg" default="#0a490a"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Correct answer color</label>
+                                        <color-picker value="style.triviaItemCorrectAnswerColor" default="#ffffff"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Wrong answer background</label>
+                                        <color-picker value="style.triviaItemWrongAnswerBg" default="#a81515"></color-picker>
+                                    </div>
+                                    <div class="editor-block">
+                                        <label class="editor-block-title">Wrong answer color</label>
+                                        <color-picker value="style.triviaItemWrongAnswerColor" default="#ffffff"></color-picker>
                                     </div>
                                 </div>
+                            </div>                            
+                        </div>
+                        <div class="style-editor scroll" ng-if="selectedSettings==='rss'">
+                            <h2>Twitter settings</h2>
+                            <div class="style-editor-columns">
                                 <div class="style-editor-column">
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Link color</label>
-                                        <color-picker value="style.tweetContentLinkColor"></color-picker>
+                                        <input type="checkbox" id="showTmeline" ng-model="data.rss.visible"/>
+                                        <label for="showTmeline">Visible</label>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Link hover color</label>
-                                        <color-picker value="style.tweetContentLinkHoverColor"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Mentions color</label>
-                                        <color-picker value="style.tweetMentionsColor"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Menu color</label>
-                                        <color-picker value="style.tweetMenuItemColor"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Menu hover color</label>
-                                        <color-picker value="style.tweetMenuItemHoverColor"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Time color</label>
-                                        <color-picker value="style.tweetTimeColor"></color-picker>
+                                        <label class="editor-block-title">URL</label>
+                                        <input type="text" ng-model="data.rss.url"/>
+                                        <div class="editor-button" ng-click="rssControl.fetch(true)">
+                                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
-                        <div class="style-editor" style="border-top:1px solid #ddd">
+                        <div class="style-editor" style="border-bottom:1px dashed #666">
                             <div class="style-editor-menu">
                                 <div class="style-editor-menu-item" ng-click="saveSettings()">
                                     <i class="fa fa-cloud-upload" aria-hidden="true"></i>
@@ -293,6 +288,12 @@
                 <div class="social-eng-tab-content" ng-show="selectedTab==='timeline' && (data.timeline.visible || edit)">
                     <timeline data="data.timeline" edit="edit"></timeline>
                 </div>
+                <div class="social-eng-tab-content" ng-show="selectedTab==='trivia' && (data.trivia.visible || edit)">
+                    <trivia data="data.trivia" edit="edit"></trivia>
+                </div>
+                <div class="social-eng-tab-content" ng-show="selectedTab==='rss' && (data.rss.visible || edit)">
+                    <rss data="data.rss" edit="edit" control="rssControl"></rss>
+                </div>
                 <div class="social-eng-toggles">
                     <div class="social-eng-toggle edit" ng-if="edit" ng-click="toggleSettingsMenu()">
                         <i class="fa fa-cog" aria-hidden="true"></i>
@@ -302,11 +303,13 @@
                         <i class="fa fa-arrows-h" aria-hidden="true"></i>
                         <span>Change Alignment</span>
                     </div>
-                    <div class="social-eng-toggle" ng-if="data.settings.allowToggle" ng-click="toggleEng()">
+                    <div class="social-eng-toggle" ng-style="{'flex-direction':data.settings.contentAlign==='left'?'row':'row-reverse'}" ng-if="data.settings.allowToggle">
                         <i class="fa fa-bars" aria-hidden="true" ng-if="!engVisibility"></i>
-                        <span ng-if="data.settings.toggleText && data.settings.toggleText!=='' && !engVisibility">{{data.settings.toggleText}}</span>
                         <i class="fa fa-angle-double-left" aria-hidden="true" ng-if="engVisibility && data.settings.contentAlign==='left'"></i>
                         <i class="fa fa-angle-double-right" aria-hidden="true" ng-if="engVisibility && data.settings.contentAlign==='right'"></i>
+                        <span ng-if="data.settings.toggleText && data.settings.toggleText!=='' && !engVisibility && !edit">{{data.settings.toggleText}}</span>
+                        <div class="social-eng-toggle-click" ng-click="toggleEng()"></div>
+                        <input ng-if="edit" class="edit-text" ng-model="data.settings.toggleText"/>
                     </div>
                 </div>
             </div>
@@ -348,8 +351,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="social-footer">
+                    
+                </div>
             </div>
         </div>
     </div>
+    <camera-switcher ng-if="!isMobile && cameraSwitch" edit="edit" data="data.cameraSwitch" on-switch="switchCamera" selected-camera="selectedCamera" ng-class="{right:data.settings.contentAlign==='right' && engVisibility, left:data.settings.contentAlign!=='right' && engVisibility, full:!engVisibility}"></camera-switcher>
 </body>
 </html>
