@@ -1,9 +1,17 @@
 .rss{
     display: flex;
     flex-direction: column;
+    flex:1;
+    overflow: hidden;
+}
+
+.rss .rss-items{
+    display: flex;
+    flex-direction: column;
     padding: 0 1rem;
     overflow-y: auto;
     overflow-x: hidden;
+    flex:1;
 }
 
 .rss .rss-item{

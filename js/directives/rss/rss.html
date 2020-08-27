@@ -1,9 +1,29 @@
-<div class="rss scroll">
-    <div class="rss-item" ng-repeat="entry in feed">
-        <div class="rss-item-title" ng-bind-html="entry.title | trustHtml"></div>
-        <div class="rss-item-summary" ng-bind-html="entry.summary | trustHtml"></div>
-        <div class="rss-item-image" ng-repeat="image in entry.enclosures | filter:'image/jpeg'">
-            <img ng-src="{{image.url}}"/>
+<div class="rss">
+    <div class="style-editor scroll" ng-if="selectedSettings==='rss'">
+        <h2>Twitter settings</h2>
+        <div class="style-editor-columns">
+            <div class="style-editor-column">
+                <div class="editor-block">
+                    <input type="checkbox" id="showTmeline" ng-model="data.rss.visible"/>
+                    <label for="showTmeline">Visible</label>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">URL</label>
+                    <input type="text" ng-model="data.rss.url"/>
+                    <div class="editor-button" ng-click="rssControl.fetch(true)">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rss-items scroll">
+        <div class="rss-item" ng-repeat="entry in feed">
+            <div class="rss-item-title" ng-bind-html="entry.title | trustHtml"></div>
+            <div class="rss-item-summary" ng-bind-html="entry.summary | trustHtml"></div>
+            <div class="rss-item-image" ng-repeat="image in entry.enclosures | filter:'image/jpeg'">
+                <img ng-src="{{image.url}}"/>
+            </div>
         </div>
     </div>
 </div>

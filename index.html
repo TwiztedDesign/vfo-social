@@ -66,27 +66,15 @@
                 <div class="social-eng-tabs" ng-if="edit?true:showTabs()">
                     <a class="social-eng-tab" ng-if="edit?true:data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')">
                         <i class="fa fa-twitter" aria-hidden="true" ng-style="{opacity:data.twitter.visible?1:0.25}"></i>
-                        <div class="social-eng-tabs-menu-toggle" ng-if="edit" ng-click="toggleSettingsMenu('twitter')">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </div>
                     </a>
                     <a class="social-eng-tab" ng-if="edit?true:data.timeline.visible" ng-class="{active:selectedTab==='timeline'}" ng-click="selectTab('timeline')">
                         <i class="fa fa-th-list" aria-hidden="true" ng-style="{opacity:data.timeline.visible?1:0.25}"></i>
-                        <div class="social-eng-tabs-menu-toggle" ng-if="edit" ng-click="toggleSettingsMenu('timeline')">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </div>
                     </a>
                     <a class="social-eng-tab" ng-if="edit?true:data.trivia.visible" ng-class="{active:selectedTab==='trivia'}" ng-click="selectTab('trivia')">
                         <i class="fa fa-question-circle" aria-hidden="true" ng-style="{opacity:data.trivia.visible?1:0.25}"></i>
-                        <div class="social-eng-tabs-menu-toggle" ng-if="edit" ng-click="toggleSettingsMenu('trivia')">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </div>
                     </a>
                     <a class="social-eng-tab" ng-if="edit?true:data.rss.visible" ng-class="{active:selectedTab==='rss'}" ng-click="selectTab('rss')">
                         <i class="fa fa-rss" aria-hidden="true" ng-style="{opacity:data.rss.visible?1:0.25}"></i>
-                        <div class="social-eng-tabs-menu-toggle" ng-if="edit" ng-click="toggleSettingsMenu('rss')">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </div>
                     </a>
                     <div class="social-eng-tabs-menu" ng-if="settingsMenu && edit">
                         <div class="style-editor scroll" ng-if="selectedSettings==='general'">
@@ -164,7 +152,7 @@
                                     </div>
                                     <div class="editor-block">
                                         <label class="editor-block-title">Items spacing</label>
-                                        <input type="range" min="0" max="50" step="0.1" transform="{0}rem" ng-model="style.itemSpacing"/>
+                                        <input type="range" min="0" max="10" step="0.01" transform="{0}rem" ng-model="style.itemSpacing"/>
                                     </div>
                                 </div>
                             </div>
@@ -178,104 +166,6 @@
                                 </div>
                             </div> -->
                         </div>
-                        <div class="style-editor scroll" ng-if="selectedSettings==='timeline'">
-                            <h2>Timeline settings</h2>
-                            <div class="style-editor-columns">
-                                <div class="style-editor-column">
-                                    <div class="editor-block">
-                                        <input type="checkbox" id="showTmeline" ng-model="data.timeline.visible">
-                                        <label for="showTmeline">Visible</label>
-                                    </div>
-                                    <!-- <div class="editor-block">
-                                        <input type="checkbox" id="showAvatars" ng-model="data.showAvatars">
-                                        <label for="showAvatars">Show avatars</label>
-                                    </div> -->
-                                    <div class="editor-block">
-                                        <input type="checkbox" id="showTimestamps" ng-model="data.timeline.showTimestamps">
-                                        <label for="showTimestamps">Show timestamps</label>
-                                    </div>
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="style-editor scroll" ng-if="selectedSettings==='twitter'">
-                            <h2>Twitter settings</h2>
-                            <div class="style-editor-columns">
-                                <div class="style-editor-column">
-                                    <div class="editor-block">
-                                        <input type="checkbox" id="showTmeline" ng-model="data.twitter.visible"/>
-                                        <label for="showTmeline">Visible</label>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Twitter app</label>
-                                        <!-- <input ng-model="temp.twitterHandle"/>
-                                        <div class="editor-button" ng-click="setTwitterHandle()">
-                                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                                        </div> -->
-                                        <select ng-model="data.twitter.fetchUrl" ng-if="apps.twitter && apps.twitter.length>0">
-                                            <option ng-repeat="app in apps.twitter" value="{{app.params.fetchUrl}}">{{app.name}}</option>
-                                        </select>
-                                        <a href="https://www.videoflow.io/integrations" ng-if="!apps.twitter || apps.twitter.length===0" target="_blank">Add a Twitter app.</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="style-editor scroll" ng-if="selectedSettings==='trivia'">
-                            <h2>Trivia settings</h2>
-                            <div class="style-editor-columns">
-                                <div class="style-editor-column">
-                                    <div class="editor-block">
-                                        <input type="checkbox" id="showTrivia" ng-model="data.trivia.visible">
-                                        <label for="showTrivia">Visible</label>
-                                    </div>
-                                    <div class="editor-block">
-                                        <input type="checkbox" id="showMultipleQuestions" ng-model="data.trivia.multipleQuestions">
-                                        <label for="showMultipleQuestions">Show multiple questions</label>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Selected answer background</label>
-                                        <color-picker value="style.triviaItemSelectedAnswerBg" default="transparent"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Selected answer color</label>
-                                        <color-picker value="style.triviaItemSelectedAnswerColor" default="#5D8097"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Correct answer background</label>
-                                        <color-picker value="style.triviaItemCorrectAnswerBg" default="#0a490a"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Correct answer color</label>
-                                        <color-picker value="style.triviaItemCorrectAnswerColor" default="#ffffff"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Wrong answer background</label>
-                                        <color-picker value="style.triviaItemWrongAnswerBg" default="#a81515"></color-picker>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">Wrong answer color</label>
-                                        <color-picker value="style.triviaItemWrongAnswerColor" default="#ffffff"></color-picker>
-                                    </div>
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="style-editor scroll" ng-if="selectedSettings==='rss'">
-                            <h2>Twitter settings</h2>
-                            <div class="style-editor-columns">
-                                <div class="style-editor-column">
-                                    <div class="editor-block">
-                                        <input type="checkbox" id="showTmeline" ng-model="data.rss.visible"/>
-                                        <label for="showTmeline">Visible</label>
-                                    </div>
-                                    <div class="editor-block">
-                                        <label class="editor-block-title">URL</label>
-                                        <input type="text" ng-model="data.rss.url"/>
-                                        <div class="editor-button" ng-click="rssControl.fetch(true)">
-                                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="style-editor" style="border-bottom:1px dashed #666">
                             <div class="style-editor-menu">
                                 <div class="style-editor-menu-item" ng-click="saveSettings()">
@@ -287,16 +177,16 @@
                     </div>
                 </div>
                 <div class="social-eng-tab-content" ng-show="selectedTab==='twitter' && (data.twitter.visible || edit)">
-                    <twitter data="data.twitter"></twitter>
+                    <twitter></twitter>
                 </div>
                 <div class="social-eng-tab-content" ng-show="selectedTab==='timeline' && (data.timeline.visible || edit)">
-                    <timeline data="data.timeline" edit="edit"></timeline>
+                    <timeline></timeline>
                 </div>
                 <div class="social-eng-tab-content" ng-show="selectedTab==='trivia' && (data.trivia.visible || edit)">
-                    <trivia data="data.trivia" edit="edit"></trivia>
+                    <trivia></trivia>
                 </div>
                 <div class="social-eng-tab-content" ng-show="selectedTab==='rss' && (data.rss.visible || edit)">
-                    <rss data="data.rss" edit="edit" control="rssControl"></rss>
+                    <rss data="data.rss"></rss>
                 </div>
                 <div class="social-eng-toggles">
                     <div class="social-eng-toggle edit" ng-if="edit" ng-click="toggleSettingsMenu()">

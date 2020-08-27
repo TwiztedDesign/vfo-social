@@ -1,4 +1,44 @@
 <div class="trivia" ng-class="{edit:edit}">
+    <div class="style-editor scroll" ng-if="edit">
+        <h2>Trivia settings</h2>
+        <div class="style-editor-columns">
+            <div class="style-editor-column">
+                <div class="editor-block">
+                    <input type="checkbox" id="showTrivia" ng-model="data.trivia.visible">
+                    <label for="showTrivia">Visible</label>
+                </div>
+                <div class="editor-block">
+                    <input type="checkbox" id="showMultipleQuestions" ng-model="data.trivia.multipleQuestions">
+                    <label for="showMultipleQuestions">Show multiple questions</label>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Selected answer background</label>
+                    <color-picker value="style.triviaItemSelectedAnswerBg" default="transparent"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Selected answer color</label>
+                    <color-picker value="style.triviaItemSelectedAnswerColor" default="#5D8097"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Correct answer background</label>
+                    <color-picker value="style.triviaItemCorrectAnswerBg" default="#0a490a"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Correct answer color</label>
+                    <color-picker value="style.triviaItemCorrectAnswerColor" default="#ffffff"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Wrong answer background</label>
+                    <color-picker value="style.triviaItemWrongAnswerBg" default="#a81515"></color-picker>
+                </div>
+                <div class="editor-block">
+                    <label class="editor-block-title">Wrong answer color</label>
+                    <color-picker value="style.triviaItemWrongAnswerColor" default="#ffffff"></color-picker>
+                </div>
+            </div>
+        </div>                            
+    </div>
+
     <div class="trivia-items scroll" sortable="data.items">
         <trivia-item class="trivia-item" ng-repeat="item in data.items" data="item" edit="edit" ng-if="edit || item.visible" show="show(item)" hide="hide(item)"
         on-remove="remove(item)" on-duplicate="duplicate(item)"></trivia-item>

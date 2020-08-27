@@ -16,9 +16,6 @@ angular.module('socialApp',[])
             crop: [0,0,1,1]
         }
 
-        console.log("mobile "+vff.isMobile);
-
-
         $scope.data.timeline = vff.state.timeline ||
         {        
             visible:false,
@@ -73,7 +70,7 @@ angular.module('socialApp',[])
             contentAlign:'left',
             allowToggle:true,
             resizeVideo:true,
-            toggleText:'Toggle Engagement',
+            toggleText:'Toggle',
             bgImage:'',
             header:{
                 logo:'',
@@ -174,14 +171,13 @@ angular.module('socialApp',[])
             $scope.data.twitter.handle = $scope.temp.twitterHandle;
         }
 
-        $scope.rssControl = {}
-
         vff.ready(()=>{
             $scope.edit = vff.isController();
             handleOrientation();
             $scope.ready = true;
             $scope.$apply();
         });
+
         vff.onModeChange(() => {
             $scope.edit = vff.isController();
             handleOrientation();
@@ -192,7 +188,7 @@ angular.module('socialApp',[])
             handleOrientation();
             $scope.temp.twitterHandle = $scope.data.twitter.handle;
             $scope.$apply();
-            $scope.rssControl.fetch();
+            $scope.fetchRss();
         });
 
         vff.video.getInfo().then((video)=>{

@@ -16,9 +16,15 @@
     --tweet-menu-item-spacing:1em; */
 }
 
+.twitter{
+    display: flex;
+    flex-direction: column;
+}
+
 .tweets{
     display: flex;
     flex-direction: column;
+    flex:1;
 }
 
 .tweet {

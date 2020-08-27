@@ -5,28 +5,44 @@ angular.module('socialApp')
             //templateUrl:'/js/directives/timeline/timeline.html',
             template:`
             <div class="timeline" ng-class="{edit:edit}" >
-                <div class="tl-items scroll" sortable="data.items">
-                    <div class="tl-item" ng-repeat="item in data.items">
+
+                <div class="style-editor scroll" ng-if="edit">
+                    <div class="style-editor-columns">
+                        <div class="style-editor-column">
+                            <div class="editor-block">
+                                <input type="checkbox" id="showTmeline" ng-model="data.timeline.visible">
+                                <label for="showTmeline">Visible</label>
+                            </div>
+                            <div class="editor-block">
+                                <input type="checkbox" id="showTimestamps" ng-model="data.timeline.showTimestamps">
+                                <label for="showTimestamps">Show timestamps</label>
+                            </div>
+                        </div>
+                    </div>                            
+                </div>
+
+                <div class="tl-items scroll" sortable="data.timeline.items">
+                    <div class="tl-item" ng-repeat="item in data.timeline.items">
                         <div class="eng-item-menu" ng-if="edit">
                             <div class="eng-item-menu-button sort-handle">
                                 <i class="fa fa-bars" aria-hidden="true"></i>
                                 <div class="eng-item-menu-button-tooltip">Drag to reorder</div>
                             </div>
-                            <div class="eng-item-menu-button" ng-click="duplicate(item)">
+                            <div class="eng-item-menu-button" ng-click="duplicateTimelineItem(item)">
                                 <i class="fa fa-clone" aria-hidden="true"></i>
                                 <div class="eng-item-menu-button-tooltip">Duplicate item</div>
                             </div>
-                            <div class="eng-item-menu-button" ng-click="remove(item)">
+                            <div class="eng-item-menu-button" ng-click="removeTimelineItem(item)">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                 <div class="eng-item-menu-button-tooltip">Remove item</div>
                             </div>
-                            <div class="eng-item-menu-button" ng-click="getTime(item)">
+                            <div class="eng-item-menu-button" ng-click="getTimelineTime(item)">
                                 <i class="fa fa-clock-o" aria-hidden="true"></i>
                                 <div class="eng-item-menu-button-tooltip">Set timestamp</div>
                             </div>
                         </div>
                         <div class="tl-item-content">
-                            <div class="tl-item-avatars-wrap" ng-if="data.showAvatars">
+                            <div class="tl-item-avatars-wrap" ng-if="data.timeline.showAvatars">
                                 <div class="tl-item-avatars" sortable="item.imgs">
                                     <div class="tl-item-avatar" ng-class="{'sort-handle':edit}" ng-repeat="img in item.imgs" >
                                         <img ng-src="{{img}}"/>
@@ -39,11 +55,10 @@ angular.module('socialApp')
                                     </div>
                                 </div>
                             </div>
-                            <div class="tl-item-time" ng-if="data.showTimestamps">
+                            <div class="tl-item-time" ng-if="data.timeline.showTimestamps">
                                 <div class="tl-item-time-wrap">
                                     <span class="tl-item-time-content" ng-if="!edit">{{item.time | timecode}}</span>
                                     <span class="tl-item-time-placeholder">00:00:00</span>
-<!--                                    <input time-input ng-model="item.time" ng-if="edit" class="edit-text time-input" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;"/>-->
                                     <time-input value="item.time" ng-if="edit" class="edit-text" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;"/>
                                 </div>
                             </div>
@@ -59,7 +74,7 @@ angular.module('socialApp')
                                             <i class="fa fa-picture-o" aria-hidden="true"></i>
                                             <i class="fa fa-cog fa-spin loader"></i>
                                         </div>
-                                        <div class="tl-item-img-menu-button" ng-if="edit && item.img && item.img!==''" ng-click="clearImage(item)">
+                                        <div class="tl-item-img-menu-button" ng-if="edit && item.img && item.img!==''" ng-click="clearTimelineImage(item)">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </div>
                                     </div>
@@ -81,11 +96,11 @@ angular.module('socialApp')
                                 </div>
                             </div>
                         </div>
-                        <div class="tl-item-click" ng-click="itemClick(item)" ng-if="!edit"></div>
+                        <div class="tl-item-click" ng-click="timelineItemClick(item)" ng-if="!edit"></div>
                     </div>
                 </div>
                 <div class="tab-menu" ng-if="edit">
-                    <div class="tab-menu-item" ng-click="newItem()">
+                    <div class="tab-menu-item" ng-click="newTimelineItem()">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                         <span>New item</span>
                     </div>
@@ -97,11 +112,11 @@ angular.module('socialApp')
             </div>
             `,
             replace:true,
-            scope:{
-                data : '=',
-                edit: '='
-            },
-            link: function (scope) {
+            // scope:{
+            //     data : '=',
+            //     edit: '='
+            // },
+            link: function ($scope) {
                 let newItem = {
                     imgs:[],
                     header:"",
@@ -113,31 +128,31 @@ angular.module('socialApp')
                     link:''
                 }
 
-                scope.style = vff.style;
+                // $scope.style = vff.style;
 
-                scope.newItem = function(){
-                    scope.data.items.push(JSON.parse(JSON.stringify(newItem)));
+                $scope.newTimelineItem = function(){
+                    $scope.data.timeline.items.push(JSON.parse(JSON.stringify(newItem)));
                 }
 
-                scope.duplicate = function(item){
+                $scope.duplicateTimelineItem = function(item){
                     //Use angular.toJson to strip $$hashKey (default track by value) from the object forcing the ng-repeat to create a new one
-                    scope.data.items.splice(scope.data.items.indexOf(item),0,JSON.parse(angular.toJson(item)));
+                    $scope.data.timeline.items.splice($scope.data.timeline.items.indexOf(item),0,JSON.parse(angular.toJson(item)));
                 }
 
-                scope.remove = function(item){
+                $scope.removeTimelineItem = function(item){
                     if (window.confirm("Delete current item?")) { 
-                        scope.data.items.splice(scope.data.items.indexOf(item),1);
+                        $scope.data.timeline.items.splice($scope.data.timeline.items.indexOf(item),1);
                     }
                 }
 
-                scope.clearImage = function(item){
+                $scope.clearTimelineImage = function(item){
                     item.img='';
                 }
 
-                scope.getTime = function(item){
+                $scope.getTimelineTime = function(item){
                     item.time = vff.video.currentTime;
                 };
-                scope.itemClick = function(item){
+                $scope.timelineItemClick = function(item){
                     if(item.clickAction && item.clickAction==='link'){
                         $window.open(item.link, '_blank');
                     }else{
@@ -146,11 +161,6 @@ angular.module('socialApp')
                         vff.video.goTo(seconds);
                     }
                 };
-
-                scope.save = function(){
-                    scope.itemsMenu=false;
-                    vff.send();
-                }
             }
         }
     })
