@@ -1,12 +1,12 @@
 :root{
-    --eng-bg: #000;
+    
 
-    --eng-toggle-bg:#000;
+    /* --eng-toggle-bg:#000;
     --eng-toggle-color:#fff;
     --eng-toggle-hover-bg:#ff0036;
     --eng-toggle-hover-color:#fff;
     --eng-toggle-active-bg:#000;
-    --eng-toggle-active-color:#fff;
+    --eng-toggle-active-color:#fff; */
 }
 
 @font-face {
@@ -20,7 +20,7 @@
 }
 
 body{
-    font-family: Roboto;
+    font-family: 'Roboto';
 }
 .social{
     position: absolute;

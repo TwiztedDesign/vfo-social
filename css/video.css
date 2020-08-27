@@ -1,19 +1,19 @@
 :root{
-    --eng-logo-size:80%;
+    /* --eng-logo-size:80%;
     --eng-header-title-size:1.5em;
     --eng-header-title-color:#fff;
 
     --eng-header-subtitle-size:1em;
-    --eng-header-subtitle-color:#fff;
+    --eng-header-subtitle-color:#fff; */
 
-    --eng-header-link-size:1em;
+    /* --eng-header-link-size:1em;
     --eng-header-link-spacing:1em;
     --eng-header-link-color:#fff;
-    --eng-header-link-hover-color:#DF3C9C;
+    --eng-header-link-hover-color:#DF3C9C; */
 }
 
 #background{
-    background-color: var(--eng-bg);
+    background-color: var(--bg);
     width: 100%;
     height: 100%;
     pointer-events:none;
@@ -32,6 +32,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    justify-content: space-between;
 }
 
 .social-video-block .social-header{
@@ -44,6 +45,15 @@
 
 .social-video-block .social-header .social-header-logo{
     height: 40%;
+}
+
+.social-video-block .social-footer{
+    display: flex;
+    height: calc(var(--eng-width) / 1.778 / 2 );
+    align-items: center;
+    justify-content: center;
+    padding: 0 4rem;
+    position: relative;
 }
 
 @media (orientation: portrait) {

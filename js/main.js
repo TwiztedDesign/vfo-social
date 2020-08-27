@@ -1,35 +1,77 @@
 angular.module('socialApp',[])
     .controller('socialController', ['$scope','$http', function($scope, $http) {
-        $scope.selectedTab = 'twitter';
-        $scope.data = vff.state.data;
-        $scope.style = vff.state.data.__style;
+        $scope.selectedTab = 'timeline';
+        $scope.data = vff.state;
+        $scope.style = vff.style
         $scope.edit = false;
         $scope.ready = false;
         $scope.engVisibility=true;
         $scope.settingsMenu=false;
         $scope.selectedSettings='';
         $scope.themes = themes;
+        $scope.cameraSwitch=false;
+        $scope.isMobile = vff.isMobile;
+        $scope.selectedCamera = {
+            crop: [0,0,1,1]
+        }
 
-        $scope.data.timeline = vff.state.data.timeline ||  
+        console.log("mobile "+vff.isMobile);
+
+
+        $scope.data.timeline = vff.state.timeline ||
         {        
-            visible:true,
+            visible:false,
             showAvatars:false,
             showTimestamps:true,
             items:[]
         }
 
-        $scope.data.twitter = vff.state.data.twitter ||  
+        $scope.data.twitter = vff.state.twitter ||
         {        
-            visible:true,
+            visible:false,
             handle:'',
             appKey:''
         }
 
-        $scope.data.settings = vff.state.data.settings || 
+        $scope.data.trivia = vff.state.trivia || {
+            visible:false,
+            time:30,
+            multipleQuestions:false,
+            items:[]
+        }
+
+        $scope.data.rss = vff.state.rss || {
+            url:'',
+            visible:false,
+        }
+
+        $scope.data.cameraSwitch = vff.state.cameraSwitch || {
+            cameras:[
+                {
+                    name:'Camera 1',
+                    crop: [0,0,0.5,0.5]
+                },
+                {
+                    name:'Camera 2',
+                    crop: [0.5,0,1,0.5]
+                },
+                {
+                    name:'Camera 3',
+                    crop: [0,0.5,0.5,1]
+                },
+                {
+                    name:'Camera 4',
+                    crop: [0.5,0.5,1,1]
+                }
+            ]
+        }
+
+        $scope.data.settings = vff.state.settings ||
         {
             contentAlign:'left',
             allowToggle:true,
             resizeVideo:true,
+            toggleText:'Toggle Engagement',
             bgImage:'',
             header:{
                 logo:'',
@@ -51,6 +93,12 @@ angular.module('socialApp',[])
             if($scope.data.twitter.visible){
                 count++;
             }
+            if($scope.data.trivia.visible){
+                count++;
+            }
+            if($scope.data.rss.visible){
+                count++;
+            }
             return count>1;
         }
 
@@ -64,7 +112,7 @@ angular.module('socialApp',[])
         }
 
         $scope.save = function(){
-            vff.state.take();
+            vff.send();
         }
 
         $scope.toggleSettingsMenu = function(menu){
@@ -112,6 +160,11 @@ angular.module('socialApp',[])
             $scope.style.engTabContentBg = theme[0];
         }
 
+        $scope.switchCamera = function(camera){
+            $scope.selectedCamera = camera;
+            handleOrientation();
+        }
+
         $scope.temp={
             twitterHandle:''
         }
@@ -119,32 +172,45 @@ angular.module('socialApp',[])
             $scope.data.twitter.handle = $scope.temp.twitterHandle;
         }
 
+        $scope.rssControl = {}
+
         vff.ready(()=>{
             $scope.edit = vff.isController();
             handleOrientation();
             $scope.ready = true;
             $scope.$apply();
         });
-
-        vff.state.on(e => {
-            $scope.temp.twitterHandle = $scope.data.twitter.handle || 'twiztedTDesign';
+        vff.onModeChange(() => {
+            $scope.edit = vff.isController();
             handleOrientation();
             $scope.$apply();
         });
 
-        
+        vff.onStateChange(e => {
+            handleOrientation();
+            $scope.temp.twitterHandle = $scope.data.twitter.handle;
+            $scope.$apply();
+            $scope.rssControl.fetch();
+        });
 
+        vff.video.getInfo().then((video)=>{
+            $scope.cameraSwitch = video.metadata.cameraSwitch || false;
+            if($scope.cameraSwitch){
+                $scope.selectedCamera = $scope.data.cameraSwitch.cameras[0];
+            }
+        });
+        
         let background = document.getElementById('background');
         function handleOrientation() {
             if (vff.isMobile || (!$scope.engVisibility && $scope.data.settings.allowToggle)) {
-                vff.transform(0,0,1,1,0);
+                vff.transform($scope.selectedCamera.crop[0],$scope.selectedCamera.crop[1],$scope.selectedCamera.crop[2],$scope.selectedCamera.crop[3],0);
                 background.style.display = 'none';
             } else {
                 background.style.display = 'block';
                 if($scope.data.settings.contentAlign==='right'){
-                    vff.transform(0,0,1,1,0, 0.125, 0.75, 0.875);
+                    vff.transform($scope.selectedCamera.crop[0],$scope.selectedCamera.crop[1],$scope.selectedCamera.crop[2],$scope.selectedCamera.crop[3],0, 0.125, 0.75, 0.875);
                 }else{
-                    vff.transform(0,0,1,1,0.25, 0.125, 1, 0.875);
+                    vff.transform($scope.selectedCamera.crop[0],$scope.selectedCamera.crop[1],$scope.selectedCamera.crop[2],$scope.selectedCamera.crop[3],0.25, 0.125, 1, 0.875);
                 }
             }
         }

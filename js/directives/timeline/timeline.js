@@ -1,8 +1,101 @@
 angular.module('socialApp')
-    .directive('timeline',function(){
+    .directive('timeline',function($window){
         return{
             restrict: 'E',
-            templateUrl:'/js/directives/timeline/timeline.html',
+            //templateUrl:'/js/directives/timeline/timeline.html',
+            template:`
+            <div class="timeline" ng-class="{edit:edit}" >
+                <div class="tl-items scroll" sortable="data.items">
+                    <div class="tl-item" ng-repeat="item in data.items">
+                        <div class="eng-item-menu" ng-if="edit">
+                            <div class="eng-item-menu-button sort-handle">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                <div class="eng-item-menu-button-tooltip">Drag to reorder</div>
+                            </div>
+                            <div class="eng-item-menu-button" ng-click="duplicate(item)">
+                                <i class="fa fa-clone" aria-hidden="true"></i>
+                                <div class="eng-item-menu-button-tooltip">Duplicate item</div>
+                            </div>
+                            <div class="eng-item-menu-button" ng-click="remove(item)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                <div class="eng-item-menu-button-tooltip">Remove item</div>
+                            </div>
+                            <div class="eng-item-menu-button" ng-click="getTime(item)">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                <div class="eng-item-menu-button-tooltip">Set timestamp</div>
+                            </div>
+                        </div>
+                        <div class="tl-item-content">
+                            <div class="tl-item-avatars-wrap" ng-if="data.showAvatars">
+                                <div class="tl-item-avatars" sortable="item.imgs">
+                                    <div class="tl-item-avatar" ng-class="{'sort-handle':edit}" ng-repeat="img in item.imgs" >
+                                        <img ng-src="{{img}}"/>
+                                    </div>
+                                    <div class="tl-item-img" ng-class="{'sort-handle':edit}" ng-if="(!item.imgs || item.imgs.length===0) && !edit"></div>
+                                </div>
+                                <div class="tl-item-avatars-menu" ng-if="edit">
+                                    <div class="tl-item-avatars-menu-item">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tl-item-time" ng-if="data.showTimestamps">
+                                <div class="tl-item-time-wrap">
+                                    <span class="tl-item-time-content" ng-if="!edit">{{item.time | timecode}}</span>
+                                    <span class="tl-item-time-placeholder">00:00:00</span>
+<!--                                    <input time-input ng-model="item.time" ng-if="edit" class="edit-text time-input" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;"/>-->
+                                    <time-input value="item.time" ng-if="edit" class="edit-text" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="tl-item-info">
+                                <div class="tl-item-header" ng-if="edit?true:item.header && item.header!==''">
+                                    <span ng-if="!edit">{{item.header}}</span>
+                                    <input placeholder="Title" ng-model="item.header" ng-if="edit" class="edit-text"/>
+                                </div>
+                                <div class="tl-item-img" ng-if="edit?true:item.img && item.img!==''">
+                                    <img ng-if="item.img && item.img!==''" ng-src="{{item.img}}"/>
+                                    <div class="tl-item-img-menu" ng-class="{static:!item.img && item.img===''}" ng-if="edit">
+                                        <div class="tl-item-img-menu-button" ng-if="edit" value="item.img" image-browser>
+                                            <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                            <i class="fa fa-cog fa-spin loader"></i>
+                                        </div>
+                                        <div class="tl-item-img-menu-button" ng-if="edit && item.img && item.img!==''" ng-click="clearImage(item)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tl-item-desc" ng-if="edit?true:item.desc && item.desc!==''">
+                                    <span ng-if="!edit">{{item.desc}}</span>
+                                    <textarea placeholder="Description" rows="5" ng-model="item.desc" ng-if="edit" class="edit-text"></textarea>
+                                </div>
+                                <div class="tl-item-cta" ng-if="edit?true:item.cta && item.cta!==''">
+                                    <span ng-if="!edit">{{item.cta}}</span>
+                                    <input placeholder="Call to Action" ng-model="item.cta" ng-if="edit" class="edit-text"/>
+                                </div>
+                                <div class="tl-click-action" ng-if="edit">
+                                    <div class="toggle-group">
+                                        <span ng-click="item.clickAction='time'" ng-class="{active:item.clickAction==='time'}">Go to time</span>
+                                        <span ng-click="item.clickAction='link'" ng-class="{active:item.clickAction==='link'}">Go to link</span>
+                                    </div>
+                                    <input placeholder="Enter link URL here" type="text" class="tl-item-link-input" ng-if="item.clickAction==='link'" ng-model="item.link"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-item-click" ng-click="itemClick(item)" ng-if="!edit"></div>
+                    </div>
+                </div>
+                <div class="tab-menu" ng-if="edit">
+                    <div class="tab-menu-item" ng-click="newItem()">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span>New item</span>
+                    </div>
+                    <div class="tab-menu-item" ng-click="save()">
+                        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                        <span>Save</span>
+                    </div>
+                </div>
+            </div>
+            `,
             replace:true,
             scope:{
                 data : '=',
@@ -15,10 +108,12 @@ angular.module('socialApp')
                     desc:"",
                     img: "",
                     time:0,
-                    cta:""
+                    cta:"",
+                    clickAction:'time',
+                    link:''
                 }
 
-                scope.style = vff.state.data.__style;
+                scope.style = vff.style;
 
                 scope.newItem = function(){
                     scope.data.items.push(JSON.parse(JSON.stringify(newItem)));
@@ -40,19 +135,21 @@ angular.module('socialApp')
                 }
 
                 scope.getTime = function(item){
-                    vff.controller.currentTime().then(time => {
-                        item.time = time;
-                        scope.$apply();
-                    });
+                    item.time = vff.video.currentTime;
                 };
-                scope.gotoTime = function(seconds){
-                    try { seconds = parseFloat(seconds);} catch (e) { }
-                    vff.controller.go(seconds);
+                scope.itemClick = function(item){
+                    if(item.clickAction && item.clickAction==='link'){
+                        $window.open(item.link, '_blank');
+                    }else{
+                        let seconds = item.time;
+                        try { seconds = parseFloat(seconds);} catch (e) { }
+                        vff.video.goTo(seconds);
+                    }
                 };
 
                 scope.save = function(){
                     scope.itemsMenu=false;
-                    vff.state.take();
+                    vff.send();
                 }
             }
         }

@@ -4,7 +4,7 @@ angular.module('socialApp')
             restrict    : 'E',
             template:`<div class="tweet">
                             <div class="tweet-header">
-                                <img class="tweet-avatar" src="{{tweet.user.profile_image_url_https}}" />
+                                <img class="tweet-avatar" ng-src="{{tweet.user.profile_image_url_https}}" />
                                 <div class="tweet-header-info">
                                     <div class="tweet-header-name">{{tweet.user.name}}</div>
                                     <div class="tweet-header-handle">@{{tweet.user.screen_name}}</div>

@@ -1,0 +1,77 @@
+:root{
+    /* --switcher-bg:#07263b; */
+    /* --switcher-color:#218791; */
+    /* --switcher-hover-bg:#218791; */
+    /* --switcher-hover-color:#07263b; */
+    /* --switcher-active-bg:#218791; */
+    /* --switcher-active-color:#07263b; */
+}
+
+.camera-switcher{
+    display: flex;
+    background-color: var(--item-bg);
+    overflow: hidden;
+    position: absolute;
+    bottom: 6.25vh;
+    left:50vw;
+    min-height: 5vh;
+}
+
+.camera-switcher.left{
+    left:auto;
+    right:37.5vw;
+    transform: translate(50%,50%);
+}
+
+.camera-switcher.right{
+    right:auto;
+    left:37.5vw;
+    transform: translate(-50%,50%);
+}
+
+.camera-switcher.full{
+    right: auto;
+    transform: translate(-50%,0);
+    bottom: 15vh;
+}
+
+.camera-switcher .camera-switcher-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1.5rem;
+    color:var(--item-link-color);
+    cursor: pointer;
+    flex:1;
+    white-space: pre;
+}
+
+.camera-switcher .camera-switcher-item:hover{
+    background-color: var(--item-link-hbg);
+    color:var(--item-link-hcolor);
+}
+
+.camera-switcher .camera-switcher-item.active{
+    background-color: var(--item-link-hbg);
+    color:var(--item-link-hcolor);
+}
+
+.camera-switcher .camera-switcher-item i{
+    margin-right: 1rem;
+}
+
+@media (orientation: portrait) {
+    .vff-mobile .camera-switcher{
+        position: relative;
+        top: auto;
+        right: auto;
+        left: auto;
+        bottom: auto;
+        transform: none;
+    }
+
+    .vff-mobile .camera-switcher .camera-switcher-item{
+        font-size: 3vw;
+        min-height: 12vw;
+    }
+}

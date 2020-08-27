@@ -1,0 +1,9 @@
+<div class="rss scroll">
+    <div class="rss-item" ng-repeat="entry in feed">
+        <div class="rss-item-title" ng-bind-html="entry.title | trustHtml"></div>
+        <div class="rss-item-summary" ng-bind-html="entry.summary | trustHtml"></div>
+        <div class="rss-item-image" ng-repeat="image in entry.enclosures | filter:'image/jpeg'">
+            <img ng-src="{{image.url}}"/>
+        </div>
+    </div>
+</div>
