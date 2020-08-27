@@ -18,7 +18,7 @@ angular.module('socialApp')
                                 <div class="editor-button" ng-click="setTwitterHandle()">
                                     <i class="fa fa-refresh" aria-hidden="true"></i>
                                 </div> -->
-                                <select ng-model="data.twitter.twitter.fetchUrl" ng-if="apps.twitter && apps.twitter.length>0">
+                                <select ng-model="data.twitter.fetchUrl" ng-if="apps.twitter && apps.twitter.length>0">
                                     <option ng-repeat="app in apps.twitter" value="{{app.params.fetchUrl}}">{{app.name}}</option>
                                 </select>
                                 <div class="editor-button" ng-if="apps.twitter && apps.twitter.length>0" ng-click="fetchTweets(true)">
@@ -44,12 +44,7 @@ angular.module('socialApp')
                 $scope.tweets =[];
                 let source = '';
 
-                $scope.$watch('data.twitter.twitter.fetchUrl', () => {
-                    // getTweets().then((data) => {
-                    //     console.log(data);
-                    //     $scope.tweets = data;
-                    //     $scope.$apply();
-                    // });
+                $scope.$watch('data.twitter.fetchUrl', () => {
                     $scope.fetchTweets();
                 });
 
