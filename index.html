@@ -206,11 +206,15 @@
                                         <label for="showTmeline">Visible</label>
                                     </div>
                                     <div class="editor-block">
-                                        <label class="editor-block-title">Twitter handle</label>
-                                        <input ng-model="temp.twitterHandle"/>
+                                        <label class="editor-block-title">Twitter app</label>
+                                        <!-- <input ng-model="temp.twitterHandle"/>
                                         <div class="editor-button" ng-click="setTwitterHandle()">
                                             <i class="fa fa-refresh" aria-hidden="true"></i>
-                                        </div>
+                                        </div> -->
+                                        <select ng-model="data.twitter.fetchUrl" ng-if="apps.twitter && apps.twitter.length>0">
+                                            <option ng-repeat="app in apps.twitter" value="{{app.params.fetchUrl}}">{{app.name}}</option>
+                                        </select>
+                                        <a href="https://www.videoflow.io/integrations" ng-if="!apps.twitter || apps.twitter.length===0" target="_blank">Add a Twitter app.</a>
                                     </div>
                                 </div>
                             </div>

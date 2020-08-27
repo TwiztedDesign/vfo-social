@@ -11,6 +11,7 @@ angular.module('socialApp',[])
         $scope.themes = themes;
         $scope.cameraSwitch=false;
         $scope.isMobile = vff.isMobile;
+        $scope.apps = {};
         $scope.selectedCamera = {
             crop: [0,0,1,1]
         }
@@ -30,6 +31,7 @@ angular.module('socialApp',[])
         {        
             visible:false,
             handle:'',
+            fetchUrl:'',
             appKey:''
         }
 
@@ -199,6 +201,11 @@ angular.module('socialApp',[])
                 $scope.selectedCamera = $scope.data.cameraSwitch.cameras[0];
             }
         });
+
+        vff.getApps().then((apps)=>{
+            $scope.apps.twitter = apps.filter((app)=>app.type==='twitter');
+            console.log(apps);
+        }); 
         
         let background = document.getElementById('background');
         function handleOrientation() {

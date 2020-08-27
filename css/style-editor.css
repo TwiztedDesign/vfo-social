@@ -28,7 +28,7 @@
     font-family: 'Yantramanav';
 }
 
-.style-editor input[type="text"]{
+.style-editor input[type="text"], .style-editor select{
     flex: 1;
     background: #000;
     color: #fff;

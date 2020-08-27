@@ -14,7 +14,7 @@ angular.module('socialApp')
                 edit: '='
             },
             link: function (scope) {
-                scope.$watch('data.handle', () => {
+                scope.$watch('data.fetchUrl', () => {
                     getTweets().then((tweets) => {
                         console.log(tweets);
                         scope.tweets = tweets;
@@ -26,9 +26,10 @@ angular.module('socialApp')
                 let integrationKey = 'BJl4MiIt0IrybVGsIFALBJf4fjUKA8';
                 function getTweets(){
                     return new Promise((resolve, reject) => {
-                        if(scope.data.handle && scope.data.handle!==''){
-                            $http.get(`https://www.videoflow.io/ext/${integrationKey}/tweets?handle=${scope.data.handle}`).then(res => {
-                                let tweets = res.data.data;
+                        if(scope.data.fetchUrl && scope.data.fetchUrl!==''){
+                            // $http.get(`https://www.videoflow.io/ext/${integrationKey}/tweets?handle=${scope.data.handle}`).then(res => {
+                            $http.get(scope.data.fetchUrl).then(res => {
+                                let tweets = res.data;
                                 resolve(tweets);
                             }, reject);
                         }
