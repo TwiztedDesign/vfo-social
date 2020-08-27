@@ -21,7 +21,10 @@ angular.module('socialApp')
                                 <select ng-model="data.twitter.twitter.fetchUrl" ng-if="apps.twitter && apps.twitter.length>0">
                                     <option ng-repeat="app in apps.twitter" value="{{app.params.fetchUrl}}">{{app.name}}</option>
                                 </select>
-                                <a href="https://www.videoflow.io/integrations" ng-if="!apps.twitter || apps.twitter.length===0" target="_blank">Add a Twitter app.</a>
+                                <div class="editor-button" ng-if="apps.twitter && apps.twitter.length>0" ng-click="fetchTweets(true)">
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                </div>
+                                <a class="editor-button" href="https://www.videoflow.io/integrations" ng-if="!apps.twitter || apps.twitter.length===0" target="_blank">Add a Twitter app.</a>
                             </div>
                         </div>
                     </div>
@@ -39,34 +42,40 @@ angular.module('socialApp')
             // },
             link: function ($scope) {
                 $scope.tweets =[];
+                let source = '';
 
                 $scope.$watch('data.twitter.twitter.fetchUrl', () => {
-                    getTweets().then((data) => {
-                        console.log(data);
-                        $scope.tweets = data;
-                        $scope.$apply();
-                    });
+                    // getTweets().then((data) => {
+                    //     console.log(data);
+                    //     $scope.tweets = data;
+                    //     $scope.$apply();
+                    // });
+                    $scope.fetchTweets();
                 });
 
                 function getTweets(){
                     return new Promise((resolve, reject) => {
-                        if($scope.data.twitter.fetchUrl && $scope.data.twitter.fetchUrl!==''){
-                            $http.get($scope.data.twitter.fetchUrl).then(res => {
-                                let tweets = res.data;
-                                resolve(tweets);
-                            }, reject);
-                        }
-                        else{
-                            resolve([]);
-                        }
-                    })
+                        $http.get($scope.data.twitter.fetchUrl).then(res => {
+                            let tweets = res.data;
+                            source = $scope.data.twitter.fetchUrl;
+                            resolve(tweets);
+                        }, reject);
+                    });
                 }
-        
-                getTweets().then((data) => {
-                    console.log(data);
-                    $scope.tweets = data;
-                    $scope.$apply();
-                });
+
+                $scope.fetchTweets = function(force){
+                    if($scope.data.twitter.fetchUrl && $scope.data.twitter.fetchUrl!==''){
+                        if(force || $scope.data.twitter.fetchUrl!==source){
+                            getTweets(force).then((data) => {
+                                console.log(data);
+                                $scope.tweets = data;
+                                $scope.$apply();
+                            });
+                        }
+                    }else{
+                        $scope.tweets = [];
+                    }
+                }
             }
         }
     });

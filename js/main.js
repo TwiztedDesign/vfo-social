@@ -189,6 +189,7 @@ angular.module('socialApp',[])
             $scope.temp.twitterHandle = $scope.data.twitter.handle;
             $scope.$apply();
             $scope.fetchRss();
+            $scope.fetchTweets();
         });
 
         vff.video.getInfo().then((video)=>{
