@@ -1,0 +1,122 @@
+.vf-chat{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.vf-chat .chat-login{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.vf-chat .chat-login .chat-login-button{
+    display: flex;
+    background-color: var(--item-link-bg);
+    color: var(--item-link-color);
+    align-items: center;
+    max-width: 75%;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.vf-chat .chat-login .chat-login-button i{
+    margin-right: 1rem;
+    font-size: 1.5em;
+}
+
+.vf-chat .chat-login .chat-login-button:hover{
+    display: flex;
+    background-color: var(--item-link-hbg);
+    color: var(--item-link-hcolor);
+}
+
+.vf-chat #firechat{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.vf-chat #firechat #firechat-tabs{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.vf-chat #firechat #firechat-tabs #firechat #firechat-tab-list{
+    background-color: transparent;
+}
+
+.vf-chat #firechat #firechat-tabs #firechat-tab-content{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+}
+
+.vf-chat #firechat #firechat-tabs .tab-content .tab-pane{
+    flex:1;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.vf-chat #firechat #firechat-tabs .tab-content>.active{
+    display: flex;
+    background-color: transparent;
+}
+
+.vf-chat #firechat #firechat-tabs .tab-content .tab-pane .tab-pane-menu{
+    border:none
+}
+
+.vf-chat #firechat #firechat-tabs .tab-content .tab-pane .tab-pane-menu + div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.vf-chat #firechat .chat{
+    height: auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border:none;
+    padding: 1rem;
+}
+
+.vf-chat #firechat .message{
+    align-self: flex-start;
+    padding: 0;
+    background: var(--item-bg);
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    border:none;
+    max-width: 75%;
+    overflow: hidden;
+    flex:0 0 auto;
+}
+
+.vf-chat #firechat .message.message-self{
+    align-self: flex-end;
+}
+
+.vf-chat #firechat .message .clearfix:first-child{
+    background-color: var(--item-title-bg);
+    color: var(--item-title-color);
+    padding: 0.5rem;
+}
+
+.vf-chat #firechat .message .message-content{
+    background-color: var(--item-content-bg);
+    color: var(--item-content-color);
+    padding: 0.5rem;
+}

@@ -20,12 +20,12 @@
     display: flex;
     flex-direction: column;
     background: var(--item-bg);
+    flex: 0 0 auto;
 }
 
 .rss .rss-item .rss-item-title{
     font-size: 1.5rem;
     font-weight: bold;
-    margin-top: 1rem;
     padding: 0.5rem;
     color:var(--item-title-color);
     background-color: var(--item-title-bg);

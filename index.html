@@ -27,6 +27,26 @@
     <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/inputmask.js"></script>
     <script src="https://static.sekandocdn.net/static/feednami/feednami-client-v1.1.js"></script>
 
+     <!-- jQuery -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+     <!-- Firebase -->
+     <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-analytics.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-database.js"></script>
+ 
+     <!-- Firechat -->
+     <!-- <link rel="stylesheet" href="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.css" /> -->
+     <!-- <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script> -->
+     <link rel="stylesheet" href="http://127.0.0.1:8081/firechat.min.css" />
+     <script src="http://127.0.0.1:8081/firechat.js"></script>
+     <link rel="stylesheet" href="js/directives/chat/chat.css" />
+
+     <!-- Firebase UI -->
+     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
 
     <!-- Modern or es5 bundle -->
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
@@ -56,6 +76,7 @@
     <script src="js/directives/trivia/triviaItem.js"></script>
     <script src="js/directives/cameraSwitcher/cameraSwitcher.js"></script>
     <script src="js/directives/rss/rss.js"></script>
+    <!-- <script src="js/directives/chat/chat.js"></script> -->
 </head>
 <body class="vff-overlay" ng-app="socialApp" ng-controller="socialController" ng-show="ready">
     <div id="background" ng-class="{right:data.settings.contentAlign==='right'}" ng-style="{'background-image':'url('+data.settings.bgImage+')'}"></div>
@@ -76,6 +97,9 @@
                     <a class="social-eng-tab" ng-if="edit?true:data.rss.visible" ng-class="{active:selectedTab==='rss'}" ng-click="selectTab('rss')">
                         <i class="fa fa-rss" aria-hidden="true" ng-style="{opacity:data.rss.visible?1:0.25}"></i>
                     </a>
+                    <!-- <a class="social-eng-tab" ng-if="edit?true:data.chat.visible" ng-class="{active:selectedTab==='chat'}" ng-click="selectTab('chat')">
+                        <i class="fa fa-comments" aria-hidden="true" ng-style="{opacity:data.chat.visible?1:0.25}"></i>
+                    </a> -->
                     <div class="social-eng-tabs-menu" ng-if="settingsMenu && edit">
                         <div class="style-editor scroll" ng-if="selectedSettings==='general'">
                             <div class="style-editor-columns">
@@ -188,6 +212,9 @@
                 <div class="social-eng-tab-content" ng-show="selectedTab==='rss' && (data.rss.visible || edit)">
                     <rss data="data.rss"></rss>
                 </div>
+                <!-- <div class="social-eng-tab-content" ng-show="selectedTab==='chat' && (data.chat.visible || edit)">
+                    <chat data="data.chat"></chat>
+                </div> -->
                 <div class="social-eng-toggles">
                     <div class="social-eng-toggle edit" ng-if="edit" ng-click="toggleSettingsMenu()">
                         <i class="fa fa-cog" aria-hidden="true"></i>
