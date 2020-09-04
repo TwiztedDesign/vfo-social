@@ -102,6 +102,9 @@ angular.module('socialApp',[])
             if($scope.data.rss.visible){
                 count++;
             }
+            if($scope.data.chat.visible){
+                count++;
+            }
             return count>1;
         }
 
@@ -205,6 +208,7 @@ angular.module('socialApp',[])
 
         vff.getApps().then((apps)=>{
             $scope.apps.twitter = apps.filter((app)=>app.type==='twitter');
+            $scope.apps.chat = apps.filter((app)=>app.type==='chat');
             console.log(apps);
         }); 
         

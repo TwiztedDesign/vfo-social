@@ -9,8 +9,8 @@ angular.module('socialApp')
                     <div class="style-editor-columns">
                         <div class="style-editor-column">
                             <div class="editor-block">
-                                <input type="checkbox" id="showTmeline" ng-model="data.twitter.visible"/>
-                                <label for="showTmeline">Visible</label>
+                                <input type="checkbox" id="showTwitter" ng-model="data.twitter.visible"/>
+                                <label for="showTwitter">Visible</label>
                             </div>
                             <div class="editor-block">
                                 <label class="editor-block-title">Twitter app</label>

@@ -38,66 +38,34 @@
     color: var(--item-link-hcolor);
 }
 
-.vf-chat #firechat{
+.vf-chat {
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
-.vf-chat #firechat #firechat-tabs{
-    flex: 1;
+.vf-chat .chat-body{
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-}
-.vf-chat #firechat #firechat-tabs #firechat #firechat-tab-list{
-    background-color: transparent;
-}
-
-.vf-chat #firechat #firechat-tabs #firechat-tab-content{
     flex:1;
-    display: flex;
-    flex-direction: column;
-    background-color: transparent;
 }
 
-.vf-chat #firechat #firechat-tabs .tab-content .tab-pane{
-    flex:1;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.vf-chat #firechat #firechat-tabs .tab-content>.active{
-    display: flex;
-    background-color: transparent;
-}
-
-.vf-chat #firechat #firechat-tabs .tab-content .tab-pane .tab-pane-menu{
-    border:none
-}
-
-.vf-chat #firechat #firechat-tabs .tab-content .tab-pane .tab-pane-menu + div {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.vf-chat #firechat .chat{
+.vf-chat .chat-body .chat-messages{
     height: auto;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    border:none;
-    padding: 1rem;
+    padding: 0 1rem 1rem 1rem;
+    flex:1;
 }
 
-.vf-chat #firechat .message{
+.vf-chat .chat-body .chat-messages .chat-msg{
     align-self: flex-start;
     padding: 0;
     background: var(--item-bg);
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     border-radius: 0.5rem;
     border:none;
     max-width: 75%;
@@ -105,18 +73,65 @@
     flex:0 0 auto;
 }
 
-.vf-chat #firechat .message.message-self{
+.vf-chat .chat-body .chat-messages .chat-msg.self{
     align-self: flex-end;
 }
 
-.vf-chat #firechat .message .clearfix:first-child{
+.vf-chat .chat-body .chat-messages .chat-msg .chat-msg-header{
     background-color: var(--item-title-bg);
     color: var(--item-title-color);
     padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.vf-chat #firechat .message .message-content{
+.vf-chat .chat-body .chat-messages .chat-msg .chat-msg-header .chat-msg-user{
+    
+}
+
+.vf-chat .chat-body .chat-messages .chat-msg .chat-msg-header .chat-msg-time{
+    opacity: 0.8;
+    font-size: 0.85em;
+    font-style: italic;
+    margin-left: 1rem;
+}
+
+.vf-chat .chat-body .chat-messages .chat-msg .chat-msg-content{
     background-color: var(--item-content-bg);
     color: var(--item-content-color);
     padding: 0.5rem;
+    white-space: pre-wrap;
+    line-height: 1.5rem;
+}
+
+
+.vf-chat .chat-body .chat-input{
+    display: flex;
+    height: 5rem;
+}
+
+.vf-chat .chat-body .chat-input-text{
+    flex:1;
+    resize: none;
+    background-color: var(--item-content-bg);
+    color: var(--item-content-color);
+    border:1px solid var(--item-content-color);
+    font-family: inherit;
+    font-size:1.5rem;
+}
+
+.vf-chat .chat-body .chat-input-send{
+    flex: 0 0 5rem;
+    background-color:var(--item-link-bg);
+    color:var(--item-link-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vf-chat .chat-body .chat-input-send:hover{
+    background-color:var(--item-link-hbg);
+    color:var(--item-link-hcolor);
 }
