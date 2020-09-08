@@ -12,6 +12,7 @@ angular.module('socialApp',[])
         $scope.cameraSwitch=false;
         $scope.isMobile = vff.isMobile;
         $scope.apps = {};
+        $scope.isChanged=false;
         $scope.selectedCamera = {
             crop: [0,0,1,1]
         }
@@ -108,6 +109,10 @@ angular.module('socialApp',[])
             return count>1;
         }
 
+        $scope.$watch('data',()=>{
+            $scope.isChanged = true;
+        }, true);
+
         $scope.toggleEng = function(){
             if($scope.data.settings.allowToggle){
                 $scope.engVisibility = !$scope.engVisibility;
@@ -119,6 +124,8 @@ angular.module('socialApp',[])
 
         $scope.save = function(){
             vff.send();
+            $scope.isChanged=false;
+            console.log("SAVE");
         }
 
         $scope.toggleSettingsMenu = function(menu){
@@ -197,10 +204,11 @@ angular.module('socialApp',[])
             $scope.$apply();
             $scope.fetchRss();
             $scope.fetchTweets();
+            $scope.connectChat();
         });
 
         vff.video.getInfo().then((video)=>{
-            $scope.cameraSwitch = video.metadata.cameraSwitch || false;
+            $scope.cameraSwitch = (video.metadata && video.metadata.cameraSwitch) || false;
             if($scope.cameraSwitch){
                 $scope.selectedCamera = $scope.data.cameraSwitch.cameras[0];
             }

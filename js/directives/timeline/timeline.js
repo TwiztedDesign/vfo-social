@@ -104,10 +104,6 @@ angular.module('socialApp')
                         <i class="fa fa-plus" aria-hidden="true"></i>
                         <span>New item</span>
                     </div>
-                    <div class="tab-menu-item" ng-click="save()">
-                        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                        <span>Save</span>
-                    </div>
                 </div>
             </div>
             `,
