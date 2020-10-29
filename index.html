@@ -47,6 +47,8 @@
      <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
+    <!-- VK -->
+    
 
     <!-- Modern or es5 bundle -->
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
@@ -99,6 +101,9 @@
                     </a>
                     <a class="social-eng-tab" ng-if="edit?true:data.chat.visible" ng-class="{active:selectedTab==='chat'}" ng-click="selectTab('chat')">
                         <i class="fa fa-comments" aria-hidden="true" ng-style="{opacity:data.chat.visible?1:0.25}"></i>
+                    </a>
+                    <a ng-repeat="extLink in data.externalLinks track by $index" class="social-eng-tab" ng-class="{active:selectedTab===extLink.name}" ng-click="selectTab(extLink.name)">
+                        <i class="fa fa-link" aria-hidden="true" ng-style="{opacity:extLink.visible?1:0.25}"></i>
                     </a>
                     <div class="social-eng-tabs-menu" ng-if="settingsMenu && edit">
                         <div class="style-editor scroll" ng-if="selectedSettings==='general'">
@@ -214,6 +219,9 @@
                 </div>
                 <div class="social-eng-tab-content" ng-show="selectedTab==='chat' && (data.chat.visible || edit)">
                     <chat data="data.chat"></chat>
+                </div>
+                <div ng-repeat="extLink in data.externalLinks track by $index" class="social-eng-tab-content" ng-show="selectedTab===extLink.name && (extLink.visible || edit)">
+                    <iframe class="external-link-iframe" ng-src="{{getTrustedUrl(extLink.url)}}"></iframe>
                 </div>
                 <div class="social-eng-toggles">
                     <div class="social-eng-toggle edit" ng-if="edit" ng-click="toggleSettingsMenu()">

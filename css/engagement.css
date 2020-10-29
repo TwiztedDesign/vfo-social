@@ -188,12 +188,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: FontAwesome;
     font-size: 1.3rem;
     cursor: pointer;
     margin: 0.5rem 0;
     padding: 0 1rem;
-    font-family: "Yantramanav";
     position: relative;
 }
 
@@ -239,6 +237,12 @@
 .social-eng-block .social-eng-toggles .social-eng-toggle.edit:hover{
     color: #fff;
     background-color:#0095FF;
+}
+
+.external-link-iframe{
+    border: none;
+    height: 100%;
+    width: 100%;
 }
 
 @media (orientation: portrait) {

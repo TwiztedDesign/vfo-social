@@ -1,5 +1,5 @@
 angular.module('socialApp',[])
-    .controller('socialController', ['$scope','$http', function($scope, $http) {
+    .controller('socialController', ['$scope','$http','$sce', function($scope, $http, $sce) {
         $scope.selectedTab = 'timeline';
         $scope.data = vff.state;
         $scope.style = vff.style
@@ -84,9 +84,15 @@ angular.module('socialApp',[])
             }
         }
 
+        $scope.data.externalLinks = vff.state.externallinks || [];
+
         $scope.selectTab = function(tab) {
             $scope.selectedTab = tab;
             $scope.selectedSettings = tab;
+        };
+
+        $scope.getTrustedUrl = function(url){
+            return $sce.trustAsResourceUrl(url);
         };
 
         $scope.showTabs = function(){

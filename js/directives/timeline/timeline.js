@@ -91,12 +91,13 @@ angular.module('socialApp')
                                     <div class="toggle-group">
                                         <span ng-click="item.clickAction='time'" ng-class="{active:item.clickAction==='time'}">Go to time</span>
                                         <span ng-click="item.clickAction='link'" ng-class="{active:item.clickAction==='link'}">Go to link</span>
+                                        <span ng-click="item.clickAction='none'" ng-class="{active:item.clickAction==='none'}">None</span>
                                     </div>
                                     <input placeholder="Enter link URL here" type="text" class="tl-item-link-input" ng-if="item.clickAction==='link'" ng-model="item.link"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="tl-item-click" ng-click="timelineItemClick(item)" ng-if="!edit"></div>
+                        <div class="tl-item-click" ng-click="timelineItemClick(item)" ng-if="!edit && item.clickAction!=='none'"></div>
                     </div>
                 </div>
                 <div class="tab-menu" ng-if="edit">
@@ -151,10 +152,14 @@ angular.module('socialApp')
                 $scope.timelineItemClick = function(item){
                     if(item.clickAction && item.clickAction==='link'){
                         $window.open(item.link, '_blank');
-                    }else{
+                    }else if((item.clickAction && item.clickAction==='time')|| (!item.clickAction && !item.clickAction)){
                         let seconds = item.time;
                         try { seconds = parseFloat(seconds);} catch (e) { }
                         vff.video.goTo(seconds);
+                        vff.track('timelineClick', {
+                            name:item.header,
+                            index: $scope.data.timeline.items.indexOf(item)
+                        })
                     }
                 };
             }
