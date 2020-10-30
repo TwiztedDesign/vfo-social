@@ -49,6 +49,10 @@ angular.module('socialApp',[])
             visible:false,
         }
 
+        $scope.data.banner = vff.state.banner || {
+            visible:false
+        }
+
         $scope.data.cameraSwitch = vff.state.cameraSwitch || {
             cameras:[
                 {

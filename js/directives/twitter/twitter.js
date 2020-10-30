@@ -45,7 +45,9 @@ angular.module('socialApp')
                 let source = '';
 
                 $scope.$watch('data.twitter.fetchUrl', () => {
-                    $scope.fetchTweets();
+                    if($scope.data.twitter.visible){
+                        $scope.fetchTweets();
+                    }
                 });
 
                 function getTweets(){

@@ -32,7 +32,7 @@
 .camera-switcher.full{
     right: auto;
     transform: translate(-50%,0);
-    bottom: 15vh;
+    bottom: 20vh;
 }
 
 .camera-switcher .camera-switcher-item{
@@ -73,5 +73,6 @@
     .vff-mobile .camera-switcher .camera-switcher-item{
         font-size: 3vw;
         min-height: 12vw;
+        padding: 0;
     }
 }

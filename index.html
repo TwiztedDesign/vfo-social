@@ -83,23 +83,29 @@
 <body class="vff-overlay" ng-app="socialApp" ng-controller="socialController" ng-show="ready">
     <div id="background" ng-class="{right:data.settings.contentAlign==='right'}" ng-style="{'background-image':'url('+data.settings.bgImage+')'}"></div>
     <div class="vff-content">
-        <div class="social" ng-class="{right:data.settings.contentAlign==='right'}">          
+        <div class="social" ng-class="{right:data.settings.contentAlign==='right'}">
+            <div class="banner" ng-if="isMobile && data.banner.visible">
+                
+            </div>
             <camera-switcher ng-if="isMobile && cameraSwitch" edit="edit" data="data.cameraSwitch" on-switch="switchCamera" selected-camera="selectedCamera" ng-class="{right:data.settings.contentAlign==='right' && engVisibility, left:data.settings.contentAlign!=='right' && engVisibility, full:!engVisibility}"></camera-switcher>
             <div id="social-eng-block" class="social-eng-block" ng-class="{active:data.settings.allowToggle?engVisibility:true}">
+                <div class="banner" ng-if="!isMobile && data.banner.visible">
+                    
+                </div>
                 <div class="social-eng-tabs" ng-if="edit?true:showTabs()">
-                    <a class="social-eng-tab" ng-if="edit?true:data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')">
+                    <a class="social-eng-tab twitter" ng-if="edit?true:data.twitter.visible" ng-class="{active:selectedTab==='twitter'}" ng-click="selectTab('twitter')">
                         <i class="fa fa-twitter" aria-hidden="true" ng-style="{opacity:data.twitter.visible?1:0.25}"></i>
                     </a>
-                    <a class="social-eng-tab" ng-if="edit?true:data.timeline.visible" ng-class="{active:selectedTab==='timeline'}" ng-click="selectTab('timeline')">
+                    <a class="social-eng-tab timeline" ng-if="edit?true:data.timeline.visible" ng-class="{active:selectedTab==='timeline'}" ng-click="selectTab('timeline')">
                         <i class="fa fa-th-list" aria-hidden="true" ng-style="{opacity:data.timeline.visible?1:0.25}"></i>
                     </a>
-                    <a class="social-eng-tab" ng-if="edit?true:data.trivia.visible" ng-class="{active:selectedTab==='trivia'}" ng-click="selectTab('trivia')">
+                    <!-- <a class="social-eng-tab trivia" ng-if="edit?true:data.trivia.visible" ng-class="{active:selectedTab==='trivia'}" ng-click="selectTab('trivia')">
                         <i class="fa fa-question-circle" aria-hidden="true" ng-style="{opacity:data.trivia.visible?1:0.25}"></i>
-                    </a>
-                    <a class="social-eng-tab" ng-if="edit?true:data.rss.visible" ng-class="{active:selectedTab==='rss'}" ng-click="selectTab('rss')">
+                    </a> -->
+                    <a class="social-eng-tab rss" ng-if="edit?true:data.rss.visible" ng-class="{active:selectedTab==='rss'}" ng-click="selectTab('rss')">
                         <i class="fa fa-rss" aria-hidden="true" ng-style="{opacity:data.rss.visible?1:0.25}"></i>
                     </a>
-                    <a class="social-eng-tab" ng-if="edit?true:data.chat.visible" ng-class="{active:selectedTab==='chat'}" ng-click="selectTab('chat')">
+                    <a class="social-eng-tab chat" ng-if="edit?true:data.chat.visible" ng-class="{active:selectedTab==='chat'}" ng-click="selectTab('chat')">
                         <i class="fa fa-comments" aria-hidden="true" ng-style="{opacity:data.chat.visible?1:0.25}"></i>
                     </a>
                     <a ng-repeat="extLink in data.externalLinks track by $index" class="social-eng-tab" ng-class="{active:selectedTab===extLink.name}" ng-click="selectTab(extLink.name)">
@@ -211,9 +217,9 @@
                 <div class="social-eng-tab-content" ng-show="selectedTab==='timeline' && (data.timeline.visible || edit)">
                     <timeline></timeline>
                 </div>
-                <div class="social-eng-tab-content" ng-show="selectedTab==='trivia' && (data.trivia.visible || edit)">
+                <!-- <div class="social-eng-tab-content" ng-show="selectedTab==='trivia' && (data.trivia.visible || edit)">
                     <trivia></trivia>
-                </div>
+                </div> -->
                 <div class="social-eng-tab-content" ng-show="selectedTab==='rss' && (data.rss.visible || edit)">
                     <rss data="data.rss"></rss>
                 </div>

@@ -31,6 +31,11 @@ body{
     display: flex;
 }
 
+.banner{
+    width: 100%;
+    height: 12.5vh;
+}
+
 .social.right{
     flex-direction: row-reverse;
 }
@@ -38,6 +43,10 @@ body{
 @media (orientation: portrait) {
     .vff-mobile .social{
         flex-direction: column;
+    }
+
+    .vff-mobile .banner{
+        height: 25vw;
     }
 }
 
