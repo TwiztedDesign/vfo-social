@@ -227,7 +227,6 @@ angular.module('socialApp',[])
         vff.getApps().then((apps)=>{
             $scope.apps.twitter = apps.filter((app)=>app.type==='twitter');
             $scope.apps.chat = apps.filter((app)=>app.type==='chat');
-            console.log(apps);
         }); 
         
         let background = document.getElementById('background');
