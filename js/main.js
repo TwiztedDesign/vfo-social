@@ -88,7 +88,7 @@ angular.module('socialApp',[])
             }
         }
 
-        $scope.data.externalLinks = vff.state.externallinks || [];
+        $scope.data.externalLinks = vff.state.externalLinks || [];
 
         $scope.selectTab = function(tab) {
             $scope.selectedTab = tab;
@@ -116,6 +116,8 @@ angular.module('socialApp',[])
             if($scope.data.chat.visible){
                 count++;
             }
+            count+=$scope.data.externalLinks.length;
+            
             return count>1;
         }
 

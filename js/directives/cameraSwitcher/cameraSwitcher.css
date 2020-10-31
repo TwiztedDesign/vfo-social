@@ -9,7 +9,7 @@
 
 .camera-switcher{
     display: flex;
-    background-color: var(--item-bg);
+    background-color:var(--tab-bg);
     overflow: hidden;
     position: absolute;
     bottom: 6.25vh;
@@ -40,20 +40,20 @@
     justify-content: center;
     align-items: center;
     padding: 0 1.5rem;
-    color:var(--item-link-color);
+    color:var(--tab-color);
     cursor: pointer;
     flex:1;
     white-space: pre;
 }
 
 .camera-switcher .camera-switcher-item:hover{
-    background-color: var(--item-link-hbg);
-    color:var(--item-link-hcolor);
+    background-color:var(--tab-hbg);
+    color:var(--tab-hcolor);
 }
 
 .camera-switcher .camera-switcher-item.active{
-    background-color: var(--item-link-hbg);
-    color:var(--item-link-hcolor);
+    background-color:var(--tab-abg);
+    color:var(--tab-acolor);
 }
 
 .camera-switcher .camera-switcher-item i{
