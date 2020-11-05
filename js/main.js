@@ -219,6 +219,11 @@ angular.module('socialApp',[])
             $scope.connectChat();
         });
 
+        vff.onDeviceChange((e)=>{
+            $scope.isMobile = vff.isMobile;
+            $scope.$apply();
+        });
+
         vff.video.getInfo().then((video)=>{
             $scope.cameraSwitch = (video.metadata && video.metadata.cameraSwitch) || false;
             if($scope.cameraSwitch){
