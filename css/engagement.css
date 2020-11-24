@@ -68,6 +68,14 @@
     position: relative;
 }
 
+.social-eng-block .social-eng-tabs .social-eng-tab .social-eng-tab-badge{
+    margin-left: 5px;
+    font-size: 1rem;
+    background: red;
+    padding: 0 0.75rem;
+    border-radius: 10px;
+}
+
 .social-eng-block .social-eng-tabs .social-eng-tab .social-eng-tabs-menu-toggle{
     position: absolute;
     width: 2rem;

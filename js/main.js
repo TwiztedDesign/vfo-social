@@ -16,6 +16,7 @@ angular.module('socialApp',[])
         $scope.selectedCamera = {
             crop: [0,0,1,1]
         }
+        $scope.chatNewMsg=0;
 
         $scope.data.timeline = vff.state.timeline ||
         {        
@@ -101,6 +102,7 @@ angular.module('socialApp',[])
 
         $scope.showTabs = function(){
             let count=0;
+            let firstTab=''
             if($scope.data.timeline.visible){
                 count++;
             }
@@ -117,12 +119,17 @@ angular.module('socialApp',[])
                 count++;
             }
             count+=$scope.data.externalLinks.length;
-            
             return count>1;
         }
 
         $scope.$watch('data',()=>{
             $scope.isChanged = true;
+        }, true);
+
+        $scope.$watch('selectedTab',()=>{
+            if($scope.selectedTab==='chat'){
+                $scope.chatNewMsg=0;
+            }
         }, true);
 
         $scope.toggleEng = function(){
@@ -217,6 +224,10 @@ angular.module('socialApp',[])
             $scope.fetchRss();
             $scope.fetchTweets();
             $scope.connectChat();
+
+            if(!$scope.showTabs()){
+                $scope.selectedTab = entryPoint();
+            }
         });
 
         vff.onDeviceChange((e)=>{
@@ -253,4 +264,26 @@ angular.module('socialApp',[])
 
         //handleOrientation();
         window.addEventListener('resize', handleOrientation);  
+
+        //Select first available tab
+        function entryPoint(){         
+            if($scope.data.twitter.visible){
+                return 'twitter';
+            }
+            if($scope.data.timeline.visible){
+                return 'timeline';
+            }
+            if($scope.data.trivia.visible){
+                return 'trivia';
+            }
+            if($scope.data.rss.visible){
+                return 'rss';
+            }
+            if($scope.data.chat.visible){
+                return 'chat';
+            } 
+            return'';           
+        };
+
+        $scope.selectedTab = entryPoint();
     }]);

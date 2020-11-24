@@ -11,6 +11,14 @@ angular.module('socialApp')
                                 <label for="showChat">Visible</label>
                             </div>
                             <div class="editor-block">
+                                <input type="checkbox" id="showChatUsername" ng-model="data.chat.showUsername"/>
+                                <label for="showChatUsername">Show user name</label>
+                            </div>
+                            <div class="editor-block">
+                                <input type="checkbox" id="showChatMsgTime" ng-model="data.chat.showTime"/>
+                                <label for="showChatMsgTime">Show message time</label>
+                            </div>
+                            <div class="editor-block">
                                 <label class="editor-block-title">Chat app</label>
                                 <select ng-model="data.chat.apiKey" ng-if="apps.chat && apps.chat.length>0">
                                     <option ng-repeat="app in apps.chat" value="{{app.apikey}}">{{app.name}}</option>
@@ -41,8 +49,8 @@ angular.module('socialApp')
                     <div id="chat-messages" class="chat-messages scroll">
                         <div class="chat-msg" ng-repeat="msg in chatData" ng-class="{self:msg.userId===chatUser.id}">
                             <div class="chat-msg-header">
-                                <div class="chat-msg-user">{{msg.name}}</div>
-                                <div class="chat-msg-time">{{msg.timestamp}}</div>
+                                <div class="chat-msg-user" ng-if="data.chat.showUsername">{{msg.name}}</div>
+                                <div class="chat-msg-time" ng-if="data.chat.showTime">{{msg.timestamp | timestamp}}</div>
                             </div>
                             <div class="chat-msg-content">{{msg.message}}</div>
                         </div>
@@ -121,6 +129,9 @@ angular.module('socialApp')
                         $scope.chatData.push(msg);
     
                         if(msg.userId!==$scope.chatUser.id){
+                            if($scope.selectedTab!=='chat'){
+                                $scope.chatNewMsg++;
+                            }
                             $scope.$apply();
                         }
     
@@ -175,10 +186,17 @@ angular.module('socialApp')
                       $scope.chatSending=true;
                         chat.sendMessage(roomId, $scope.chatMsg, messageType='default', ()=>{
                             console.log("Message sent!");
+                            $scope.chatMsg = '';
                             $scope.chatSending=false;
+                            $scope.$apply();
                         });
                   }
               }
             }
         };
-    });
+    })
+    .filter('timestamp', function() {
+        return function(input) {
+          return moment(input).format("h:mm a");
+        };
+      });

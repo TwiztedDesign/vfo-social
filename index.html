@@ -107,6 +107,7 @@
                     </a>
                     <a class="social-eng-tab chat" ng-if="edit?true:data.chat.visible" ng-class="{active:selectedTab==='chat'}" ng-click="selectTab('chat')">
                         <i class="fa fa-comments" aria-hidden="true" ng-style="{opacity:data.chat.visible?1:0.25}"></i>
+                        <div class="social-eng-tab-badge" ng-if="chatNewMsg>0">{{chatNewMsg}}</div>
                     </a>
                     <a ng-repeat="extLink in data.externalLinks track by $index" class="social-eng-tab" ng-class="[{active:selectedTab===extLink.name}, extLink.name]" ng-click="selectTab(extLink.name)">
                         <i class="fa fa-link" aria-hidden="true" ng-style="{opacity:extLink.visible?1:0.25}"></i>

@@ -100,9 +100,10 @@
 .vf-chat .chat-body .chat-messages .chat-msg .chat-msg-content{
     background-color: var(--item-content-bg);
     color: var(--item-content-color);
-    padding: 0.5rem;
+    padding: 0.5rem 3rem 0.5rem 0.5rem;
     white-space: pre-wrap;
-    line-height: 1.5rem;
+    line-height: 2rem;
+    font-size: 1.25rem;
 }
 
 
