@@ -225,7 +225,7 @@ angular.module('socialApp',[])
             $scope.fetchTweets();
             $scope.connectChat();
 
-            if(!$scope.showTabs()){
+            if(!vff.isController()){
                 $scope.selectedTab = entryPoint();
             }
         });
@@ -284,6 +284,4 @@ angular.module('socialApp',[])
             } 
             return'';           
         };
-
-        $scope.selectedTab = entryPoint();
     }]);
