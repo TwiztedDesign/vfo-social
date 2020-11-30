@@ -36,7 +36,7 @@ angular.module('socialApp')
                         <i class="fa fa-twitter" aria-hidden="true"></i>    
                         <span>Login with Twitter</span>
                     </div>
-                    <div class="chat-login-button" ng-click="chatLogin('facebook');">
+                    <div class="chat-login-button" ng-click="chatLogin('facebook');" ng-if="false">
                         <i class="fa fa-facebook" aria-hidden="true"></i>
                         <span>Login with Facebook</span>
                     </div>
@@ -136,11 +136,11 @@ angular.module('socialApp')
                             if($scope.selectedTab!=='chat'){
                                 $scope.chatNewMsg++;
                             }
-                            $scope.$apply();
+                            //$scope.$apply();
                         }
 
-                        //$scope.$apply();
-
+                        $scope.safeApply();
+    
                         let objChat = document.getElementById("chat-messages");
                         if(objChat){
                             objChat.scrollTop = objChat.scrollHeight+100;
@@ -202,6 +202,17 @@ angular.module('socialApp')
                         });
                   }
               }
+
+              $scope.safeApply = function (fn) {
+                var phase = this.$root.$$phase;
+                if (phase === '$apply' || phase === '$digest') {
+                    if (fn && (typeof (fn) === 'function')) {
+                        fn();
+                    }
+                } else {
+                    this.$apply(fn);
+                }
+            };
             }
         };
     })
