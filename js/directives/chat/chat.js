@@ -44,6 +44,10 @@ angular.module('socialApp')
                         <i class="fa fa-google" aria-hidden="true"></i>
                         <span>Login with Google</span>
                     </div>
+                    <div class="chat-login-button" ng-click="chatLogin('anonymous');">
+                        <i class="fa fa-google" aria-hidden="true"></i>
+                        <span>Login as guest</span>
+                    </div>
                 </div>
                 <div class="chat-body" ng-if="chatConnected && chatAvailable">
                     <div id="chat-messages" class="chat-messages scroll">
@@ -103,11 +107,11 @@ angular.module('socialApp')
                     // Get a Firebase Database ref
                     let firebaseRef = firebase.database().ref(chatId);
                     $scope.chatData = [];
-                    
+
                     chat = new Firechat(firebaseRef);
-                    chat.setUser(user.uid, user.displayName, function(u) {
+                    chat.setUser(user.uid, user.displayName || ('Guest' +  ("" + Math.random()).substring(2, 8)), function(u) {
                         //chat.resumeSession();
-                        
+
                         chat.getRoomList((rooms)=>{
                             if(!rooms || Object.keys(rooms).length===0){
                                 chat.createRoom('main', 'public', (rid)=>{
@@ -119,43 +123,43 @@ angular.module('socialApp')
                                 chat.enterRoom(roomId);
                             }
                         });
-                        
+
                         $scope.chatUser = u;
                         $scope.chatConnected=true;
                         $scope.$apply();
                     });
-    
+
                     chat.on('message-add',(rid, msg)=>{
                         $scope.chatData.push(msg);
-    
+
                         if(msg.userId!==$scope.chatUser.id){
                             if($scope.selectedTab!=='chat'){
                                 $scope.chatNewMsg++;
                             }
                             $scope.$apply();
                         }
-    
+
                         //$scope.$apply();
-    
+
                         let objChat = document.getElementById("chat-messages");
                         if(objChat){
                             objChat.scrollTop = objChat.scrollHeight+100;
                         }
                     });
-    
+
                     chat.on('room-enter',(room)=>{
                         console.log("room entered");
                         console.log(room);
                     });
-    
+
                     $scope.chatKeyPress = function(e){
                         if(e.keyCode===13 && !e.shiftKey){
                             $scope.sendChatMsg();
                             e.preventDefault();
                         }
                     }
-    
-                    $scope.connectChat();            
+
+                    $scope.connectChat();
                   }
 
         
@@ -176,9 +180,15 @@ angular.module('socialApp')
                         provider = new firebase.auth.GoogleAuthProvider();
                         break;
                 }
-                firebase.auth().signInWithPopup(provider).catch(function(error) {
-                  console.log("Error authenticating user:", error);
-                });
+                if(m === 'anonymous'){
+                    firebase.auth().signInAnonymously().catch(function(error) {
+                        console.log("Error authenticating user:", error);
+                    });
+                } else {
+                    firebase.auth().signInWithPopup(provider).catch(function(error) {
+                        console.log("Error authenticating user:", error);
+                    });
+                }
               }
 
               $scope.sendChatMsg = function(){
