@@ -76,8 +76,8 @@ angular.module('socialApp')
                 // Initialize Firebase
                 $scope.connectChat = function(force){
                     if($scope.data.chat.apiKey && !$scope.chatConnected){
-                        //$http.get(`https://www.videoflow.io/ext/${$scope.data.chat.apiKey}/connection`).then(res => {
-                        $http.get(`http://localhost:3002/ext/${$scope.data.chat.apiKey}/connection`).then(res => {
+                        $http.get(`https://www.videoflow.io/ext/${$scope.data.chat.apiKey}/connection`).then(res => {
+                        // $http.get(`http://localhost:3002/ext/${$scope.data.chat.apiKey}/connection`).then(res => {
                             if(firebase.apps.length===0){
                                 firebase.initializeApp(res.data.firebaseConfig);
 
