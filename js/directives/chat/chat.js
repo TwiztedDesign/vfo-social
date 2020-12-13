@@ -45,7 +45,7 @@ angular.module('socialApp')
                         <span>Login with Google</span>
                     </div>
                     <div class="chat-login-button" ng-click="chatLogin('anonymous');">
-                        <i class="fa fa-google" aria-hidden="true"></i>
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                         <span>Login as guest</span>
                     </div>
                 </div>
