@@ -103,6 +103,19 @@ angular.module('socialApp')
                     }
                 }
 
+                function scrollToBottom(){
+                    setTimeout(()=>{
+                        let objChat = document.getElementById("chat-messages");
+                        if(objChat){
+                            objChat.scrollTop = objChat.scrollHeight;
+                        }
+                    },0);
+                }
+                function isScrolledToBottom() {
+                    let objChat = document.getElementById("chat-messages");
+                    return objChat.scrollHeight - objChat.scrollTop == objChat.offsetHeight;
+                }
+
                 function initChat(user) {
                     // Get a Firebase Database ref
                     let firebaseRef = firebase.database().ref(chatId);
@@ -136,15 +149,17 @@ angular.module('socialApp')
                             if($scope.selectedTab!=='chat'){
                                 $scope.chatNewMsg++;
                             }
+                            if(isScrolledToBottom()){
+                                scrollToBottom();
+                            }
                             //$scope.$apply();
+                        } else {
+                            scrollToBottom();
                         }
 
                         $scope.safeApply();
-    
-                        let objChat = document.getElementById("chat-messages");
-                        if(objChat){
-                            objChat.scrollTop = objChat.scrollHeight+100;
-                        }
+
+
                     });
 
                     chat.on('room-enter',(room)=>{
