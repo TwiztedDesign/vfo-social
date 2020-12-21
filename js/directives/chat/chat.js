@@ -3,6 +3,9 @@ angular.module('socialApp')
         return{
             restrict: 'E',
             template:`<div id="chat-wrapper" class="vf-chat">
+                <svg class="spinner hide" viewBox="0 0 50 50">
+                  <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                </svg>
                 <div class="style-editor scroll" ng-if="edit">
                     <div class="style-editor-columns">
                         <div class="style-editor-column">
@@ -31,7 +34,7 @@ angular.module('socialApp')
                         </div>
                     </div>
                 </div>
-                <div class="chat-login" ng-if="!chatConnected && chatAvailable">
+                <div class="chat-login" ng-if="!chatConnected && chatAvailable && shouldLogin">
                     <div class="chat-login-button" ng-click="chatLogin('twitter');">
                         <i class="fa fa-twitter" aria-hidden="true"></i>    
                         <span>Login with Twitter</span>
@@ -73,12 +76,14 @@ angular.module('socialApp')
                 $scope.chatUser=undefined;
                 $scope.chatConnected = false;
                 $scope.chatAvailable = false;
+                $scope.shouldLogin = false;
                 $scope.chatMsg='';
                 $scope.chatSending=false;
                 let chat, roomId, chatId;
 
                 // Initialize Firebase
                 $scope.connectChat = function(force){
+                    showLoader();
                     if($scope.data.chat.apiKey && !$scope.chatConnected){
                         $http.get(`https://www.videoflow.io/ext/${$scope.data.chat.apiKey}/connection`).then(res => {
                         // $http.get(`http://localhost:3002/ext/${$scope.data.chat.apiKey}/connection`).then(res => {
@@ -90,7 +95,11 @@ angular.module('socialApp')
     
                                 firebase.auth().onAuthStateChanged(function(user) {
                                     if (user) {
-                                      initChat(user);
+                                        initChat(user);
+                                    } else {
+                                        hideLoader();
+                                        $scope.shouldLogin = true;
+                                        $scope.$apply();
                                     }
                                   });
                             }
@@ -165,6 +174,7 @@ angular.module('socialApp')
                     chat.on('room-enter',(room)=>{
                         console.log("room entered");
                         console.log(room);
+                        hideLoader();
                     });
 
                     $scope.chatKeyPress = function(e){
@@ -179,6 +189,8 @@ angular.module('socialApp')
 
         
               $scope.chatLogin = function(method) {
+                showLoader();
+                $scope.shouldLogin = false;
                 let m = method || 'google'
                 let provider = {};
                 switch(m){
@@ -198,10 +210,16 @@ angular.module('socialApp')
                 if(m === 'anonymous'){
                     firebase.auth().signInAnonymously().catch(function(error) {
                         console.log("Error authenticating user:", error);
+                        hideLoader();
+                        $scope.shouldLogin = true;
+                        $scope.$apply();
                     });
                 } else {
                     firebase.auth().signInWithPopup(provider).catch(function(error) {
                         console.log("Error authenticating user:", error);
+                        hideLoader();
+                        $scope.shouldLogin = true;
+                        $scope.$apply();
                     });
                 }
               }
@@ -216,6 +234,13 @@ angular.module('socialApp')
                             $scope.$apply();
                         });
                   }
+              }
+              const loader = document.querySelector('.spinner');
+              function showLoader(){
+                  loader.classList.remove('hide');
+              }
+              function hideLoader(){
+                  loader.classList.add('hide');
               }
 
               $scope.safeApply = function (fn) {
